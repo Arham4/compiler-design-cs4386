@@ -40,8 +40,6 @@ terminal FINAL;
 terminal INT_PRIMITIVE;
 terminal CHAR_PRIMITIVE;
 terminal BOOL_PRIMITIVE;
-terminal BOOL_TRUE;
-terminal BOOL_FALSE;
 terminal FLOAT_PRIMITIVE;
 
 terminal String VAR;
@@ -51,6 +49,8 @@ terminal int INTLIT;
 terminal char CHARLIT;
 terminal String STRLIT;
 terminal double FLOATLIT;
+terminal boolean BOOL_TRUE;
+terminal boolean BOOL_FALSE;
 
 nonterminal Program program;
 
@@ -80,6 +80,7 @@ nonterminal Lexeme type;
 
 nonterminal IfEnd ifend;
 nonterminal Name name;
+nonterminal Expr expr;
 
 program         ::= CLASS ID:id LEFT_BRACKET memberdecls:memberDecls RIGHT_BRACKET
                 {:
@@ -385,4 +386,69 @@ printlinelist   ::= printlist:printList
                 |
                 {:
                     RESULT = PrintLineList.empty();
+                :};
+
+expr            ::= name:name
+                {:
+                    RESULT = Expr.simple(name);
+                :}
+                |   id:id LEFT_PARENTHESIS RIGHT_PARENTHESIS
+                {:
+                    RESULT = Expr.simpleInvocation(id);
+                :}
+                |   id:id LEFT_PARENTHESIS args:args RIGHT_PARENTHESIS
+                {:
+                    RESULT = Expr.invocation(id, args);
+                :}
+                |   INTLIT:intlit
+                {:
+                    RESULT = Expr.intlit(intlit);
+                :}
+                |   CHARLIT:charlit
+                {:
+                    RESULT = Expr.charlit(charlit);
+                :}
+                |   STRLIT:strlit
+                {:
+                    RESULT = Expr.strlit(strlit);
+                :}
+                |   FLOATLIT:floatlit
+                {:
+                    RESULT = Expr.floatlit(floatlit);
+                :}
+                |   BOOL_TRUE
+                {:
+                    RESULT = Expr.boollit(true);
+                :}
+                |   BOOL_FALSE
+                {:
+                    RESULT = Expr.boollit(false);
+                :}
+                |   LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS
+                {:
+                    RESULT = Expr.parenthesized(expr);
+                :}
+                |   NOT expr:expr
+                {:
+                    RESULT = Expr.not(expr);
+                :}
+                |   MINUS expr:expr
+                {:
+                    RESULT = Expr.minus(expr);
+                :}
+                |   PLUS expr:expr
+                {:
+                    RESULT = Expr.plus(expr);
+                :}
+                |   LEFT_PARENTHESIS type:type RIGHT_PARENTHESIS expr:expr
+                {:
+                    RESULT = Expr.casting(type, expr);
+                :}
+                |   expr:expr1 binaryop:binaryOp expr:expr2
+                {:
+                    RESULT = Expr.binaryOp(expr1, binaryOp, expr2);
+                :}
+                |   LEFT_PARENTHESIS expr:expr TERNARY_IF expr:exprTrue TERNARY_ELSE expr:exprFalse RIGHT_PARENTHESIS
+                {:
+                    RESULT = Expr.ternary(expr, exprTrue, exprFalse);
                 :};
