@@ -17,6 +17,7 @@ terminal ELSE;
 terminal IF;
 terminal WHILE;
 terminal RETURN;
+terminal LEFT_PARENTHESIS;
 
 terminal String VAR;
 
