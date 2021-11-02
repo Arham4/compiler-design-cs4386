@@ -257,4 +257,11 @@ stmt            ::= IF LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:stmt if
                                 .expr(expr)
                                 .stmt(stmt)
                                 .build();
+                :}
+                |   name:name EQ expr:expr SEMI
+                {:
+                    RESULT = ReassignStmt.builder()
+                                .name(name)
+                                .expr(expr)
+                                .build();
                 :};
