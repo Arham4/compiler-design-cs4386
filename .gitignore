@@ -1,0 +1,9 @@
+*.class
+ExampleLexer.java
+parser.java
+sym.java
+*-output.txt
+Makefile
+.idea/
+out/
+bin/

@@ -1,0 +1,24 @@
+
+import java_cup.runtime.*;
+
+terminal READ;
+terminal PRINT;
+terminal TIMES;
+terminal PLUS;
+terminal MINUS;
+terminal DIVIDE;
+terminal SEMI;
+terminal EQ;
+terminal ASSMNT;
+
+terminal String VAR;
+
+terminal String ID;
+terminal int INTLIT;
+
+/*
+ * this dummy token is necessary, since at least one non-terminal is
+ * required to run cup
+ */
+non terminal dummy;
+dummy ::= ;

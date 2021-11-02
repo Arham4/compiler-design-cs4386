@@ -1,0 +1,48 @@
+TEST_FILE=lexTest
+TEST_FILES_DIR=./tests
+OUTPUT_FILES_DIR=.
+
+JAVA=java
+JAVAC=javac
+
+JFLEXJAR=./libs/jflex-full-1.8.2.jar
+JFLEX=$(JAVA) -jar $(JFLEXJAR)
+CUPJAR=./libs/java-cup-11b.jar
+CUP=$(JAVA) -jar $(CUPJAR)
+
+SRC_FILES_DIR=src
+CLASS_FILES_DIR=./out/production/project-1
+
+COMPILE_CP=$(SRC_FILES_DIR):$(CUPJAR)
+RUN_CP=$(CLASS_FILES_DIR):$(CUPJAR)
+
+GENERATED_FILES=src/ExampleLexer.java	src/parser.java	src/sym.java
+FILES=$(GENERATED_FILES)	src/ExampleLexerTest.java
+
+default: run
+
+.SUFFIXES: $(SUFFIXES) .class .java
+
+.java.class:
+		$(JAVAC) -d $(CLASS_FILES_DIR) -cp $(COMPILE_CP) $*.java
+
+run: all
+		$(JAVA) -cp $(RUN_CP) ExampleLexerTest $(TEST_FILES_DIR)/$(TEST_FILE).txt > $(OUTPUT_FILES_DIR)/$(TEST_FILE)-output.txt
+		cat -n $(TEST_FILE)-output.txt
+
+all: ExampleLexer.java parser.java move $(FILES:java=class)
+
+ExampleLexer.java: grammar.jflex
+		$(JFLEX) grammar.jflex
+
+parser.java: tokens.cup
+		$(CUP) -interface < tokens.cup
+
+parserD.java: tokens.cup
+		$(CUP) -interface -dump < tokens.cup
+
+move:
+		mv *.java src
+
+clean:
+		rm $(CLASS_FILES_DIR)/*.class $(GENERATED_FILES) $(OUTPUT_FILE) $(TEST_FILE)-output.txt
