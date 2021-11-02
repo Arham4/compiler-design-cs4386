@@ -58,6 +58,8 @@ nonterminal FieldDecls fielddecls;
 nonterminal MethodDecls methoddecls;
 nonterminal ArgDecls argdecls;
 
+nonterminal ArgDeclList argdecllist;
+
 nonterminal FieldDecl fielddecl;
 nonterminal MethodDecl methoddecl;
 
@@ -195,4 +197,16 @@ argdecls        ::= argdecllist:argDeclList
                 |
                 {:
                     RESULT = ArgDecls.empty();
+                :};
+
+argdecllist     ::= argdecl:argDecl PARAMETER_SEPARATOR argdecllist:argDeclList
+                {:
+                    RESULT = ArgDeclList.builder()
+                                .argDecl(argDecl)
+                                .argDeclList(argDeclList)
+                                .build();
+                :}
+                |
+                {:
+                    RESULT = ArgDeclList.builder().build();
                 :};
