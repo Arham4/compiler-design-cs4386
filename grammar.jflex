@@ -101,6 +101,7 @@ print		           { return newSym(sym.PRINT, "print"); }
 "final"            { return newSym(sym.FINAL, "final"); }
 "int"              { return newSym(sym.INT_PRIMITIVE, "int"); }
 "char"             { return newSym(sym.CHAR_PRIMITIVE, "char"); }
+"bool"             { return newSym(sym.BOOL_PRIMITIVE, "bool"); }
 var		             { return newSym(sym.VAR, "var"); }
 {id}               { return newSym(sym.ID, yytext()); }
 {intlit}           { return newSym(sym.INTLIT, new Integer(yytext())); }

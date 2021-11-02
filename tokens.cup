@@ -35,6 +35,7 @@ terminal PARAMETER_SEPARATOR;
 terminal FINAL;
 terminal INT_PRIMITIVE;
 terminal CHAR_PRIMITIVE;
+terminal BOOL_PRIMITIVE;
 
 terminal String VAR;
 
