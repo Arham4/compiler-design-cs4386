@@ -84,6 +84,18 @@ nonterminal Name name;
 nonterminal Expr expr;
 nonterminal Lexeme binaryop;
 
+precedence right EQ;
+precedence right TERNARY_IF, TERNARY_ELSE;
+precedence left DOUBLE_OR;
+precedence left DOUBLE_AND;
+precedence left EQUAL_TO, NOT_EQUAL_TO;
+precedence nonassoc LESS_THAN, LESS_THAN_OR_EQUAL_TO, GREATER_THAN, GREATER_THAN_OR_EQUAL_TO;
+precedence left PLUS, MINUS;
+precedence left TIMES, DIVIDE;
+precedence right NOT;
+precedence nonassoc DOUBLE_PLUS, DOUBLE_MINUS;
+precedence left LEFT_SQUARE_PARENTHESIS, RIGHT_SQUARE_PARENTHESIS, LEFT_PARENTHESIS, RIGHT_PARENTHESIS;
+
 program         ::= CLASS ID:id LEFT_BRACKET memberdecls:memberDecls RIGHT_BRACKET
                 {:
                     RESULT = Program.builder()
