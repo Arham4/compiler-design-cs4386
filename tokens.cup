@@ -54,6 +54,7 @@ nonterminal Program program;
 
 nonterminal MemberDecls memberdecls;
 nonterminal FieldDecls fielddecls;
+nonterminal MethodDecls methoddecls;
 
 program         ::= CLASS ID:id LEFT_BRACKET memberdecls:memberDecls RIGHT_BRACKET
                 {:
@@ -80,3 +81,13 @@ fielddecls      ::= fielddecl:fieldDecl fielddecls:fieldDecls
                 :}
                 |
                 {:  RESULT = FieldDecls.builder().build();  :};
+
+methoddecls     ::= methoddecl:methodDecl methoddecls:methodDecls
+                {:
+                    RESULT = MethodDecls.builder()
+                                .methodDecl(methodDecl)
+                                .methodDecls(methodDecls)
+                                .build();
+                :}
+                |
+                {:  RESULT = MethodDecls.builder().build();  :};
