@@ -279,5 +279,9 @@ stmt            ::= IF LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:stmt if
                 :}
                 |   ID:id LEFT_PARENTHESIS RIGHT_PARENTHESIS SEMI
                 {:
-                    RESULT = MethodInvocationStmt.of(id);
+                    RESULT = MethodInvocationStmt.blank(id);
+                :}
+                |   ID:id LEFT_PARENTHESIS args:args RIGHT_PARENTHESIS SEMI
+                {:
+                    RESULT = MethodInvocationStmt.withArgs(id, args);
                 :};
