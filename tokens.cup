@@ -13,6 +13,7 @@ terminal ASSMNT;
 terminal CLASS;
 terminal DOUBLE_AND;
 terminal DOUBLE_OR;
+terminal ELSE;
 
 terminal String VAR;
 
