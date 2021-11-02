@@ -79,6 +79,7 @@ print		           { return newSym(sym.PRINT, "print"); }
 "<"            { return newSym(sym.LESS_THAN, "<"); }
 ">"            { return newSym(sym.GREATER_THAN, ">"); }
 "<="            { return newSym(sym.LESS_THAN_OR_EQUAL_TO, "<="); }
+">="            { return newSym(sym.GREATER_THAN_OR_EQUAL_TO, ">="); }
 "*"                { return newSym(sym.TIMES, "*"); }
 "+"                { return newSym(sym.PLUS, "+"); }
 "-"                { return newSym(sym.MINUS, "-"); }
