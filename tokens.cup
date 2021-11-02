@@ -276,4 +276,8 @@ stmt            ::= IF LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:stmt if
                 |   PRINTLINE LEFT_PARENTHESIS printlinelist:printLineList RIGHT_PARENTHESIS SEMI
                 {:
                     RESULT = PrintLineStmt.of(printLineList);
+                :}
+                |   ID:id LEFT_PARENTHESIS RIGHT_PARENTHESIS SEMI
+                {:
+                    RESULT = MethodInvocationStmt.of(id);
                 :};
