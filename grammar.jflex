@@ -25,7 +25,7 @@ import java_cup.runtime.*;
  * NOTE: the above name ExampleLexer, will have to be changed here if
  * you chose to rename the lexer object.
  */
- 
+
 %{
 
 /**
@@ -57,7 +57,7 @@ newline		    = \\n
 slash			    = \\
 letter        = [A-Za-z]
 digit         = [0-9]
-id   			    = {letter}+ 
+id   			    = {letter}+
 intlit	      = {digit}+
 inlinecomment = {slash}{slash}.*\n
 whitespace    = [ \n\t\r]
@@ -76,10 +76,11 @@ print		           { return newSym(sym.PRINT, "print"); }
 "/"                { return newSym(sym.DIVIDE, "/"); }
 "="                { return newSym(sym.ASSMNT, "="); }
 ";"                { return newSym(sym.SEMI, ";"); }
+"class"            { return newSym(sym.CLASS, "class"); }
 var		             { return newSym(sym.VAR, "var"); }
 {id}               { return newSym(sym.ID, yytext()); }
 {intlit}           { return newSym(sym.INTLIT, new Integer(yytext())); }
 {inlinecomment}    { /* For this stand-alone lexer, print out comments. */}
 {whitespace}       { /* Ignore whitespace. */ }
 .                  { System.out.println("Illegal char, '" + yytext() +
-                    "' line: " + yyline + ", column: " + yychar); } 
+                    "' line: " + yyline + ", column: " + yychar); }

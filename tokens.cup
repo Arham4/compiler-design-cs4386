@@ -10,6 +10,7 @@ terminal DIVIDE;
 terminal SEMI;
 terminal EQ;
 terminal ASSMNT;
+terminal CLASS;
 
 terminal String VAR;
 
