@@ -6,6 +6,7 @@ terminal PRINT;
 terminal PRINTLINE;
 terminal TIMES;
 terminal DOUBLE_PLUS;
+terminal DOUBLE_MINUS;
 terminal PLUS;
 terminal MINUS;
 terminal DIVIDE;
