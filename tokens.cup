@@ -361,3 +361,17 @@ readlist        ::= name:name PARAMETER_SEPARATOR readlist:readlist
                                 .name(name)
                                 .build();
                 :};
+
+printlist       ::= expr:expr PARAMETER_SEPARATOR printlist:printList
+                {:
+                    RESULT = PrintList.builder()
+                                .expr(expr)
+                                .printList(printList)
+                                .build();
+                :}
+                |   expr:expr
+                {:
+                    RESULT = PrintList.builder()
+                                .expr(expr)
+                                .build();
+                :};
