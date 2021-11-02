@@ -100,6 +100,7 @@ print		           { return newSym(sym.PRINT, "print"); }
 "return"           { return newSym(sym.RETURN, "return"); }
 "final"            { return newSym(sym.FINAL, "final"); }
 "int"              { return newSym(sym.INT_PRIMITIVE, "int"); }
+"char"             { return newSym(sym.CHAR_PRIMITIVE, "char"); }
 var		             { return newSym(sym.VAR, "var"); }
 {id}               { return newSym(sym.ID, yytext()); }
 {intlit}           { return newSym(sym.INTLIT, new Integer(yytext())); }
