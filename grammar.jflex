@@ -102,6 +102,7 @@ print		           { return newSym(sym.PRINT, "print"); }
 "int"              { return newSym(sym.INT_PRIMITIVE, "int"); }
 "char"             { return newSym(sym.CHAR_PRIMITIVE, "char"); }
 "bool"             { return newSym(sym.BOOL_PRIMITIVE, "bool"); }
+"float"            { return newSym(sym.FLOAT_PRIMITIVE, "float"); }
 "true"               { return newSym(sym.BOOL_TRUE, "true"); }
 "false"              { return newSym(sym.BOOL_FALSE, "false"); }
 var		             { return newSym(sym.VAR, "var"); }

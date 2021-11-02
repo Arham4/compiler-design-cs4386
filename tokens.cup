@@ -38,6 +38,7 @@ terminal CHAR_PRIMITIVE;
 terminal BOOL_PRIMITIVE;
 terminal BOOL_TRUE;
 terminal BOOL_FALSE;
+terminal FLOAT_PRIMITIVE;
 
 terminal String VAR;
 
