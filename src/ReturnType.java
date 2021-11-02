@@ -1,5 +1,5 @@
 public final class ReturnType implements NonTerminalToken {
-    public static ReturnType withType(Type type) {
+    public static ReturnType withType(Lexeme type) {
         return new ReturnType(type);
     }
 
@@ -7,9 +7,9 @@ public final class ReturnType implements NonTerminalToken {
         return new ReturnType(null);
     }
 
-    private final Type type;
+    private final Lexeme type;
 
-    private ReturnType(Type type) {
+    private ReturnType(Lexeme type) {
         this.type = type;
     }
 

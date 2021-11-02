@@ -1,10 +1,10 @@
 public final class ArrayFieldDecl implements FieldDecl {
     public static final class Builder {
-        private Type type;
+        private Lexeme type;
         private String id;
         private int size;
 
-        public Builder type(Type type) {
+        public Builder type(Lexeme type) {
             this.type = type;
             return this;
         }
@@ -28,11 +28,11 @@ public final class ArrayFieldDecl implements FieldDecl {
         return new Builder();
     }
 
-    private final Type type;
+    private final Lexeme type;
     private final String id;
     private final int size;
 
-    private ArrayFieldDecl(Type type, String id, int size) {
+    private ArrayFieldDecl(Lexeme type, String id, int size) {
         this.type = type;
         this.id = id;
         this.size = size;

@@ -1,11 +1,11 @@
 public final class ExpressionFieldDecl implements FieldDecl {
     public static final class Builder {
-        private Type type;
+        private Lexeme type;
         private String id;
         private OptionalLexeme optionalFinal;
         private OptionalExpr optionalExpr;
 
-        public Builder type(Type type) {
+        public Builder type(Lexeme type) {
             this.type = type;
             return this;
         }
@@ -34,12 +34,12 @@ public final class ExpressionFieldDecl implements FieldDecl {
         return new Builder();
     }
 
-    private final Type type;
+    private final Lexeme type;
     private final String id;
     private final OptionalLexeme optionalFinal;
     private final OptionalExpr optionalExpr;
 
-    private ExpressionFieldDecl(Type type, String id, OptionalLexeme optionalFinal, OptionalExpr optionalExpr) {
+    private ExpressionFieldDecl(Lexeme type, String id, OptionalLexeme optionalFinal, OptionalExpr optionalExpr) {
         this.type = type;
         this.id = id;
         this.optionalFinal = optionalFinal;

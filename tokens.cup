@@ -65,6 +65,7 @@ nonterminal OptionalExpr optionalexpr;
 nonterminal OptionalLexeme optionalsemi;
 
 nonterminal ReturnType returnType;
+nonterminal Lexeme type;
 
 program         ::= CLASS ID:id LEFT_BRACKET memberdecls:memberDecls RIGHT_BRACKET
                 {:
@@ -122,7 +123,7 @@ fielddecl       ::= optionalfinal:optionalFinal type:type ID:id optionalexpr:opt
 
 optionalfinal   ::= FINAL
                 {:
-                    RESULT = OptionalLexeme.shown("final");
+                    RESULT = OptionalLexeme.shown(Lexeme.of("final"));
                 :}
                 |
                 {:
@@ -153,7 +154,7 @@ methoddecl      ::= returntype:returnType ID:id LEFT_PARENTHESIS argdecls:argDec
 
 optionalsemi    ::= SEMI
                 {:
-                    RESULT = OptionalLexeme.shown(";");
+                    RESULT = OptionalLexeme.shown(Lexeme.of(";"));
                 :}
                 |
                 {:
@@ -167,4 +168,21 @@ returntype      ::= type:type
                 |   VOID
                 {:
                     RESULT = ReturnType.withoutType();
+                :};
+
+type            ::= INT_PRIMITIVE
+                {:
+                    RESULT = Lexeme.of("int");
+                :}
+                |   CHAR_PRIMITIVE
+                {:
+                    RESULT = Lexeme.of("char");
+                :}
+                |   BOOL_PRIMITIVE
+                {:
+                    RESULT = Lexeme.of("bool");
+                :}
+                |   FLOAT_PRIMITIVE
+                {:
+                    RESULT = Lexeme.of("float");
                 :};
