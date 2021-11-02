@@ -37,6 +37,7 @@ terminal INT_PRIMITIVE;
 terminal CHAR_PRIMITIVE;
 terminal BOOL_PRIMITIVE;
 terminal BOOL_TRUE;
+terminal BOOL_FALSE;
 
 terminal String VAR;
 

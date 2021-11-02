@@ -103,6 +103,7 @@ print		           { return newSym(sym.PRINT, "print"); }
 "char"             { return newSym(sym.CHAR_PRIMITIVE, "char"); }
 "bool"             { return newSym(sym.BOOL_PRIMITIVE, "bool"); }
 "true"               { return newSym(sym.BOOL_TRUE, "true"); }
+"false"              { return newSym(sym.BOOL_FALSE, "false"); }
 var		             { return newSym(sym.VAR, "var"); }
 {id}               { return newSym(sym.ID, yytext()); }
 {intlit}           { return newSym(sym.INTLIT, new Integer(yytext())); }
