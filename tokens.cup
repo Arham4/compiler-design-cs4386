@@ -62,6 +62,7 @@ nonterminal ArgDeclList argdecllist;
 
 nonterminal FieldDecl fielddecl;
 nonterminal MethodDecl methoddecl;
+nonterminal ArgDecl argdecl;
 
 nonterminal OptionalLexeme optionalfinal;
 nonterminal OptionalExpr optionalexpr;
@@ -209,4 +210,19 @@ argdecllist     ::= argdecl:argDecl PARAMETER_SEPARATOR argdecllist:argDeclList
                 |
                 {:
                     RESULT = ArgDeclList.builder().build();
+                :};
+
+argdecl         ::= type:type ID:id
+                {:
+                    RESULT = RegularArgDecl.builder()
+                                .type(type)
+                                .id(id)
+                                .build();
+                :}
+                |   type:type ID:id LEFT_SQUARE_PARENTHESIS RIGHT_SQUARE_PARENTHESIS
+                {:
+                    RESULT = ArrayArgDecl.builder()
+                                .type(type)
+                                .id(id)
+                                .build();
                 :};
