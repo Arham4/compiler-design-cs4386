@@ -35,6 +35,6 @@ public final class MethodDecls implements NonTerminalToken {
         if (methodDecl == null || methodDecls == null) {
             return "";
         }
-        return StringHelper.withTabs(tabs, methodDecl.asString(tabs) + methodDecls.asString(tabs));
+        return methodDecl.asString(tabs) + "\n" + methodDecls.asString(tabs);
     }
 }

@@ -57,6 +57,7 @@ nonterminal FieldDecls fielddecls;
 nonterminal MethodDecls methoddecls;
 
 nonterminal FieldDecl fielddecl;
+nonterminal MethodDecl methoddecl;
 
 nonterminal OptionalLexeme optionalfinal;
 nonterminal OptionalExpr optionalexpr;
@@ -131,4 +132,17 @@ optionalexpr    ::= EQ expr:expr
                 |
                 {:
                     RESULT = OptionalExpr.hidden();
+                :};
+
+methoddecl      ::= returntype:returnType ID:id LEFT_PARENTHESIS argdecls:argDecls RIGHT_PARENTHESIS LEFT_BRACKET
+                    fielddecls:fieldDecls stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
+                {:
+                    RESULT = MethodDecl.builder()
+                                .returnType(returnType)
+                                .id(id)
+                                .argDecls(argDecls)
+                                .fieldDecls(fieldDecls)
+                                .stmts(stmts)
+                                .optionalSemi(optionalSemi)
+                                .build();
                 :};
