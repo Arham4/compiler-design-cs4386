@@ -15,6 +15,7 @@ terminal DOUBLE_AND;
 terminal DOUBLE_OR;
 terminal ELSE;
 terminal IF;
+terminal WHILE;
 
 terminal String VAR;
 

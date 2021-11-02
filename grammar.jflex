@@ -81,6 +81,7 @@ print		           { return newSym(sym.PRINT, "print"); }
 "||"               { return newSym(sym.DOUBLE_OR, "||"); }
 "else"             { return newSym(sym.ELSE, "else"); }
 "if"               { return newSym(sym.IF, "if"); }
+"while"            { return newSym(sym.WHILE, "while"); }
 var		             { return newSym(sym.VAR, "var"); }
 {id}               { return newSym(sym.ID, yytext()); }
 {intlit}           { return newSym(sym.INTLIT, new Integer(yytext())); }
