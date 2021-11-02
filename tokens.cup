@@ -24,6 +24,7 @@ terminal RIGHT_SQUARE_PARENTHESIS;
 terminal LEFT_BRACKET;
 terminal RIGHT_BRACKET;
 terminal LESS_THAN;
+terminal GREATER_THAN;
 
 terminal String VAR;
 
