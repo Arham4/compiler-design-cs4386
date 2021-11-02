@@ -106,7 +106,9 @@ methoddecls     ::= methoddecl:methodDecl methoddecls:methodDecls
                                 .build();
                 :}
                 |
-                {:  RESULT = MethodDecls.builder().build();  :};
+                {:
+                    RESULT = MethodDecls.builder().build();
+                :};
 
 fielddecl       ::= optionalfinal:optionalFinal type:type ID:id optionalexpr:optionalExpr SEMI
                 {:
