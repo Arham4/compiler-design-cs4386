@@ -59,6 +59,7 @@ nonterminal FieldDecls fielddecls;
 nonterminal MethodDecls methoddecls;
 nonterminal ArgDecls argdecls;
 nonterminal Stmts stmts;
+nonterminal Args args;
 
 nonterminal ArgDeclList argdecllist;
 
@@ -330,4 +331,18 @@ name            ::= ID:id
                 |   ID:id LEFT_SQUARE_PARENTHESIS expr:expr RIGHT_SQUARE_PARENTHESIS
                 {:
                     RESULT = Name.array(id, expr);
+                :};
+
+args            ::= expr:expr PARAMETER_SEPARATOR args:args
+                {:
+                    RESULT = Args.builder()
+                                .expr(expr)
+                                .args(args)
+                                .build();
+                :}
+                |   expr:expr
+                {:
+                    RESULT = Args.builder()
+                                .expr(expr)
+                                .build();
                 :};
