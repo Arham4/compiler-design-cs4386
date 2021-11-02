@@ -301,4 +301,12 @@ stmt            ::= IF LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:stmt if
                 |   name:name DOUBLE_MINUS SEMI
                 {:
                     RESULT = DecrementStmt.withName(name);
+                :}
+                |   LEFT_BRACKET fielddecls:fieldDecls stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
+                {:
+                    RESULT = BodyStmt.builder()
+                                .fieldDecls(fieldDecls)
+                                .stmts(stmts)
+                                .optionalSemi(optionalSemi)
+                                .build();
                 :};
