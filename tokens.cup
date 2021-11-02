@@ -19,6 +19,7 @@ terminal ELSE;
 terminal IF;
 terminal WHILE;
 terminal RETURN;
+terminal VOID;
 terminal LEFT_PARENTHESIS;
 terminal RIGHT_PARENTHESIS;
 terminal LEFT_SQUARE_PARENTHESIS;
