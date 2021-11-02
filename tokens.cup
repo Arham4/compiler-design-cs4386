@@ -264,4 +264,8 @@ stmt            ::= IF LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:stmt if
                                 .name(name)
                                 .expr(expr)
                                 .build();
+                :}
+                |   READ LEFT_PARENTHESIS readlist:readList RIGHT_PARENTHESIS SEMI
+                {:
+                    RESULT = ReadStmt.of(readList);
                 :};
