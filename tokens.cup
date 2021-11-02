@@ -33,6 +33,7 @@ terminal TERNARY_IF;
 terminal TERNARY_ELSE;
 terminal PARAMETER_SEPARATOR;
 terminal FINAL;
+terminal INT_PRIMITIVE;
 
 terminal String VAR;
 

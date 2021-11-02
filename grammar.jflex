@@ -99,6 +99,7 @@ print		           { return newSym(sym.PRINT, "print"); }
 "while"            { return newSym(sym.WHILE, "while"); }
 "return"           { return newSym(sym.RETURN, "return"); }
 "final"            { return newSym(sym.FINAL, "final"); }
+"int"              { return newSym(sym.INT_PRIMITIVE, "int"); }
 var		             { return newSym(sym.VAR, "var"); }
 {id}               { return newSym(sym.ID, yytext()); }
 {intlit}           { return newSym(sym.INTLIT, new Integer(yytext())); }
