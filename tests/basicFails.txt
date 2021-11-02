@@ -1,0 +1,11 @@
+\\bad floats
+.1
+2.
+\\bad chars
+_
+$
+.
+^
+#
+\\invalid id
+first_x

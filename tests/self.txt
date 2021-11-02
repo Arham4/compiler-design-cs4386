@@ -1,0 +1,9 @@
+'t'
+'test'
+"t"
+"""
+""
+"pog"
+1.
+3.14
+\*blockComment1*\ "hello" \*blockComment2*\

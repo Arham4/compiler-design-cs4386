@@ -1,0 +1,12 @@
+var x;
+var y;
+read x;
+read y;
+var z = x+y*x-    x/
+y;
+print z;
+z = 909218509
+print z;
+var thIsIsAVaR;
+thIsIsAVaR = 6;
+print thIsIsAVaR;
