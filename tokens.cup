@@ -56,6 +56,7 @@ nonterminal Program program;
 nonterminal MemberDecls memberdecls;
 nonterminal FieldDecls fielddecls;
 nonterminal MethodDecls methoddecls;
+nonterminal ArgDecls argdecls;
 
 nonterminal FieldDecl fielddecl;
 nonterminal MethodDecl methoddecl;
@@ -185,4 +186,13 @@ type            ::= INT_PRIMITIVE
                 |   FLOAT_PRIMITIVE
                 {:
                     RESULT = Lexeme.of("float");
+                :};
+
+argdecls        ::= argdecllist:argDeclList
+                {:
+                    RESULT = ArgDecls.of(argDeclList);
+                :}
+                |
+                {:
+                    RESULT = ArgDecls.empty();
                 :};
