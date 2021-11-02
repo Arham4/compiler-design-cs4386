@@ -83,6 +83,7 @@ print		           { return newSym(sym.PRINT, "print"); }
 "<>"            { return newSym(sym.NOT_EQUAL, "<>"); }
 "~"            { return newSym(sym.NOT, "~"); }
 "?"            { return newSym(sym.TERNARY_IF, "?"); }
+":"            { return newSym(sym.TERNARY_ELSE, ":"); }
 "*"                { return newSym(sym.TIMES, "*"); }
 "+"                { return newSym(sym.PLUS, "+"); }
 "-"                { return newSym(sym.MINUS, "-"); }
