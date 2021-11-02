@@ -394,11 +394,11 @@ expr            ::= name:name
                 {:
                     RESULT = Expr.simple(name);
                 :}
-                |   id:id LEFT_PARENTHESIS RIGHT_PARENTHESIS
+                |   ID:id LEFT_PARENTHESIS RIGHT_PARENTHESIS
                 {:
                     RESULT = Expr.simpleInvocation(id);
                 :}
-                |   id:id LEFT_PARENTHESIS args:args RIGHT_PARENTHESIS
+                |   ID:id LEFT_PARENTHESIS args:args RIGHT_PARENTHESIS
                 {:
                     RESULT = Expr.invocation(id, args);
                 :}
