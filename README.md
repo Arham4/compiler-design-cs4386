@@ -1,6 +1,8 @@
-# CS 4386 - Project 1: Terminal Token Identifier
+# CS 4386 - Project 2: Abstract Syntax Tree
 
-This codebase uses Cup and JFlex to generate a scanner that follows rules for terminals that are given.
+This codebase uses Cup and JFlex to generate an abstract syntax tree that follows rules for terminals and nonterminals 
+that are given. The goal is to be able to identify that a language is being parsed correctly and that the states are
+transitioning in an expected manner. If the abstract syntax tree is correct, then the output should be as expected.
 
 ## Instructions
 
