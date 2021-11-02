@@ -58,6 +58,7 @@ tab              = \t
 newline          = \n
 slash			 = \\
 period           = \.
+asterisk         = \*
 letter           = [A-Za-z]
 digit            = [0-9]
 char             = {newline_explicit}|{tab_explicit}|{slash}{slash}
@@ -70,6 +71,7 @@ strlit           = \"({char}|{str_exceptions})*\"
 floatlit         = {digit}+{period}{digit}+
 inlinecomment    = {slash}{slash}.*\n
 whitespace       = [ \n\t\r]
+multilinecomment = {slash}{asterisk}(([^*\\]|[^\\][*]|[\\][^*])*{whitespace}*){asterisk}{slash}
 
 
 
@@ -121,6 +123,7 @@ var		             { return newSym(sym.VAR, "var"); }
 {strlit}           { return newSym(sym.STRLIT, yytext()); }
 {floatlit}         { return newSym(sym.FLOATLIT, new Double(yytext())); }
 {inlinecomment}    { /* For this stand-alone lexer, print out comments. */}
+{multilinecomment} { /* Ignore */ }
 {whitespace}       { /* Ignore whitespace. */ }
 .                  { System.out.println("Illegal char, '" + yytext() +
                     "' line: " + yyline + ", column: " + yychar); }
