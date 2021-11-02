@@ -250,4 +250,11 @@ stmt            ::= IF LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:stmt if
                                 .stmt(stmt)
                                 .ifEnd(ifEnd)
                                 .build();
+                :}
+                |   WHILE LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:stmt
+                {:
+                    RESULT = WhileStmt.builder()
+                                .expr(expr)
+                                .stmt(stmt)
+                                .build();
                 :};
