@@ -45,6 +45,7 @@ terminal String VAR;
 terminal String ID;
 terminal int INTLIT;
 terminal char CHARLIT;
+terminal String STRLIT;
 
 /*
  * this dummy token is necessary, since at least one non-terminal is

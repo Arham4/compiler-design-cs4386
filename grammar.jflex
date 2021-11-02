@@ -61,9 +61,11 @@ letter           = [A-Za-z]
 digit            = [0-9]
 char             = {newline_explicit}|{tab_explicit}|{slash}{slash}
 char_exceptions  = [[^\\] && [^']]|{slash}'
+str_exceptions   = [[[^\\] && [^\"]] &&[[^\n] && [^\t]]]|{slash}\"
 id   			 = {letter}+
 intlit	         = {digit}+
 charlit          = '({char}|{char_exceptions})'
+strlit           = \"({char}|{str_exceptions})*\"
 inlinecomment    = {slash}{slash}.*\n
 whitespace       = [ \n\t\r]
 
@@ -114,6 +116,7 @@ var		             { return newSym(sym.VAR, "var"); }
 {id}               { return newSym(sym.ID, yytext()); }
 {intlit}           { return newSym(sym.INTLIT, new Integer(yytext())); }
 {charlit}          { return newSym(sym.CHARLIT, yytext()); }
+{strlit}           { return newSym(sym.STRLIT, yytext()); }
 {inlinecomment}    { /* For this stand-alone lexer, print out comments. */}
 {whitespace}       { /* Ignore whitespace. */ }
 .                  { System.out.println("Illegal char, '" + yytext() +
