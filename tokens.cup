@@ -59,6 +59,7 @@ nonterminal MethodDecls methoddecls;
 nonterminal FieldDecl fielddecl;
 
 nonterminal OptionalLexeme optionalfinal;
+nonterminal OptionalExpr optionalexpr;
 
 program         ::= CLASS ID:id LEFT_BRACKET memberdecls:memberDecls RIGHT_BRACKET
                 {:
@@ -121,4 +122,13 @@ optionalfinal   ::= FINAL
                 |
                 {:
                     RESULT = OptionalLexeme.hidden();
+                :};
+
+optionalexpr    ::= EQ expr:expr
+                {:
+                    RESULT = OptionalExpr.shownExpr(expr);
+                :}
+                |
+                {:
+                    RESULT = OptionalExpr.hidden();
                 :};
