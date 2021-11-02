@@ -64,6 +64,7 @@ nonterminal ArgDeclList argdecllist;
 nonterminal FieldDecl fielddecl;
 nonterminal MethodDecl methoddecl;
 nonterminal ArgDecl argdecl;
+nonterminal Stmt stmt;
 
 nonterminal OptionalLexeme optionalfinal;
 nonterminal OptionalExpr optionalexpr;
@@ -240,4 +241,13 @@ stmts           ::= stmt:stmt stmts:stmts
                 |
                 {:
                     RESULT = Stmts.builder().build();
+                :};
+
+stmt            ::= IF LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:stmt ifend:ifEnd
+                {:
+                    RESULT = IfStmt.builder()
+                                .expr(expr)
+                                .stmt(stmt)
+                                .ifEnd(ifEnd)
+                                .build();
                 :};
