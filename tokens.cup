@@ -57,6 +57,7 @@ nonterminal MemberDecls memberdecls;
 nonterminal FieldDecls fielddecls;
 nonterminal MethodDecls methoddecls;
 nonterminal ArgDecls argdecls;
+nonterminal Stmts stmts;
 
 nonterminal ArgDeclList argdecllist;
 
@@ -225,4 +226,16 @@ argdecl         ::= type:type ID:id
                                 .type(type)
                                 .id(id)
                                 .build();
+                :};
+
+stmts           ::= stmt:stmt stmts:stmts
+                {:
+                    RESULT = Stmts.builder()
+                                .stmt(stmt)
+                                .stmts(stmts)
+                                .build();
+                :}
+                |
+                {:
+                    RESULT = Stmts.builder().build();
                 :};
