@@ -94,7 +94,8 @@ print		           { return newSym(sym.PRINT, "print"); }
 ">"            { return newSym(sym.GREATER_THAN, ">"); }
 "<="            { return newSym(sym.LESS_THAN_OR_EQUAL_TO, "<="); }
 ">="            { return newSym(sym.GREATER_THAN_OR_EQUAL_TO, ">="); }
-"<>"            { return newSym(sym.NOT_EQUAL, "<>"); }
+"=="            { return newSym(sym.EQUAL_TO, "<>"); }
+"<>"            { return newSym(sym.NOT_EQUAL_TO, "<>"); }
 "~"            { return newSym(sym.NOT, "~"); }
 "?"            { return newSym(sym.TERNARY_IF, "?"); }
 ":"            { return newSym(sym.TERNARY_ELSE, ":"); }
