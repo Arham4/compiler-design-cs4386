@@ -61,6 +61,7 @@ nonterminal ArgDecls argdecls;
 nonterminal Stmts stmts;
 nonterminal Args args;
 nonterminal ReadList readlist;
+nonterminal PrintLineList printlinelist;
 
 nonterminal ArgDeclList argdecllist;
 
@@ -374,4 +375,13 @@ printlist       ::= expr:expr PARAMETER_SEPARATOR printlist:printList
                     RESULT = PrintList.builder()
                                 .expr(expr)
                                 .build();
+                :};
+
+printlinelist       ::= printlist:printList
+                {:
+                    RESULT = PrintLineList.withPrintList(printList);
+                :}
+                |
+                {:
+                    RESULT = PrintLineList.empty();
                 :};
