@@ -39,7 +39,7 @@ public final class ExpressionFieldDecl implements FieldDecl {
     private final OptionalLexeme optionalFinal;
     private final OptionalExpr optionalExpr;
 
-    ExpressionFieldDecl(Type type, String id, OptionalLexeme optionalFinal, OptionalExpr optionalExpr) {
+    private ExpressionFieldDecl(Type type, String id, OptionalLexeme optionalFinal, OptionalExpr optionalExpr) {
         this.type = type;
         this.id = id;
         this.optionalFinal = optionalFinal;
