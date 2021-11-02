@@ -3,6 +3,7 @@ import java_cup.runtime.*;
 
 terminal READ;
 terminal PRINT;
+terminal PRINTLINE;
 terminal TIMES;
 terminal DOUBLE_PLUS;
 terminal PLUS;

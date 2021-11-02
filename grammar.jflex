@@ -81,6 +81,7 @@ multilinecomment = {slash}{asterisk}(([^*\\]|[^\\][*]|[\\][^*])*{whitespace}*){a
  */
 read               { return newSym(sym.READ, "read"); }
 print		           { return newSym(sym.PRINT, "print"); }
+"printline"        { return newSym(sym.PRINTLINE, "printline"); }
 "("            { return newSym(sym.LEFT_PARENTHESIS, "("); }
 ")"            { return newSym(sym.RIGHT_PARENTHESIS, ")"); }
 "["            { return newSym(sym.LEFT_SQUARE_PARENTHESIS, "["); }
