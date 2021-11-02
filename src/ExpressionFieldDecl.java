@@ -2,7 +2,7 @@ public final class ExpressionFieldDecl implements FieldDecl {
     public static final class Builder {
         private Type type;
         private String id;
-        private OptionalFinal optionalFinal;
+        private OptionalLexeme optionalFinal;
         private OptionalExpr optionalExpr;
 
         public Builder type(Type type) {
@@ -15,7 +15,7 @@ public final class ExpressionFieldDecl implements FieldDecl {
             return this;
         }
 
-        public Builder optionalFinal(OptionalFinal optionalFinal) {
+        public Builder optionalFinal(OptionalLexeme optionalFinal) {
             this.optionalFinal = optionalFinal;
             return this;
         }
@@ -36,10 +36,10 @@ public final class ExpressionFieldDecl implements FieldDecl {
 
     private final Type type;
     private final String id;
-    private final OptionalFinal optionalFinal;
+    private final OptionalLexeme optionalFinal;
     private final OptionalExpr optionalExpr;
 
-    ExpressionFieldDecl(Type type, String id, OptionalFinal optionalFinal, OptionalExpr optionalExpr) {
+    ExpressionFieldDecl(Type type, String id, OptionalLexeme optionalFinal, OptionalExpr optionalExpr) {
         this.type = type;
         this.id = id;
         this.optionalFinal = optionalFinal;

@@ -58,6 +58,8 @@ nonterminal MethodDecls methoddecls;
 
 nonterminal FieldDecl fielddecl;
 
+nonterminal OptionalLexeme optionalfinal;
+
 program         ::= CLASS ID:id LEFT_BRACKET memberdecls:memberDecls RIGHT_BRACKET
                 {:
                     RESULT = Program.builder()
@@ -112,3 +114,11 @@ fielddecl       ::= optionalfinal:optionalFinal type:type ID:id optionalexpr:opt
                                 .build();
                 :};
 
+optionalfinal   ::= FINAL
+                {:
+                    RESULT = OptionalLexeme.shown("final");
+                :}
+                |
+                {:
+                    RESULT = OptionalLexeme.hidden();
+                :};
