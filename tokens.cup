@@ -297,4 +297,8 @@ stmt            ::= IF LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:stmt if
                 |   name:name DOUBLE_PLUS SEMI
                 {:
                     RESULT = IncrementStmt.withName(name);
+                :}
+                |   name:name DOUBLE_MINUS SEMI
+                {:
+                    RESULT = DecrementStmt.withName(name);
                 :};
