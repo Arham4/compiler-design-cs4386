@@ -268,4 +268,8 @@ stmt            ::= IF LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:stmt if
                 |   READ LEFT_PARENTHESIS readlist:readList RIGHT_PARENTHESIS SEMI
                 {:
                     RESULT = ReadStmt.of(readList);
+                :}
+                |   PRINT LEFT_PARENTHESIS printlist:printList RIGHT_PARENTHESIS SEMI
+                {:
+                    RESULT = PrintStmt.of(printList);
                 :};
