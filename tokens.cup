@@ -82,6 +82,7 @@ nonterminal Lexeme type;
 nonterminal IfEnd ifend;
 nonterminal Name name;
 nonterminal Expr expr;
+nonterminal Lexeme binaryop;
 
 program         ::= CLASS ID:id LEFT_BRACKET memberdecls:memberDecls RIGHT_BRACKET
                 {:
@@ -452,4 +453,53 @@ expr            ::= name:name
                 |   LEFT_PARENTHESIS expr:expr TERNARY_IF expr:exprTrue TERNARY_ELSE expr:exprFalse RIGHT_PARENTHESIS
                 {:
                     RESULT = Expr.ternary(expr, exprTrue, exprFalse);
+                :};
+
+binaryop        ::= TIMES
+                {:
+                    RESULT = Lexeme.of("*");
+                :}
+                |   DIVIDE
+                {:
+                    RESULT = Lexeme.of("/");
+                :}
+                |   PLUS
+                {:
+                    RESULT = Lexeme.of("+");
+                :}
+                |   MINUS
+                {:
+                    RESULT = Lexeme.of("-");
+                :}
+                |   LESS_THAN
+                {:
+                    RESULT = Lexeme.of("<");
+                :}
+                |   GREATER_THAN
+                {:
+                    RESULT = Lexeme.of(">");
+                :}
+                |   LESS_THAN_OR_EQUAL_TO
+                {:
+                    RESULT = Lexeme.of("<=");
+                :}
+                |   GREATER_THAN_OR_EQUAL_TO
+                {:
+                    RESULT = Lexeme.of(">=");
+                :}
+                |   EQUAL_TO
+                {:
+                    RESULT = Lexeme.of("==");
+                :}
+                |   NOT_EQUAL_TO
+                {:
+                    RESULT = Lexeme.of("<>");
+                :}
+                |   DOUBLE_OR
+                {:
+                    RESULT = Lexeme.of("||");
+                :}
+                |   DOUBLE_AND
+                {:
+                    RESULT = Lexeme.of("&&");
                 :};
