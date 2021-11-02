@@ -50,9 +50,12 @@ terminal char CHARLIT;
 terminal String STRLIT;
 terminal double FLOATLIT;
 
-/*
- * this dummy token is necessary, since at least one non-terminal is
- * required to run cup
- */
-non terminal dummy;
-dummy ::= ;
+nonterminal Program program;
+
+program         ::= CLASS ID:id LEFT_BRACKET memberdecls:memberDecls RIGHT_BRACKET
+                {:
+                    RESULT = Program.builder()
+                                .id(id)
+                                .memberDecls(memberDecls)
+                                .build();
+                :};
