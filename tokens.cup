@@ -52,10 +52,20 @@ terminal double FLOATLIT;
 
 nonterminal Program program;
 
+nonterminal MemberDecls memberdecls;
+
 program         ::= CLASS ID:id LEFT_BRACKET memberdecls:memberDecls RIGHT_BRACKET
                 {:
                     RESULT = Program.builder()
                                 .id(id)
                                 .memberDecls(memberDecls)
+                                .build();
+                :};
+
+memberdecls     ::= fielddecls:fieldDecls methoddecls:methodDecls
+                {:
+                    RESULT = MemberDecls.builder()
+                                .fieldDecls(fieldDecls)
+                                .methodDecls(methodDecls)
                                 .build();
                 :};
