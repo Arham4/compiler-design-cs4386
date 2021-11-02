@@ -76,7 +76,7 @@ nonterminal OptionalLexeme optionalfinal;
 nonterminal OptionalExpr optionalexpr;
 nonterminal OptionalLexeme optionalsemi;
 
-nonterminal ReturnType returnType;
+nonterminal ReturnType returntype;
 nonterminal Lexeme type;
 
 nonterminal IfEnd ifend;
