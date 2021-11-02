@@ -1,6 +1,9 @@
-public final class Name implements NonTerminalToken {
-    @Override
-    public String asString(int tabs) {
-        return null;
+public interface Name extends NonTerminalToken {
+    static Name simple(String id) {
+        return tabs -> id;
+    }
+
+    static Name array(String id, Expr expr) {
+        return tabs -> id + "[" + expr.asString(tabs) + "]";
     }
 }

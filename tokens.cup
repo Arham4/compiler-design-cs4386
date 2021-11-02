@@ -75,6 +75,7 @@ nonterminal ReturnType returnType;
 nonterminal Lexeme type;
 
 nonterminal IfEnd ifend;
+nonterminal Name name;
 
 program         ::= CLASS ID:id LEFT_BRACKET memberdecls:memberDecls RIGHT_BRACKET
                 {:
@@ -320,4 +321,13 @@ ifend           ::= ELSE stmt:stmt
                 |
                 {:
                     RESULT = IfEnd.end();
+                :};
+
+name            ::= ID:id
+                {:
+                    RESULT = Name.simple(id);
+                :}
+                |   ID:id LEFT_SQUARE_PARENTHESIS expr:expr RIGHT_SQUARE_PARENTHESIS
+                {:
+                    RESULT = Name.array(id, expr);
                 :};
