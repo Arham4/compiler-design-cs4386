@@ -20,6 +20,7 @@ terminal RETURN;
 terminal LEFT_PARENTHESIS;
 terminal RIGHT_PARENTHESIS;
 terminal LEFT_SQUARE_PARENTHESIS;
+terminal RIGHT_SQUARE_PARENTHESIS;
 
 terminal String VAR;
 
