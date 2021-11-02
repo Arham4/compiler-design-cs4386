@@ -56,6 +56,8 @@ nonterminal MemberDecls memberdecls;
 nonterminal FieldDecls fielddecls;
 nonterminal MethodDecls methoddecls;
 
+nonterminal FieldDecl fielddecl;
+
 program         ::= CLASS ID:id LEFT_BRACKET memberdecls:memberDecls RIGHT_BRACKET
                 {:
                     RESULT = Program.builder()
@@ -91,3 +93,22 @@ methoddecls     ::= methoddecl:methodDecl methoddecls:methodDecls
                 :}
                 |
                 {:  RESULT = MethodDecls.builder().build();  :};
+
+fielddecl       ::= optionalfinal:optionalFinal type:type ID:id optionalexpr:optionalExpr SEMI
+                {:
+                    RESULT = ExpressionFieldDecl.builder()
+                                .type(type)
+                                .id(id)
+                                .optionalFinal(optionalFinal)
+                                .optionalExpr(optionalExpr)
+                                .build();
+                :}
+                |   type:type ID:id LEFT_SQUARE_PARENTHESIS INTLIT:size RIGHT_SQUARE_PARENTHESIS SEMI
+                {:
+                    RESULT = ArrayFieldDecl.builder()
+                                .type(type)
+                                .id(id)
+                                .size(size)
+                                .build();
+                :};
+
