@@ -52,15 +52,20 @@ Symbol newSym(int tokenId, Object value) {
  * PATTERN DEFINITIONS:
  */
 
-tab           = \\t
-newline		    = \\n
-slash			    = \\
-letter        = [A-Za-z]
-digit         = [0-9]
-id   			    = {letter}+
-intlit	      = {digit}+
-inlinecomment = {slash}{slash}.*\n
-whitespace    = [ \n\t\r]
+tab_explicit     = \\t
+newline_explicit = \\n
+tab              = \t
+newline          = \n
+slash			 = \\
+letter           = [A-Za-z]
+digit            = [0-9]
+char             = {newline_explicit}|{tab_explicit}|{slash}{slash}
+char_exceptions  = [[^\\] && [^']]|{slash}'
+id   			 = {letter}+
+intlit	         = {digit}+
+charlit          = '({char}|{char_exceptions})'
+inlinecomment    = {slash}{slash}.*\n
+whitespace       = [ \n\t\r]
 
 
 
@@ -108,6 +113,7 @@ print		           { return newSym(sym.PRINT, "print"); }
 var		             { return newSym(sym.VAR, "var"); }
 {id}               { return newSym(sym.ID, yytext()); }
 {intlit}           { return newSym(sym.INTLIT, new Integer(yytext())); }
+{charlit}          { return newSym(sym.CHARLIT, yytext()); }
 {inlinecomment}    { /* For this stand-alone lexer, print out comments. */}
 {whitespace}       { /* Ignore whitespace. */ }
 .                  { System.out.println("Illegal char, '" + yytext() +
