@@ -13,3 +13,8 @@ transitioning in an expected manner. If the abstract syntax tree is correct, the
 5. To change the test file, open the Makefile and change the `TEST_FILE` constant to be the respective test.
 6. To change the input directory, open the Makefile and change the `TEST_FILES_DIR` constant to be the respective directory.
 7. To change the output directory, open the Makefile and change the `OUTPUT_FILES_DIR` constant to be the respective directory.
+
+## Grammar Implemented
+
+![part 1](https://i.imgur.com/v9elsbV.png)
+![part 2](https://i.imgur.com/NelujQF.png)
