@@ -64,6 +64,8 @@ nonterminal OptionalLexeme optionalfinal;
 nonterminal OptionalExpr optionalexpr;
 nonterminal OptionalLexeme optionalsemi;
 
+nonterminal ReturnType returnType;
+
 program         ::= CLASS ID:id LEFT_BRACKET memberdecls:memberDecls RIGHT_BRACKET
                 {:
                     RESULT = Program.builder()
@@ -156,4 +158,13 @@ optionalsemi    ::= SEMI
                 |
                 {:
                     RESULT = OptionalLexeme.hidden();
+                :};
+
+returntype      ::= type:type
+                {:
+                    RESULT = ReturnType.withType(type);
+                :}
+                |   VOID
+                {:
+                    RESULT = ReturnType.withoutType();
                 :};
