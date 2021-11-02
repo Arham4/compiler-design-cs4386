@@ -29,6 +29,7 @@ terminal LESS_THAN_OR_EQUAL_TO;
 terminal GREATER_THAN_OR_EQUAL_TO;
 terminal NOT_EQUAL;
 terminal NOT;
+terminal TERNARY_IF;
 
 terminal String VAR;
 
