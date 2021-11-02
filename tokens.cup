@@ -4,6 +4,7 @@ import java_cup.runtime.*;
 terminal READ;
 terminal PRINT;
 terminal TIMES;
+terminal DOUBLE_PLUS;
 terminal PLUS;
 terminal MINUS;
 terminal DIVIDE;

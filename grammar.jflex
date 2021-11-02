@@ -87,6 +87,7 @@ print		           { return newSym(sym.PRINT, "print"); }
 "]"            { return newSym(sym.RIGHT_SQUARE_PARENTHESIS, "]"); }
 "{"            { return newSym(sym.LEFT_BRACKET, "{"); }
 "}"            { return newSym(sym.RIGHT_BRACKET, "}"); }
+"++"            { return newSym(sym.DOUBLE_PLUS, "++"); }
 "<"            { return newSym(sym.LESS_THAN, "<"); }
 ">"            { return newSym(sym.GREATER_THAN, ">"); }
 "<="            { return newSym(sym.LESS_THAN_OR_EQUAL_TO, "<="); }
