@@ -84,6 +84,7 @@ print		           { return newSym(sym.PRINT, "print"); }
 "~"            { return newSym(sym.NOT, "~"); }
 "?"            { return newSym(sym.TERNARY_IF, "?"); }
 ":"            { return newSym(sym.TERNARY_ELSE, ":"); }
+","            { return newSym(sym.PARAMETER_SEPARATOR, ","); }
 "*"                { return newSym(sym.TIMES, "*"); }
 "+"                { return newSym(sym.PLUS, "+"); }
 "-"                { return newSym(sym.MINUS, "-"); }
