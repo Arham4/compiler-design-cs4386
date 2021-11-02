@@ -4,6 +4,8 @@ This codebase uses Cup and JFlex to generate an abstract syntax tree that follow
 that are given. The goal is to be able to identify that a language is being parsed correctly and that the states are
 transitioning in an expected manner. If the abstract syntax tree is correct, then the output should be as expected.
 
+This was made for CS 4386 (Compiler Design) at the University of Texas at Dallas, taught by Professor Shiyi Wei.
+
 ## Instructions
 
 1. Find the Makefile that corresponds to your system. Solaris will use the Makefile-linux file.
