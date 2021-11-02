@@ -61,6 +61,7 @@ nonterminal ArgDecls argdecls;
 nonterminal Stmts stmts;
 nonterminal Args args;
 nonterminal ReadList readlist;
+nonterminal Printlist printlist;
 nonterminal PrintLineList printlinelist;
 
 nonterminal ArgDeclList argdecllist;
