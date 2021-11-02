@@ -60,6 +60,7 @@ nonterminal MethodDecls methoddecls;
 nonterminal ArgDecls argdecls;
 nonterminal Stmts stmts;
 nonterminal Args args;
+nonterminal ReadList readlist;
 
 nonterminal ArgDeclList argdecllist;
 
@@ -344,5 +345,19 @@ args            ::= expr:expr PARAMETER_SEPARATOR args:args
                 {:
                     RESULT = Args.builder()
                                 .expr(expr)
+                                .build();
+                :};
+
+readlist        ::= name:name PARAMETER_SEPARATOR readlist:readlist
+                {:
+                    RESULT = ReadList.builder()
+                                .name(name)
+                                .readList(readlist)
+                                .build();
+                :}
+                |   name:name
+                {:
+                    RESULT = ReadList.builder()
+                                .name(name)
                                 .build();
                 :};
