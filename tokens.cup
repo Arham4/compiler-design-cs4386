@@ -284,4 +284,12 @@ stmt            ::= IF LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:stmt if
                 |   ID:id LEFT_PARENTHESIS args:args RIGHT_PARENTHESIS SEMI
                 {:
                     RESULT = MethodInvocationStmt.withArgs(id, args);
+                :}
+                |   RETURN SEMI
+                {:
+                    RESULT = ReturnStmt.blank();
+                :}
+                |   RETURN expr:expr SEMI
+                {:
+                    RESULT = ReturnStmt.withExpr(expr);
                 :};
