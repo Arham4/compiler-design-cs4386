@@ -378,7 +378,7 @@ printlist       ::= expr:expr PARAMETER_SEPARATOR printlist:printList
                                 .build();
                 :};
 
-printlinelist       ::= printlist:printList
+printlinelist   ::= printlist:printList
                 {:
                     RESULT = PrintLineList.withPrintList(printList);
                 :}
