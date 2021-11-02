@@ -77,6 +77,7 @@ print		           { return newSym(sym.PRINT, "print"); }
 "="                { return newSym(sym.ASSMNT, "="); }
 ";"                { return newSym(sym.SEMI, ";"); }
 "class"            { return newSym(sym.CLASS, "class"); }
+"&&"               { return newSym(sym.DOUBLE_AND, "&&"); }
 var		             { return newSym(sym.VAR, "var"); }
 {id}               { return newSym(sym.ID, yytext()); }
 {intlit}           { return newSym(sym.INTLIT, new Integer(yytext())); }

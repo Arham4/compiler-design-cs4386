@@ -11,6 +11,7 @@ terminal SEMI;
 terminal EQ;
 terminal ASSMNT;
 terminal CLASS;
+terminal DOUBLE_AND;
 
 terminal String VAR;
 
