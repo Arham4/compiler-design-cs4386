@@ -123,6 +123,10 @@ memberdecls     ::= fielddecls:fieldDecls methoddecls:methodDecls
                     RESULT = MemberDecls.builder()
                                 .methodDecls(methodDecls)
                                 .build();
+                :}
+                |
+                {:
+                    RESULT = MemberDecls.builder().build();
                 :};
 
 fielddecls      ::= fielddecls:fieldDecls fielddecl:fieldDecl
