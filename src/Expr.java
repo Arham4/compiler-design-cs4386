@@ -23,7 +23,7 @@ public interface Expr extends NonTerminalToken {
         return tabs -> string;
     }
 
-    static Expr floatlit(float floatingPoint) {
+    static Expr floatlit(double floatingPoint) {
         return tabs -> floatingPoint + "";
     }
 
