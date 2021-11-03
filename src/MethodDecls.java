@@ -32,9 +32,6 @@ public final class MethodDecls implements NonTerminalToken {
 
     @Override
     public String asString(int tabs) {
-        if (methodDecl == null || methodDecls == null) {
-            return "";
-        }
-        return methodDecl.asString(tabs) + "\n" + methodDecls.asString(tabs);
+        return (methodDecl == null ? "" : methodDecl.asString(tabs)) + "\n" + (methodDecls == null ? "" : methodDecls.asString(tabs));
     }
 }

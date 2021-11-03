@@ -109,6 +109,12 @@ memberdecls     ::= fielddecls:fieldDecls methoddecls:methodDecls
                                 .methodDecls(methodDecls)
                                 .build();
                 :}
+                |   fielddecls:fieldDecls
+                {:
+                    RESULT = MemberDecls.builder()
+                                .fieldDecls(fieldDecls)
+                                .build();
+                :}
                 |   methoddecls:methodDecls
                 {:
                     RESULT = MemberDecls.builder()
@@ -130,16 +136,18 @@ fielddecls      ::= fielddecls:fieldDecls fielddecl:fieldDecl
                                 .build();
                 :};
 
-methoddecls     ::= methoddecl:methodDecl methoddecls:methodDecls
+methoddecls     ::= methoddecls:methodDecls methoddecl:methodDecl
                 {:
                     RESULT = MethodDecls.builder()
                                 .methodDecl(methodDecl)
                                 .methodDecls(methodDecls)
                                 .build();
                 :}
-                |
+                | methoddecl:methodDecl
                 {:
-                    RESULT = MethodDecls.builder().build();
+                    RESULT = MethodDecls.builder()
+                                .methodDecl(methodDecl)
+                                .build();
                 :};
 
 fielddecl       ::= FINAL type:type ID:id optionalexpr:optionalExpr SEMI
