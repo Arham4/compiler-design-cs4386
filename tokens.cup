@@ -109,6 +109,12 @@ memberdecls     ::= fielddecls:fieldDecls methoddecls:methodDecls
                                 .fieldDecls(fieldDecls)
                                 .methodDecls(methodDecls)
                                 .build();
+                :}
+                |   methoddecls:methodDecls
+                {:
+                    RESULT = MemberDecls.builder()
+                                .methodDecls(methodDecls)
+                                .build();
                 :};
 
 fielddecls      ::= fielddecl:fieldDecl fielddecls:fieldDecls
@@ -118,9 +124,11 @@ fielddecls      ::= fielddecl:fieldDecl fielddecls:fieldDecls
                                 .fieldDecls(fieldDecls)
                                 .build();
                 :}
-                |
+                |   fielddecl:fieldDecl
                 {:
-                    RESULT = FieldDecls.builder().build();
+                    RESULT = FieldDecls.builder()
+                                .fieldDecl(fieldDecl)
+                                .build();
                 :};
 
 methoddecls     ::= methoddecl:methodDecl methoddecls:methodDecls
@@ -179,6 +187,17 @@ methoddecl      ::= returntype:returnType ID:id LEFT_PARENTHESIS argdecls:argDec
                                 .id(id)
                                 .argDecls(argDecls)
                                 .fieldDecls(fieldDecls)
+                                .stmts(stmts)
+                                .optionalSemi(optionalSemi)
+                                .build();
+                :}
+                |   returntype:returnType ID:id LEFT_PARENTHESIS argdecls:argDecls RIGHT_PARENTHESIS LEFT_BRACKET
+                    stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
+                {:
+                    RESULT = MethodDecl.builder()
+                                .returnType(returnType)
+                                .id(id)
+                                .argDecls(argDecls)
                                 .stmts(stmts)
                                 .optionalSemi(optionalSemi)
                                 .build();
@@ -329,6 +348,13 @@ stmt            ::= IF LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:stmt if
                 {:
                     RESULT = BodyStmt.builder()
                                 .fieldDecls(fieldDecls)
+                                .stmts(stmts)
+                                .optionalSemi(optionalSemi)
+                                .build();
+                :}
+                |   LEFT_BRACKET stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
+                {:
+                    RESULT = BodyStmt.builder()
                                 .stmts(stmts)
                                 .optionalSemi(optionalSemi)
                                 .build();

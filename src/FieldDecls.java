@@ -32,9 +32,6 @@ public final class FieldDecls implements NonTerminalToken {
 
     @Override
     public String asString(int tabs) {
-        if (fieldDecl == null || fieldDecls == null) {
-            return "";
-        }
-        return fieldDecl.asString(tabs) + "\n" + fieldDecls.asString(tabs);
+        return fieldDecl.asString(tabs) + "\n" + (fieldDecls == null ? "" : fieldDecls.asString(tabs));
     }
 }
