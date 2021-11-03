@@ -78,7 +78,6 @@ nonterminal OptionalLexeme optionalsemi;
 nonterminal ReturnType returntype;
 nonterminal Lexeme type;
 
-nonterminal IfEnd ifend;
 nonterminal Name name;
 nonterminal Expr expr;
 nonterminal Lexeme binaryop;
@@ -286,12 +285,20 @@ stmts           ::= stmt:stmt stmts:stmts
                     RESULT = Stmts.builder().build();
                 :};
 
-stmt            ::= IF LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:stmt ifend:ifEnd
+stmt            ::= IF LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:ifStmt ELSE stmt:elseStmt
+                {:
+                    RESULT = IfStmt.builder()
+                                .expr(expr)
+                                .stmt(ifStmt)
+                                .ifEnd(IfEnd.withStmt(elseStmt))
+                                .build();
+                :}
+                |   IF LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:stmt
                 {:
                     RESULT = IfStmt.builder()
                                 .expr(expr)
                                 .stmt(stmt)
-                                .ifEnd(ifEnd)
+                                .ifEnd(IfEnd.end())
                                 .build();
                 :}
                 |   WHILE LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:stmt
@@ -358,15 +365,6 @@ stmt            ::= IF LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:stmt if
                                 .stmts(stmts)
                                 .optionalSemi(optionalSemi)
                                 .build();
-                :};
-
-ifend           ::= ELSE stmt:stmt
-                {:
-                    RESULT = IfEnd.withStmt(stmt);
-                :}
-                |
-                {:
-                    RESULT = IfEnd.end();
                 :};
 
 name            ::= ID:id
