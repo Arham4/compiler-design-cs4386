@@ -20,6 +20,6 @@ public final class OptionalExpr implements NonTerminalToken {
         if (!show) {
             return "";
         }
-        return expr.asString(tabs);
+        return " = " + expr.asString(tabs);
     }
 }

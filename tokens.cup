@@ -48,7 +48,7 @@ terminal String VAR;
 
 terminal String ID;
 terminal int INTLIT;
-terminal char CHARLIT;
+terminal String CHARLIT;
 terminal String STRLIT;
 terminal double FLOATLIT;
 terminal boolean BOOL_TRUE;

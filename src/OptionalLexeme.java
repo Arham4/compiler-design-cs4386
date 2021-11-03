@@ -15,6 +15,10 @@ public final class OptionalLexeme implements NonTerminalToken {
         this.show = show;
     }
 
+    public boolean isShow() {
+        return show;
+    }
+
     @Override
     public String asString(int tabs) {
         return show ? lexeme.asString(tabs) : "";

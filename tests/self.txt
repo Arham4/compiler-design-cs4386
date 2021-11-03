@@ -22,4 +22,12 @@ class testClass
 		return ;
 
 	}
+
+	void testNestedIfsInWhiles ()
+	{
+			int newTestVal;
+    		bool thisWorks = true;
+    		final char theMan = '\'';
+
+	}
 }

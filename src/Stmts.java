@@ -30,6 +30,10 @@ public final class Stmts implements NonTerminalToken {
         this.stmts = stmts;
     }
 
+    public boolean isShow() {
+        return stmt != null && stmts != null;
+    }
+
     @Override
     public String asString(int tabs) {
         if (stmt == null || stmts == null) {

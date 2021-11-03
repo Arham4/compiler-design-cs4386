@@ -48,6 +48,7 @@ public final class ExpressionFieldDecl implements FieldDecl {
 
     @Override
     public String asString(int tabs) {
-        return StringHelper.withTabs(tabs, optionalFinal.asString(tabs) + type.asString(tabs) + " " + id + optionalExpr.asString(tabs) + ";");
+        return optionalFinal.asString(tabs) + (optionalFinal.isShow() ? " " : "")
+                + type.asString(tabs) + " " + id + optionalExpr.asString(tabs) + ";";
     }
 }

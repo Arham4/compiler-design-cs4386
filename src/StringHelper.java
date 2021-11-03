@@ -9,4 +9,8 @@ public final class StringHelper {
         }
         return tabbedStr + text;
     }
+
+    public static String escapeJava(String text) {
+        return text.replace("'", "\\'");
+    }
 }

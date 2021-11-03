@@ -15,12 +15,12 @@ public interface Expr extends NonTerminalToken {
         return tabs -> integer + "";
     }
 
-    static Expr charlit(char character) {
-        return tabs -> character + "";
+    static Expr charlit(String character) {
+        return tabs -> "'" + StringHelper.escapeJava(character.charAt(0) + "") + "'";
     }
 
     static Expr strlit(String string) {
-        return tabs -> string;
+        return tabs -> "\"" + string + "\"";
     }
 
     static Expr floatlit(double floatingPoint) {

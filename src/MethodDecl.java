@@ -65,8 +65,8 @@ public final class MethodDecl implements NonTerminalToken {
     @Override
     public String asString(int tabs) {
         return StringHelper.withTabs(tabs, returnType.asString(tabs) + " " + id + "(" + argDecls.asString(tabs) + ") {\n")
-                + (fieldDecls == null ? "" : StringHelper.withTabs(tabs + 1, fieldDecls.asString(tabs + 1) + "\n"))
-                + stmts.asString(tabs + 1)
+                + (fieldDecls == null ? "" : fieldDecls.asString(tabs + 1))
+                + (stmts.isShow() && fieldDecls != null ? "\n" : "") + stmts.asString(tabs + 1)
                 + StringHelper.withTabs(tabs, "}" + optionalSemi.asString(tabs));
     }
 }
