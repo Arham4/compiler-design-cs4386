@@ -40,6 +40,6 @@ public final class IfStmt implements Stmt {
 
     @Override
     public String asString(int tabs) {
-        return StringHelper.withTabs(tabs, "if (" + expr.asString(tabs) + ") " + stmt.asString(tabs) + " " + ifEnd.asString(tabs));
+        return "if (" + expr.asString(tabs) + ") " + stmt.asString(tabs) + " " + ifEnd.asString(tabs);
     }
 }

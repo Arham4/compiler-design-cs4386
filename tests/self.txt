@@ -5,11 +5,10 @@ class testClass
 	char testChar;
 	float testFloat;
 
-	void test() {
+	void testNestedIfs()
+	{
 		if (true) {
-		    return;
-		} else {
-		    return;
+		    x = 23;
 		}
 	}
 }
