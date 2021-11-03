@@ -20,11 +20,7 @@ import java_cup.runtime.*;
 %line
 %column
 %unicode
-%class ExampleLexer
-/*
- * NOTE: the above name ExampleLexer, will have to be changed here if
- * you chose to rename the lexer object.
- */
+%class Grammar
 
 %{
 

@@ -16,23 +16,28 @@ CLASS_FILES_DIR=.\out\production\project-1
 COMPILE_CP=$(SRC_FILES_DIR);$(CUPJAR)
 RUN_CP=$(CLASS_FILES_DIR);$(CUPJAR)
 
-GENERATED_FILES=src\ExampleLexer.java	src\parser.java	src\sym.java
-FILES=$(GENERATED_FILES)	src\ExampleLexerTest.java
+GENERATED_FILES=src\Grammar.java	src\parser.java	src\sym.java
+PARSER_FILES=$(GENERATED_FILES)	src\ParserTest.java
+LEXER_FILES=$(GENERATED_FILES)	src\LexerTest.java
 
-default: run
+default: runParser
 
 .SUFFIXES: $(SUFFIXES) .class .java
 
 .java.class:
 		$(JAVAC) -d $(CLASS_FILES_DIR) -cp $(COMPILE_CP) $*.java
 
-run: all
-		$(JAVA) -cp $(RUN_CP) ExampleLexerTest $(TEST_FILES_DIR)\$(TEST_FILE).txt > $(OUTPUT_FILES_DIR)\$(TEST_FILE)-output.txt
+runParser: all $(PARSER_FILES:java=class)
+		$(JAVA) -cp $(RUN_CP) ParserTest $(TEST_FILES_DIR)\$(TEST_FILE).txt > $(OUTPUT_FILES_DIR)\$(TEST_FILE)-output.txt
 		type $(TEST_FILE)-output.txt
 
-all: ExampleLexer.java parser.java move $(FILES:java=class)
+runLexer: all $(LEXER_FILES:java=class)
+		$(JAVA) -cp $(RUN_CP) LexerTest $(TEST_FILES_DIR)\$(TEST_FILE).txt > $(OUTPUT_FILES_DIR)\$(TEST_FILE)-output.txt
+		type $(TEST_FILE)-output.txt
 
-ExampleLexer.java: grammar.jflex
+all: Grammar.java parser.java move
+
+Grammar.java: grammar.jflex
 		$(JFLEX) grammar.jflex
 
 parser.java: tokens.cup
