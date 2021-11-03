@@ -36,6 +36,6 @@ public final class MemberDecls implements NonTerminalToken {
     @Override
     public String asString(int tabs) {
         return (fieldDecls == null ? "" : fieldDecls.asString(tabs))
-                + (methodDecls == null ? "" : methodDecls.asString(tabs));
+                + (methodDecls == null ? "" : (fieldDecls == null ? "" : "\n") + methodDecls.asString(tabs));
     }
 }
