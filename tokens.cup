@@ -116,7 +116,7 @@ memberdecls     ::= fielddecls:fieldDecls methoddecls:methodDecls
                                 .build();
                 :};
 
-fielddecls      ::= fielddecl:fieldDecl fielddecls:fieldDecls
+fielddecls      ::= fielddecls:fieldDecls fielddecl:fieldDecl
                 {:
                     RESULT = FieldDecls.builder()
                                 .fieldDecl(fieldDecl)
