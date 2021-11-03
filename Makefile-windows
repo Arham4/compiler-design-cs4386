@@ -1,4 +1,4 @@
-TEST_FILE=self
+TEST_FILE=test1.as
 TEST_FILES_DIR=.\tests
 OUTPUT_FILES_DIR=.
 
@@ -28,11 +28,11 @@ default: runParser
 		$(JAVAC) -d $(CLASS_FILES_DIR) -cp $(COMPILE_CP) $*.java
 
 runParser: all $(PARSER_FILES:java=class)
-		$(JAVA) -cp $(RUN_CP) ParserTest $(TEST_FILES_DIR)\$(TEST_FILE).txt > $(OUTPUT_FILES_DIR)\$(TEST_FILE)-output.txt
+		$(JAVA) -cp $(RUN_CP) ParserTest $(TEST_FILES_DIR)\$(TEST_FILE) > $(OUTPUT_FILES_DIR)\$(TEST_FILE)-output.txt
 		type $(TEST_FILE)-output.txt
 
 runLexer: all $(LEXER_FILES:java=class)
-		$(JAVA) -cp $(RUN_CP) LexerTest $(TEST_FILES_DIR)\$(TEST_FILE).txt > $(OUTPUT_FILES_DIR)\$(TEST_FILE)-output.txt
+		$(JAVA) -cp $(RUN_CP) LexerTest $(TEST_FILES_DIR)\$(TEST_FILE) > $(OUTPUT_FILES_DIR)\$(TEST_FILE)-output.txt
 		type $(TEST_FILE)-output.txt
 
 all: Grammar.java parser.java move

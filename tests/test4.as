@@ -1,0 +1,4 @@
+class onlyFields
+{
+	int x;
+}
