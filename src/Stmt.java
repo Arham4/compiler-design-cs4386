@@ -1,2 +1,3 @@
-public interface Stmt extends NonTerminalToken {
+public interface Stmt {
+    String asString(String prefix, int tabs);
 }

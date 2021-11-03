@@ -39,7 +39,11 @@ public final class IfStmt implements Stmt {
     }
 
     @Override
-    public String asString(int tabs) {
-        return "if (" + expr.asString(tabs) + ") " + stmt.asString(tabs) + " " + ifEnd.asString(tabs);
+    public String asString(String prefix, int tabs) {
+        if (stmt instanceof BodyStmt) {
+            return prefix + "if (" + expr.asString(tabs) + ") " + stmt.asString("", tabs) + (ifEnd.isShow() ? "\n" + StringHelper.withTabs(tabs, ifEnd.asString(tabs)) : "");
+        } else {
+            return prefix + "if (" + expr.asString(tabs) + ")\n" + stmt.asString(StringHelper.tabs(tabs + 1), tabs + 1) + (ifEnd.isShow() ? "\n" + StringHelper.withTabs(tabs, ifEnd.asString(tabs)) : "");
+        }
     }
 }

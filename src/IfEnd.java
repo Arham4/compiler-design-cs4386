@@ -13,11 +13,19 @@ public final class IfEnd implements NonTerminalToken {
         this.stmt = stmt;
     }
 
+    public boolean isShow() {
+        return stmt != null;
+    }
+
     @Override
     public String asString(int tabs) {
         if (stmt == null) {
             return "";
         }
-        return "else " + stmt.asString(tabs);
+        if (stmt instanceof BodyStmt || stmt instanceof IfStmt) {
+            return "else " + stmt.asString("", tabs);
+        } else {
+            return "else\n" + stmt.asString(StringHelper.tabs(tabs + 1), tabs + 1);
+        }
     }
 }

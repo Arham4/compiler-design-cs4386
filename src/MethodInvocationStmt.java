@@ -16,7 +16,7 @@ public final class MethodInvocationStmt implements Stmt {
     }
 
     @Override
-    public String asString(int tabs) {
-        return id + "(" + (args == null ? "" : args.asString(tabs)) + ");";
+    public String asString(String prefix, int tabs) {
+        return prefix + id + "(" + (args == null ? "" : args.asString(tabs)) + ");";
     }
 }

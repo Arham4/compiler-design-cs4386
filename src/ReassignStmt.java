@@ -31,7 +31,7 @@ public final class ReassignStmt implements Stmt {
     }
 
     @Override
-    public String asString(int tabs) {
-        return name.asString(tabs) + " = " + expr.asString(tabs) + ";";
+    public String asString(String prefix, int tabs) {
+        return prefix + name.asString(tabs) + " = " + expr.asString(tabs) + ";";
     }
 }

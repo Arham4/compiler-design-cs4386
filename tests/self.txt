@@ -28,6 +28,21 @@ class testClass
 			int newTestVal;
     		bool thisWorks = true;
     		final char theMan = '\'';
+		    float testDec = 3.14;
+
+		    newTestVal = 4;
+            testInt = 5;
+            if (thisWorks)
+            	while(true)
+            	    while(false)
+            	        if(newTestVal > 3)
+            	            if (y > 3)
+            	                if (x < 2)
+            		                read(x);
+            		            else
+                                    read(thisName);
+                            else if (y < 3)
+                                read(test);
 
 	}
 }

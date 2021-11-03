@@ -10,7 +10,7 @@ public final class ReadStmt implements Stmt {
     }
 
     @Override
-    public String asString(int tabs) {
-        return "read(" + readList.asString(tabs) + ");";
+    public String asString(String prefix, int tabs) {
+        return prefix + "read(" + readList.asString(tabs) + ");";
     }
 }

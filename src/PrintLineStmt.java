@@ -10,7 +10,7 @@ public final class PrintLineStmt implements Stmt {
     }
 
     @Override
-    public String asString(int tabs) {
-        return "printline(" + printLineList.asString(tabs) + ");";
+    public String asString(String prefix, int tabs) {
+        return prefix + "printline(" + printLineList.asString(tabs) + ");";
     }
 }

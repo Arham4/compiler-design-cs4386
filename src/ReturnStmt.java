@@ -14,7 +14,7 @@ public final class ReturnStmt implements Stmt {
     }
 
     @Override
-    public String asString(int tabs) {
-        return "return" + (expr == null ? "" : " " + expr.asString(tabs)) + ";";
+    public String asString(String prefix, int tabs) {
+        return prefix + "return" + (expr == null ? "" : " " + expr.asString(tabs)) + ";";
     }
 }
