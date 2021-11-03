@@ -47,6 +47,10 @@ public interface Expr extends NonTerminalToken {
         return tabs -> "+" + expr.asString(tabs);
     }
 
+    static Expr casting(Lexeme type, Expr expr) {
+        return tabs -> "(" + type.asString(tabs) + ") " + expr.asString(tabs);
+    }
+
     static Expr binaryOp(Expr expr1, Lexeme binaryOp, Expr expr2) {
         return tabs -> expr1.asString(tabs) + " " + binaryOp.asString(tabs) + " " + expr2.asString(tabs);
     }
