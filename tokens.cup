@@ -83,6 +83,7 @@ nonterminal Lexeme type;
 nonterminal Name name;
 nonterminal Expr expr;
 nonterminal Lexeme binaryop;
+nonterminal TypeId typeid;
 
 precedence right EQ;
 precedence right TERNARY_IF, TERNARY_ELSE;
@@ -152,29 +153,29 @@ methoddecls     ::= methoddecls:methodDecls methoddecl:methodDecl
                                 .build();
                 :};
 
-fielddecl       ::= FINAL type:type ID:id optionalexpr:optionalExpr SEMI
+fielddecl       ::= FINAL typeid:typeId optionalexpr:optionalExpr SEMI
                 {:
                     RESULT = ExpressionFieldDecl.builder()
-                                .type(type)
-                                .id(id)
+                                .type(typeId.getType())
+                                .id(typeId.getId())
                                 .optionalFinal(OptionalLexeme.shown(Lexeme.of("final")))
                                 .optionalExpr(optionalExpr)
                                 .build();
                 :}
-                |   type:type ID:id optionalexpr:optionalExpr SEMI
+                |   typeid:typeId optionalexpr:optionalExpr SEMI
                 {:
                     RESULT = ExpressionFieldDecl.builder()
-                                .type(type)
-                                .id(id)
+                                .type(typeId.getType())
+                                .id(typeId.getId())
                                 .optionalFinal(OptionalLexeme.hidden())
                                 .optionalExpr(optionalExpr)
                                 .build();
                 :}
-                |   type:type ID:id LEFT_SQUARE_PARENTHESIS INTLIT:size RIGHT_SQUARE_PARENTHESIS SEMI
+                |   typeid:typeId LEFT_SQUARE_PARENTHESIS INTLIT:size RIGHT_SQUARE_PARENTHESIS SEMI
                 {:
                     RESULT = ArrayFieldDecl.builder()
-                                .type(type)
-                                .id(id)
+                                .type(typeId.getType())
+                                .id(typeId.getId())
                                 .size(size)
                                 .build();
                 :};
@@ -188,11 +189,11 @@ optionalexpr    ::= EQ expr:expr
                     RESULT = OptionalExpr.hidden();
                 :};
 
-methoddecl      ::= returntype:returnType ID:id LEFT_PARENTHESIS argdecllist:argDeclList RIGHT_PARENTHESIS LEFT_BRACKET
+methoddecl      ::= type:type ID:id LEFT_PARENTHESIS argdecllist:argDeclList RIGHT_PARENTHESIS LEFT_BRACKET
                     fielddecls:fieldDecls stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
                 {:
                     RESULT = MethodDecl.builder()
-                                .returnType(returnType)
+                                .returnType(ReturnType.withType(type))
                                 .id(id)
                                 .argDecls(ArgDecls.of(argDeclList))
                                 .fieldDecls(fieldDecls)
@@ -200,11 +201,23 @@ methoddecl      ::= returntype:returnType ID:id LEFT_PARENTHESIS argdecllist:arg
                                 .optionalSemi(optionalSemi)
                                 .build();
                 :}
-                |   returntype:returnType ID:id LEFT_PARENTHESIS RIGHT_PARENTHESIS LEFT_BRACKET
+                |   VOID ID:id LEFT_PARENTHESIS argdecllist:argDeclList RIGHT_PARENTHESIS LEFT_BRACKET
                     fielddecls:fieldDecls stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
                 {:
                     RESULT = MethodDecl.builder()
-                                .returnType(returnType)
+                                .returnType(ReturnType.withoutType())
+                                .id(id)
+                                .argDecls(ArgDecls.of(argDeclList))
+                                .fieldDecls(fieldDecls)
+                                .stmts(stmts)
+                                .optionalSemi(optionalSemi)
+                                .build();
+                :}
+                |   type:type ID:id LEFT_PARENTHESIS RIGHT_PARENTHESIS LEFT_BRACKET
+                    fielddecls:fieldDecls stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
+                {:
+                    RESULT = MethodDecl.builder()
+                                .returnType(ReturnType.withType(type))
                                 .id(id)
                                 .argDecls(ArgDecls.empty())
                                 .fieldDecls(fieldDecls)
@@ -212,22 +225,56 @@ methoddecl      ::= returntype:returnType ID:id LEFT_PARENTHESIS argdecllist:arg
                                 .optionalSemi(optionalSemi)
                                 .build();
                 :}
-                |   returntype:returnType ID:id LEFT_PARENTHESIS argdecllist:argDeclList RIGHT_PARENTHESIS LEFT_BRACKET
+                |   VOID ID:id LEFT_PARENTHESIS RIGHT_PARENTHESIS LEFT_BRACKET
+                    fielddecls:fieldDecls stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
+                {:
+                    RESULT = MethodDecl.builder()
+                                .returnType(ReturnType.withoutType())
+                                .id(id)
+                                .argDecls(ArgDecls.empty())
+                                .fieldDecls(fieldDecls)
+                                .stmts(stmts)
+                                .optionalSemi(optionalSemi)
+                                .build();
+                :}
+                |   type:type ID:id LEFT_PARENTHESIS argdecllist:argDeclList RIGHT_PARENTHESIS LEFT_BRACKET
                     stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
                 {:
                     RESULT = MethodDecl.builder()
-                                .returnType(returnType)
+                                .returnType(ReturnType.withType(type))
                                 .id(id)
                                 .argDecls(ArgDecls.of(argDeclList))
                                 .stmts(stmts)
                                 .optionalSemi(optionalSemi)
                                 .build();
                 :}
-                |   returntype:returnType ID:id LEFT_PARENTHESIS RIGHT_PARENTHESIS LEFT_BRACKET
+                |   VOID ID:id LEFT_PARENTHESIS argdecllist:argDeclList RIGHT_PARENTHESIS LEFT_BRACKET
                     stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
                 {:
                     RESULT = MethodDecl.builder()
-                                .returnType(returnType)
+                                .returnType(ReturnType.withoutType())
+                                .id(id)
+                                .argDecls(ArgDecls.of(argDeclList))
+                                .stmts(stmts)
+                                .optionalSemi(optionalSemi)
+                                .build();
+                :}
+                |   type:type ID:id LEFT_PARENTHESIS RIGHT_PARENTHESIS LEFT_BRACKET
+                    stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
+                {:
+                    RESULT = MethodDecl.builder()
+                                .returnType(ReturnType.withType(type))
+                                .id(id)
+                                .argDecls(ArgDecls.empty())
+                                .stmts(stmts)
+                                .optionalSemi(optionalSemi)
+                                .build();
+                :}
+                |   VOID ID:id LEFT_PARENTHESIS RIGHT_PARENTHESIS LEFT_BRACKET
+                    stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
+                {:
+                    RESULT = MethodDecl.builder()
+                                .returnType(ReturnType.withoutType())
                                 .id(id)
                                 .argDecls(ArgDecls.empty())
                                 .stmts(stmts)
@@ -242,15 +289,6 @@ optionalsemi    ::= SEMI
                 |
                 {:
                     RESULT = OptionalLexeme.hidden();
-                :};
-
-returntype      ::= type:type
-                {:
-                    RESULT = ReturnType.withType(type);
-                :}
-                |   VOID
-                {:
-                    RESULT = ReturnType.withoutType();
                 :};
 
 type            ::= INT_PRIMITIVE
@@ -282,18 +320,18 @@ argdecllist     ::= argdecl:argDecl PARAMETER_SEPARATOR argdecllist:argDeclList
                     RESULT = ArgDeclList.builder().build();
                 :};
 
-argdecl         ::= type:type ID:id
+argdecl         ::= typeid:typeId
                 {:
                     RESULT = RegularArgDecl.builder()
-                                .type(type)
-                                .id(id)
+                                .type(typeId.getType())
+                                .id(typeId.getId())
                                 .build();
                 :}
-                |   type:type ID:id LEFT_SQUARE_PARENTHESIS RIGHT_SQUARE_PARENTHESIS
+                |   typeid:typeId LEFT_SQUARE_PARENTHESIS RIGHT_SQUARE_PARENTHESIS
                 {:
                     RESULT = ArrayArgDecl.builder()
-                                .type(type)
-                                .id(id)
+                                .type(typeId.getType())
+                                .id(typeId.getId())
                                 .build();
                 :};
 
@@ -563,4 +601,9 @@ binaryop        ::= TIMES
                 |   DOUBLE_AND
                 {:
                     RESULT = Lexeme.of("&&");
+                :};
+
+typeid          ::= type:type ID:id
+                {:
+                    RESULT = TypeId.of(type, id);
                 :};
