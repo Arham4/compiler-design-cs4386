@@ -34,6 +34,8 @@ terminal GREATER_THAN_OR_EQUAL_TO;
 terminal EQUAL_TO;
 terminal NOT_EQUAL_TO;
 terminal NOT;
+terminal UPLUS;
+terminal UMINUS;
 terminal TERNARY_IF;
 terminal TERNARY_ELSE;
 terminal PARAMETER_SEPARATOR;
@@ -90,7 +92,7 @@ precedence left EQUAL_TO, NOT_EQUAL_TO;
 precedence nonassoc LESS_THAN, LESS_THAN_OR_EQUAL_TO, GREATER_THAN, GREATER_THAN_OR_EQUAL_TO;
 precedence left PLUS, MINUS;
 precedence left TIMES, DIVIDE;
-precedence right NOT;
+precedence right NOT, UPLUS, UMINUS;
 precedence nonassoc DOUBLE_PLUS, DOUBLE_MINUS;
 precedence left LEFT_SQUARE_PARENTHESIS, RIGHT_SQUARE_PARENTHESIS, LEFT_PARENTHESIS, RIGHT_PARENTHESIS;
 
@@ -496,11 +498,11 @@ expr            ::= name:name
                 |   MINUS expr:expr
                 {:
                     RESULT = Expr.minus(expr);
-                :}
+                :} %prec UMINUS
                 |   PLUS expr:expr
                 {:
                     RESULT = Expr.plus(expr);
-                :}
+                :} %prec UPLUS
                 |   LEFT_PARENTHESIS type:type RIGHT_PARENTHESIS expr:expr
                 {:
                     RESULT = Expr.casting(type, expr);
