@@ -72,7 +72,6 @@ nonterminal MethodDecl methoddecl;
 nonterminal ArgDecl argdecl;
 nonterminal Stmt stmt;
 
-nonterminal OptionalLexeme optionalfinal;
 nonterminal OptionalExpr optionalexpr;
 nonterminal OptionalLexeme optionalsemi;
 
@@ -120,7 +119,9 @@ fielddecls      ::= fielddecl:fieldDecl fielddecls:fieldDecls
                                 .build();
                 :}
                 |
-                {:  RESULT = FieldDecls.builder().build();  :};
+                {:
+                    RESULT = FieldDecls.builder().build();
+                :};
 
 methoddecls     ::= methoddecl:methodDecl methoddecls:methodDecls
                 {:
@@ -134,12 +135,21 @@ methoddecls     ::= methoddecl:methodDecl methoddecls:methodDecls
                     RESULT = MethodDecls.builder().build();
                 :};
 
-fielddecl       ::= optionalfinal:optionalFinal type:type ID:id optionalexpr:optionalExpr SEMI
+fielddecl       ::= FINAL type:type ID:id optionalexpr:optionalExpr SEMI
                 {:
                     RESULT = ExpressionFieldDecl.builder()
                                 .type(type)
                                 .id(id)
-                                .optionalFinal(optionalFinal)
+                                .optionalFinal(OptionalLexeme.shown(Lexeme.of("final")))
+                                .optionalExpr(optionalExpr)
+                                .build();
+                :}
+                |   type:type ID:id optionalexpr:optionalExpr SEMI
+                {:
+                    RESULT = ExpressionFieldDecl.builder()
+                                .type(type)
+                                .id(id)
+                                .optionalFinal(OptionalLexeme.hidden())
                                 .optionalExpr(optionalExpr)
                                 .build();
                 :}
@@ -150,15 +160,6 @@ fielddecl       ::= optionalfinal:optionalFinal type:type ID:id optionalexpr:opt
                                 .id(id)
                                 .size(size)
                                 .build();
-                :};
-
-optionalfinal   ::= FINAL
-                {:
-                    RESULT = OptionalLexeme.shown(Lexeme.of("final"));
-                :}
-                |
-                {:
-                    RESULT = OptionalLexeme.hidden();
                 :};
 
 optionalexpr    ::= EQ expr:expr
