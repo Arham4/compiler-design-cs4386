@@ -7,8 +7,19 @@ class testClass
 
 	void testNestedIfs()
 	{
-		if (true) {
-		    x = 23;
-		}
+		if (true)
+			if (~true)
+				if (false)
+					read(x);
+				else
+					if (yes == false)
+						print(2.0);
+					else
+						x = 23;
+			else
+				y = 37;
+
+		return ;
+
 	}
 }

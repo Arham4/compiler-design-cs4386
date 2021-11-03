@@ -35,6 +35,6 @@ public final class Stmts implements NonTerminalToken {
         if (stmt == null || stmts == null) {
             return "";
         }
-        return stmt.asString(tabs) + "\n" + stmts.asString(tabs);
+        return StringHelper.withTabs(tabs, stmt.asString(tabs) + "\n") + stmts.asString(tabs);
     }
 }
