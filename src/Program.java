@@ -35,6 +35,6 @@ public final class Program implements NonTerminalToken {
 
     @Override
     public String asString(int tabs) {
-        return StringHelper.withTabs(tabs, "class " + id + " {\n" + memberDecls.asString(tabs + 1) + "\n}");
+        return StringHelper.withTabs(tabs, "class " + id + " {\n" + memberDecls.asString(tabs + 1) + "}");
     }
 }
