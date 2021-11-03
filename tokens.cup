@@ -96,6 +96,7 @@ precedence left TIMES, DIVIDE;
 precedence right NOT, UPLUS, UMINUS;
 precedence nonassoc DOUBLE_PLUS, DOUBLE_MINUS;
 precedence left LEFT_SQUARE_PARENTHESIS, RIGHT_SQUARE_PARENTHESIS, LEFT_PARENTHESIS, RIGHT_PARENTHESIS;
+precedence left ELSE;
 
 program         ::= CLASS ID:id LEFT_BRACKET memberdecls:memberDecls RIGHT_BRACKET
                 {:
@@ -351,20 +352,20 @@ stmts           ::= stmt:stmt stmts:stmts
                     RESULT = Stmts.builder().build();
                 :};
 
-stmt            ::= IF LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:ifStmt ELSE stmt:elseStmt
-                {:
-                    RESULT = IfStmt.builder()
-                                .expr(expr)
-                                .stmt(ifStmt)
-                                .ifEnd(IfEnd.withStmt(elseStmt))
-                                .build();
-                :}
-                |   IF LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:stmt
+stmt            ::= IF LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:stmt
                 {:
                     RESULT = IfStmt.builder()
                                 .expr(expr)
                                 .stmt(stmt)
                                 .ifEnd(IfEnd.end())
+                                .build();
+                :}
+                |   IF LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:ifStmt ELSE stmt:elseStmt
+                {:
+                    RESULT = IfStmt.builder()
+                                .expr(expr)
+                                .stmt(ifStmt)
+                                .ifEnd(IfEnd.withStmt(elseStmt))
                                 .build();
                 :}
                 |   WHILE LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:stmt

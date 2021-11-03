@@ -41,8 +41,8 @@ public final class BodyStmt implements Stmt {
     @Override
     public String asString(int tabs) {
         return "{\n"
-                + (fieldDecls == null ? "" : fieldDecls.asString(tabs + 1) + "\n")
-                + stmts.asString(tabs + 1)  + "\n"
+                + (fieldDecls == null ? "" : StringHelper.withTabs(tabs + 1, fieldDecls.asString(tabs + 1)))
+                + StringHelper.withTabs(tabs + 1, stmts.asString(tabs + 1))
                 + StringHelper.withTabs(tabs, "}" + optionalSemi.asString(tabs));
     }
 }

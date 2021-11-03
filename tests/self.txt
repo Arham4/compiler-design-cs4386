@@ -1,3 +1,15 @@
-class Test {
-    int test;
+class testClass
+{
+	int testInt;
+	bool testBool;
+	char testChar;
+	float testFloat;
+
+	void test() {
+		if (true) {
+		    return;
+		} else {
+		    return;
+		}
+	}
 }
