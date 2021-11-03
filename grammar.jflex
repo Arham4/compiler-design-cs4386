@@ -109,7 +109,7 @@ print		           { return newSym(sym.PRINT, "print"); }
 "if"               { return newSym(sym.IF, "if"); }
 "while"            { return newSym(sym.WHILE, "while"); }
 "return"           { return newSym(sym.RETURN, "return"); }
-"void"           { return newSym(sym.RETURN, "void"); }
+"void"           { return newSym(sym.VOID, "void"); }
 "final"            { return newSym(sym.FINAL, "final"); }
 "int"              { return newSym(sym.INT_PRIMITIVE, "int"); }
 "char"             { return newSym(sym.CHAR_PRIMITIVE, "char"); }
