@@ -1,9 +1,7 @@
 *.class
-ExampleLexer.java
+Grammar.java
 parser.java
 sym.java
 *-output.txt
 Makefile
 .idea/
-out/
-bin/
