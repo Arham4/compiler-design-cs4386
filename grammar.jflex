@@ -65,7 +65,7 @@ intlit	         = {digit}+
 charlit          = '({char}|{char_exceptions})'
 strlit           = \"({char}|{str_exceptions})*\"
 floatlit         = {digit}+{period}{digit}+
-inlinecomment    = {slash}{slash}.*\n
+inlinecomment 	= {slash}{slash}.*(\n|\r|\r\n)
 whitespace       = [ \n\t\r]
 multilinecomment = {slash}{asterisk}(([^*\\]|[^\\][*]|[\\][^*])*{whitespace}*){asterisk}{slash}
 
