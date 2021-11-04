@@ -32,9 +32,6 @@ public final class ArgDeclList implements NonTerminalToken {
 
     @Override
     public String asString(int tabs) {
-        if (argDecl == null || argDeclList == null) {
-            return "";
-        }
-        return argDecl.asString(tabs) + ", " + argDeclList.asString(tabs);
+        return argDecl.asString(tabs) + (argDeclList == null ? "" : ", " + argDeclList.asString(tabs));
     }
 }

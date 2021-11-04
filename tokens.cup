@@ -319,9 +319,11 @@ argdecllist     ::= argdecl:argDecl PARAMETER_SEPARATOR argdecllist:argDeclList
                                 .argDeclList(argDeclList)
                                 .build();
                 :}
-                |
+                | argdecl:argDecl
                 {:
-                    RESULT = ArgDeclList.builder().build();
+                    RESULT = ArgDeclList.builder()
+                                .argDecl(argDecl)
+                                .build();
                 :};
 
 argdecl         ::= typeid:typeId
