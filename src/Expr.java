@@ -16,7 +16,7 @@ public interface Expr extends NonTerminalToken {
     }
 
     static Expr charlit(String character) {
-        return tabs -> "'" + StringHelper.escapeJava(character.charAt(0) + "") + "'";
+        return tabs -> character;
     }
 
     static Expr strlit(String string) {

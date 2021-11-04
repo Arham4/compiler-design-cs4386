@@ -13,8 +13,4 @@ public final class StringHelper {
     public static String withTabs(int tabs, String text) {
         return tabs(tabs) + text;
     }
-
-    public static String escapeJava(String text) {
-        return text.replace("'", "\\'");
-    }
 }
