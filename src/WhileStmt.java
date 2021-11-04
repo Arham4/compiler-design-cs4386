@@ -32,9 +32,6 @@ public final class WhileStmt implements Stmt {
 
     @Override
     public String asString(String prefix, int tabs) {
-        System.out.println("tabs = " + tabs);
-        System.out.println("expr = " + expr.asString(tabs));
-        System.out.println("stmt = " + stmt);
         if (stmt instanceof BodyStmt) {
             return prefix + "while (" + expr.asString(tabs) + ") " + stmt.asString("", tabs);
         } else {
