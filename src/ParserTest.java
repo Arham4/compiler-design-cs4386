@@ -1,10 +1,11 @@
 import java.io.*;
 import java_cup.runtime.*;
+import tokens.Program;
 
 public class ParserTest {
 
     public static void main(String[] args) throws Exception {
-        Reader reader = null;
+        Reader reader;
         if (args.length == 1) {
             File input = new File(args[0]);
             if (!input.canRead()) {

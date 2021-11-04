@@ -54,35 +54,35 @@ terminal double FLOATLIT;
 terminal boolean BOOL_TRUE;
 terminal boolean BOOL_FALSE;
 
-nonterminal Program program;
+nonterminal tokens.Program program;
 
-nonterminal MemberDecls memberdecls;
-nonterminal FieldDecls fielddecls;
-nonterminal MethodDecls methoddecls;
-nonterminal ArgDecls argdecls;
-nonterminal Stmts stmts;
-nonterminal Args args;
-nonterminal ReadList readlist;
-nonterminal PrintList printlist;
-nonterminal PrintLineList printlinelist;
+nonterminal tokens.MemberDecls memberdecls;
+nonterminal tokens.fields.FieldDecls fielddecls;
+nonterminal tokens.methods.MethodDecls methoddecls;
+nonterminal tokens.methods.args.argdecls.ArgDecls argdecls;
+nonterminal tokens.stmts.Stmts stmts;
+nonterminal tokens.methods.args.Args args;
+nonterminal tokens.methods.args.ReadList readlist;
+nonterminal tokens.methods.args.PrintList printlist;
+nonterminal tokens.methods.args.PrintLineList printlinelist;
 
-nonterminal ArgDeclList argdecllist;
+nonterminal tokens.methods.args.argdecls.ArgDeclList argdecllist;
 
-nonterminal FieldDecl fielddecl;
-nonterminal MethodDecl methoddecl;
-nonterminal ArgDecl argdecl;
-nonterminal Stmt stmt;
+nonterminal tokens.fields.FieldDecl fielddecl;
+nonterminal tokens.methods.MethodDecl methoddecl;
+nonterminal tokens.methods.args.argdecls.ArgDecl argdecl;
+nonterminal tokens.stmts.Stmt stmt;
 
-nonterminal OptionalExpr optionalexpr;
-nonterminal OptionalLexeme optionalsemi;
+nonterminal tokens.expr.OptionalExpr optionalexpr;
+nonterminal tokens.lexeme.OptionalLexeme optionalsemi;
 
-nonterminal ReturnType returntype;
-nonterminal Lexeme type;
+nonterminal tokens.methods.ReturnType returntype;
+nonterminal tokens.lexeme.Lexeme type;
 
-nonterminal Name name;
-nonterminal Expr expr;
-nonterminal Lexeme binaryop;
-nonterminal TypeId typeid;
+nonterminal tokens.id.Name name;
+nonterminal tokens.expr.Expr expr;
+nonterminal tokens.lexeme.Lexeme binaryop;
+nonterminal tokens.id.TypeId typeid;
 
 precedence right ASSMNT;
 precedence right TERNARY_IF, TERNARY_ELSE;
@@ -99,7 +99,7 @@ precedence left ELSE;
 
 program         ::= CLASS ID:id LEFT_BRACKET memberdecls:memberDecls RIGHT_BRACKET
                 {:
-                    RESULT = Program.builder()
+                    RESULT = tokens.Program.builder()
                                 .id(id)
                                 .memberDecls(memberDecls)
                                 .build();
@@ -107,77 +107,77 @@ program         ::= CLASS ID:id LEFT_BRACKET memberdecls:memberDecls RIGHT_BRACK
 
 memberdecls     ::= fielddecls:fieldDecls methoddecls:methodDecls
                 {:
-                    RESULT = MemberDecls.builder()
+                    RESULT = tokens.MemberDecls.builder()
                                 .fieldDecls(fieldDecls)
                                 .methodDecls(methodDecls)
                                 .build();
                 :}
                 |   fielddecls:fieldDecls
                 {:
-                    RESULT = MemberDecls.builder()
+                    RESULT = tokens.MemberDecls.builder()
                                 .fieldDecls(fieldDecls)
                                 .build();
                 :}
                 |   methoddecls:methodDecls
                 {:
-                    RESULT = MemberDecls.builder()
+                    RESULT = tokens.MemberDecls.builder()
                                 .methodDecls(methodDecls)
                                 .build();
                 :}
                 |
                 {:
-                    RESULT = MemberDecls.builder().build();
+                    RESULT = tokens.MemberDecls.builder().build();
                 :};
 
 fielddecls      ::= fielddecls:fieldDecls fielddecl:fieldDecl
                 {:
-                    RESULT = FieldDecls.builder()
+                    RESULT = tokens.fields.FieldDecls.builder()
                                 .fieldDecl(fieldDecl)
                                 .fieldDecls(fieldDecls)
                                 .build();
                 :}
                 |   fielddecl:fieldDecl
                 {:
-                    RESULT = FieldDecls.builder()
+                    RESULT = tokens.fields.FieldDecls.builder()
                                 .fieldDecl(fieldDecl)
                                 .build();
                 :};
 
 methoddecls     ::= methoddecls:methodDecls methoddecl:methodDecl
                 {:
-                    RESULT = MethodDecls.builder()
+                    RESULT = tokens.methods.MethodDecls.builder()
                                 .methodDecl(methodDecl)
                                 .methodDecls(methodDecls)
                                 .build();
                 :}
                 | methoddecl:methodDecl
                 {:
-                    RESULT = MethodDecls.builder()
+                    RESULT = tokens.methods.MethodDecls.builder()
                                 .methodDecl(methodDecl)
                                 .build();
                 :};
 
 fielddecl       ::= FINAL typeid:typeId optionalexpr:optionalExpr SEMI
                 {:
-                    RESULT = ExpressionFieldDecl.builder()
+                    RESULT = tokens.fields.ExpressionFieldDecl.builder()
                                 .type(typeId.getType())
                                 .id(typeId.getId())
-                                .optionalFinal(OptionalLexeme.shown(Lexeme.of("final")))
+                                .optionalFinal(tokens.lexeme.OptionalLexeme.shown(tokens.lexeme.Lexeme.of("final")))
                                 .optionalExpr(optionalExpr)
                                 .build();
                 :}
                 |   typeid:typeId optionalexpr:optionalExpr SEMI
                 {:
-                    RESULT = ExpressionFieldDecl.builder()
+                    RESULT = tokens.fields.ExpressionFieldDecl.builder()
                                 .type(typeId.getType())
                                 .id(typeId.getId())
-                                .optionalFinal(OptionalLexeme.hidden())
+                                .optionalFinal(tokens.lexeme.OptionalLexeme.hidden())
                                 .optionalExpr(optionalExpr)
                                 .build();
                 :}
                 |   typeid:typeId LEFT_SQUARE_PARENTHESIS INTLIT:size RIGHT_SQUARE_PARENTHESIS SEMI
                 {:
-                    RESULT = ArrayFieldDecl.builder()
+                    RESULT = tokens.fields.ArrayFieldDecl.builder()
                                 .type(typeId.getType())
                                 .id(typeId.getId())
                                 .size(size)
@@ -186,20 +186,20 @@ fielddecl       ::= FINAL typeid:typeId optionalexpr:optionalExpr SEMI
 
 optionalexpr    ::= ASSMNT expr:expr
                 {:
-                    RESULT = OptionalExpr.shownExpr(expr);
+                    RESULT = tokens.expr.OptionalExpr.shownExpr(expr);
                 :}
                 |
                 {:
-                    RESULT = OptionalExpr.hidden();
+                    RESULT = tokens.expr.OptionalExpr.hidden();
                 :};
 
 methoddecl      ::= typeid:typeId LEFT_PARENTHESIS argdecllist:argDeclList RIGHT_PARENTHESIS LEFT_BRACKET
                     fielddecls:fieldDecls stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
                 {:
-                    RESULT = MethodDecl.builder()
-                                .returnType(ReturnType.withType(typeId.getType()))
+                    RESULT = tokens.methods.MethodDecl.builder()
+                                .returnType(tokens.methods.ReturnType.withType(typeId.getType()))
                                 .id(typeId.getId())
-                                .argDecls(ArgDecls.of(argDeclList))
+                                .argDecls(tokens.methods.args.argdecls.ArgDecls.of(argDeclList))
                                 .fieldDecls(fieldDecls)
                                 .stmts(stmts)
                                 .optionalSemi(optionalSemi)
@@ -208,10 +208,10 @@ methoddecl      ::= typeid:typeId LEFT_PARENTHESIS argdecllist:argDeclList RIGHT
                 |   VOID ID:id LEFT_PARENTHESIS argdecllist:argDeclList RIGHT_PARENTHESIS LEFT_BRACKET
                     fielddecls:fieldDecls stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
                 {:
-                    RESULT = MethodDecl.builder()
-                                .returnType(ReturnType.withoutType())
+                    RESULT = tokens.methods.MethodDecl.builder()
+                                .returnType(tokens.methods.ReturnType.withoutType())
                                 .id(id)
-                                .argDecls(ArgDecls.of(argDeclList))
+                                .argDecls(tokens.methods.args.argdecls.ArgDecls.of(argDeclList))
                                 .fieldDecls(fieldDecls)
                                 .stmts(stmts)
                                 .optionalSemi(optionalSemi)
@@ -220,10 +220,10 @@ methoddecl      ::= typeid:typeId LEFT_PARENTHESIS argdecllist:argDeclList RIGHT
                 |   typeid:typeId LEFT_PARENTHESIS RIGHT_PARENTHESIS LEFT_BRACKET
                     fielddecls:fieldDecls stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
                 {:
-                    RESULT = MethodDecl.builder()
-                                .returnType(ReturnType.withType(typeId.getType()))
+                    RESULT = tokens.methods.MethodDecl.builder()
+                                .returnType(tokens.methods.ReturnType.withType(typeId.getType()))
                                 .id(typeId.getId())
-                                .argDecls(ArgDecls.empty())
+                                .argDecls(tokens.methods.args.argdecls.ArgDecls.empty())
                                 .fieldDecls(fieldDecls)
                                 .stmts(stmts)
                                 .optionalSemi(optionalSemi)
@@ -232,10 +232,10 @@ methoddecl      ::= typeid:typeId LEFT_PARENTHESIS argdecllist:argDeclList RIGHT
                 |   VOID ID:id LEFT_PARENTHESIS RIGHT_PARENTHESIS LEFT_BRACKET
                     fielddecls:fieldDecls stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
                 {:
-                    RESULT = MethodDecl.builder()
-                                .returnType(ReturnType.withoutType())
+                    RESULT = tokens.methods.MethodDecl.builder()
+                                .returnType(tokens.methods.ReturnType.withoutType())
                                 .id(id)
-                                .argDecls(ArgDecls.empty())
+                                .argDecls(tokens.methods.args.argdecls.ArgDecls.empty())
                                 .fieldDecls(fieldDecls)
                                 .stmts(stmts)
                                 .optionalSemi(optionalSemi)
@@ -244,10 +244,10 @@ methoddecl      ::= typeid:typeId LEFT_PARENTHESIS argdecllist:argDeclList RIGHT
                 |   typeid:typeId LEFT_PARENTHESIS argdecllist:argDeclList RIGHT_PARENTHESIS LEFT_BRACKET
                     stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
                 {:
-                    RESULT = MethodDecl.builder()
-                                .returnType(ReturnType.withType(typeId.getType()))
+                    RESULT = tokens.methods.MethodDecl.builder()
+                                .returnType(tokens.methods.ReturnType.withType(typeId.getType()))
                                 .id(typeId.getId())
-                                .argDecls(ArgDecls.of(argDeclList))
+                                .argDecls(tokens.methods.args.argdecls.ArgDecls.of(argDeclList))
                                 .stmts(stmts)
                                 .optionalSemi(optionalSemi)
                                 .build();
@@ -255,10 +255,10 @@ methoddecl      ::= typeid:typeId LEFT_PARENTHESIS argdecllist:argDeclList RIGHT
                 |   VOID ID:id LEFT_PARENTHESIS argdecllist:argDeclList RIGHT_PARENTHESIS LEFT_BRACKET
                     stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
                 {:
-                    RESULT = MethodDecl.builder()
-                                .returnType(ReturnType.withoutType())
+                    RESULT = tokens.methods.MethodDecl.builder()
+                                .returnType(tokens.methods.ReturnType.withoutType())
                                 .id(id)
-                                .argDecls(ArgDecls.of(argDeclList))
+                                .argDecls(tokens.methods.args.argdecls.ArgDecls.of(argDeclList))
                                 .stmts(stmts)
                                 .optionalSemi(optionalSemi)
                                 .build();
@@ -266,10 +266,10 @@ methoddecl      ::= typeid:typeId LEFT_PARENTHESIS argdecllist:argDeclList RIGHT
                 |   typeid:typeId LEFT_PARENTHESIS RIGHT_PARENTHESIS LEFT_BRACKET
                     stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
                 {:
-                    RESULT = MethodDecl.builder()
-                                .returnType(ReturnType.withType(typeId.getType()))
+                    RESULT = tokens.methods.MethodDecl.builder()
+                                .returnType(tokens.methods.ReturnType.withType(typeId.getType()))
                                 .id(typeId.getId())
-                                .argDecls(ArgDecls.empty())
+                                .argDecls(tokens.methods.args.argdecls.ArgDecls.empty())
                                 .stmts(stmts)
                                 .optionalSemi(optionalSemi)
                                 .build();
@@ -277,10 +277,10 @@ methoddecl      ::= typeid:typeId LEFT_PARENTHESIS argdecllist:argDeclList RIGHT
                 |   VOID ID:id LEFT_PARENTHESIS RIGHT_PARENTHESIS LEFT_BRACKET
                     stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
                 {:
-                    RESULT = MethodDecl.builder()
-                                .returnType(ReturnType.withoutType())
+                    RESULT = tokens.methods.MethodDecl.builder()
+                                .returnType(tokens.methods.ReturnType.withoutType())
                                 .id(id)
-                                .argDecls(ArgDecls.empty())
+                                .argDecls(tokens.methods.args.argdecls.ArgDecls.empty())
                                 .stmts(stmts)
                                 .optionalSemi(optionalSemi)
                                 .build();
@@ -288,54 +288,54 @@ methoddecl      ::= typeid:typeId LEFT_PARENTHESIS argdecllist:argDeclList RIGHT
 
 optionalsemi    ::= SEMI
                 {:
-                    RESULT = OptionalLexeme.shown(Lexeme.of(";"));
+                    RESULT = tokens.lexeme.OptionalLexeme.shown(tokens.lexeme.Lexeme.of(";"));
                 :}
                 |
                 {:
-                    RESULT = OptionalLexeme.hidden();
+                    RESULT = tokens.lexeme.OptionalLexeme.hidden();
                 :};
 
 type            ::= INT_PRIMITIVE
                 {:
-                    RESULT = Lexeme.of("int");
+                    RESULT = tokens.lexeme.Lexeme.of("int");
                 :}
                 |   CHAR_PRIMITIVE
                 {:
-                    RESULT = Lexeme.of("char");
+                    RESULT = tokens.lexeme.Lexeme.of("char");
                 :}
                 |   BOOL_PRIMITIVE
                 {:
-                    RESULT = Lexeme.of("bool");
+                    RESULT = tokens.lexeme.Lexeme.of("bool");
                 :}
                 |   FLOAT_PRIMITIVE
                 {:
-                    RESULT = Lexeme.of("float");
+                    RESULT = tokens.lexeme.Lexeme.of("float");
                 :};
 
 argdecllist     ::= argdecl:argDecl PARAMETER_SEPARATOR argdecllist:argDeclList
                 {:
-                    RESULT = ArgDeclList.builder()
+                    RESULT = tokens.methods.args.argdecls.ArgDeclList.builder()
                                 .argDecl(argDecl)
                                 .argDeclList(argDeclList)
                                 .build();
                 :}
                 | argdecl:argDecl
                 {:
-                    RESULT = ArgDeclList.builder()
+                    RESULT = tokens.methods.args.argdecls.ArgDeclList.builder()
                                 .argDecl(argDecl)
                                 .build();
                 :};
 
 argdecl         ::= typeid:typeId
                 {:
-                    RESULT = RegularArgDecl.builder()
+                    RESULT = tokens.methods.args.argdecls.RegularArgDecl.builder()
                                 .type(typeId.getType())
                                 .id(typeId.getId())
                                 .build();
                 :}
                 |   typeid:typeId LEFT_SQUARE_PARENTHESIS RIGHT_SQUARE_PARENTHESIS
                 {:
-                    RESULT = ArrayArgDecl.builder()
+                    RESULT = tokens.methods.args.argdecls.ArrayArgDecl.builder()
                                 .type(typeId.getType())
                                 .id(typeId.getId())
                                 .build();
@@ -343,85 +343,85 @@ argdecl         ::= typeid:typeId
 
 stmts           ::= stmt:stmt stmts:stmts
                 {:
-                    RESULT = Stmts.builder()
+                    RESULT = tokens.stmts.Stmts.builder()
                                 .stmt(stmt)
                                 .stmts(stmts)
                                 .build();
                 :}
                 |
                 {:
-                    RESULT = Stmts.builder().build();
+                    RESULT = tokens.stmts.Stmts.builder().build();
                 :};
 
 stmt            ::= IF LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:stmt
                 {:
-                    RESULT = IfStmt.builder()
+                    RESULT = tokens.stmts.IfStmt.builder()
                                 .expr(expr)
                                 .stmt(stmt)
-                                .ifEnd(IfEnd.end())
+                                .ifEnd(tokens.stmts.IfEnd.end())
                                 .build();
                 :}
                 |   IF LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:ifStmt ELSE stmt:elseStmt
                 {:
-                    RESULT = IfStmt.builder()
+                    RESULT = tokens.stmts.IfStmt.builder()
                                 .expr(expr)
                                 .stmt(ifStmt)
-                                .ifEnd(IfEnd.withStmt(elseStmt))
+                                .ifEnd(tokens.stmts.IfEnd.withStmt(elseStmt))
                                 .build();
                 :}
                 |   WHILE LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:stmt
                 {:
-                    RESULT = WhileStmt.builder()
+                    RESULT = tokens.stmts.WhileStmt.builder()
                                 .expr(expr)
                                 .stmt(stmt)
                                 .build();
                 :}
                 |   name:name ASSMNT expr:expr SEMI
                 {:
-                    RESULT = ReassignStmt.builder()
+                    RESULT = tokens.stmts.ReassignStmt.builder()
                                 .name(name)
                                 .expr(expr)
                                 .build();
                 :}
                 |   READ LEFT_PARENTHESIS readlist:readList RIGHT_PARENTHESIS SEMI
                 {:
-                    RESULT = ReadStmt.of(readList);
+                    RESULT = tokens.stmts.ReadStmt.of(readList);
                 :}
                 |   PRINT LEFT_PARENTHESIS printlist:printList RIGHT_PARENTHESIS SEMI
                 {:
-                    RESULT = PrintStmt.of(printList);
+                    RESULT = tokens.stmts.PrintStmt.of(printList);
                 :}
                 |   PRINTLINE LEFT_PARENTHESIS printlinelist:printLineList RIGHT_PARENTHESIS SEMI
                 {:
-                    RESULT = PrintLineStmt.of(printLineList);
+                    RESULT = tokens.stmts.PrintLineStmt.of(printLineList);
                 :}
                 |   ID:id LEFT_PARENTHESIS RIGHT_PARENTHESIS SEMI
                 {:
-                    RESULT = MethodInvocationStmt.blank(id);
+                    RESULT = tokens.stmts.MethodInvocationStmt.blank(id);
                 :}
                 |   ID:id LEFT_PARENTHESIS args:args RIGHT_PARENTHESIS SEMI
                 {:
-                    RESULT = MethodInvocationStmt.withArgs(id, args);
+                    RESULT = tokens.stmts.MethodInvocationStmt.withArgs(id, args);
                 :}
                 |   RETURN SEMI
                 {:
-                    RESULT = ReturnStmt.blank();
+                    RESULT = tokens.stmts.ReturnStmt.blank();
                 :}
                 |   RETURN expr:expr SEMI
                 {:
-                    RESULT = ReturnStmt.withExpr(expr);
+                    RESULT = tokens.stmts.ReturnStmt.withExpr(expr);
                 :}
                 |   name:name DOUBLE_PLUS SEMI
                 {:
-                    RESULT = IncrementStmt.withName(name);
+                    RESULT = tokens.stmts.IncrementStmt.withName(name);
                 :}
                 |   name:name DOUBLE_MINUS SEMI
                 {:
-                    RESULT = DecrementStmt.withName(name);
+                    RESULT = tokens.stmts.DecrementStmt.withName(name);
                 :}
                 |   LEFT_BRACKET fielddecls:fieldDecls stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
                 {:
-                    RESULT = BodyStmt.builder()
+                    RESULT = tokens.stmts.BodyStmt.builder()
                                 .fieldDecls(fieldDecls)
                                 .stmts(stmts)
                                 .optionalSemi(optionalSemi)
@@ -429,7 +429,7 @@ stmt            ::= IF LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:stmt
                 :}
                 |   LEFT_BRACKET stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
                 {:
-                    RESULT = BodyStmt.builder()
+                    RESULT = tokens.stmts.BodyStmt.builder()
                                 .stmts(stmts)
                                 .optionalSemi(optionalSemi)
                                 .build();
@@ -437,179 +437,179 @@ stmt            ::= IF LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:stmt
 
 name            ::= ID:id
                 {:
-                    RESULT = Name.simple(id);
+                    RESULT = tokens.id.Name.simple(id);
                 :}
                 |   ID:id LEFT_SQUARE_PARENTHESIS expr:expr RIGHT_SQUARE_PARENTHESIS
                 {:
-                    RESULT = Name.array(id, expr);
+                    RESULT = tokens.id.Name.array(id, expr);
                 :};
 
 args            ::= expr:expr PARAMETER_SEPARATOR args:args
                 {:
-                    RESULT = Args.builder()
+                    RESULT = tokens.methods.args.Args.builder()
                                 .expr(expr)
                                 .args(args)
                                 .build();
                 :}
                 |   expr:expr
                 {:
-                    RESULT = Args.builder()
+                    RESULT = tokens.methods.args.Args.builder()
                                 .expr(expr)
                                 .build();
                 :};
 
 readlist        ::= name:name PARAMETER_SEPARATOR readlist:readlist
                 {:
-                    RESULT = ReadList.builder()
+                    RESULT = tokens.methods.args.ReadList.builder()
                                 .name(name)
                                 .readList(readlist)
                                 .build();
                 :}
                 |   name:name
                 {:
-                    RESULT = ReadList.builder()
+                    RESULT = tokens.methods.args.ReadList.builder()
                                 .name(name)
                                 .build();
                 :};
 
 printlist       ::= expr:expr PARAMETER_SEPARATOR printlist:printList
                 {:
-                    RESULT = PrintList.builder()
+                    RESULT = tokens.methods.args.PrintList.builder()
                                 .expr(expr)
                                 .printList(printList)
                                 .build();
                 :}
                 |   expr:expr
                 {:
-                    RESULT = PrintList.builder()
+                    RESULT = tokens.methods.args.PrintList.builder()
                                 .expr(expr)
                                 .build();
                 :};
 
 printlinelist   ::= printlist:printList
                 {:
-                    RESULT = PrintLineList.withPrintList(printList);
+                    RESULT = tokens.methods.args.PrintLineList.withPrintList(printList);
                 :}
                 |
                 {:
-                    RESULT = PrintLineList.empty();
+                    RESULT = tokens.methods.args.PrintLineList.empty();
                 :};
 
 expr            ::= name:name
                 {:
-                    RESULT = Expr.simple(name);
+                    RESULT = tokens.expr.Expr.simple(name);
                 :}
                 |   ID:id LEFT_PARENTHESIS RIGHT_PARENTHESIS
                 {:
-                    RESULT = Expr.simpleInvocation(id);
+                    RESULT = tokens.expr.Expr.simpleInvocation(id);
                 :}
                 |   ID:id LEFT_PARENTHESIS args:args RIGHT_PARENTHESIS
                 {:
-                    RESULT = Expr.invocation(id, args);
+                    RESULT = tokens.expr.Expr.invocation(id, args);
                 :}
                 |   INTLIT:intlit
                 {:
-                    RESULT = Expr.intlit(intlit);
+                    RESULT = tokens.expr.Expr.intlit(intlit);
                 :}
                 |   CHARLIT:charlit
                 {:
-                    RESULT = Expr.charlit(charlit);
+                    RESULT = tokens.expr.Expr.charlit(charlit);
                 :}
                 |   STRLIT:strlit
                 {:
-                    RESULT = Expr.strlit(strlit);
+                    RESULT = tokens.expr.Expr.strlit(strlit);
                 :}
                 |   FLOATLIT:floatlit
                 {:
-                    RESULT = Expr.floatlit(floatlit);
+                    RESULT = tokens.expr.Expr.floatlit(floatlit);
                 :}
                 |   BOOL_TRUE
                 {:
-                    RESULT = Expr.boollit(true);
+                    RESULT = tokens.expr.Expr.boollit(true);
                 :}
                 |   BOOL_FALSE
                 {:
-                    RESULT = Expr.boollit(false);
+                    RESULT = tokens.expr.Expr.boollit(false);
                 :}
                 |   LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS
                 {:
-                    RESULT = Expr.parenthesized(expr);
+                    RESULT = tokens.expr.Expr.parenthesized(expr);
                 :}
                 |   NOT expr:expr
                 {:
-                    RESULT = Expr.not(expr);
+                    RESULT = tokens.expr.Expr.not(expr);
                 :}
                 |   MINUS expr:expr
                 {:
-                    RESULT = Expr.minus(expr);
+                    RESULT = tokens.expr.Expr.minus(expr);
                 :} %prec UMINUS
                 |   PLUS expr:expr
                 {:
-                    RESULT = Expr.plus(expr);
+                    RESULT = tokens.expr.Expr.plus(expr);
                 :} %prec UPLUS
                 |   LEFT_PARENTHESIS type:type RIGHT_PARENTHESIS expr:expr
                 {:
-                    RESULT = Expr.casting(type, expr);
+                    RESULT = tokens.expr.Expr.casting(type, expr);
                 :}
                 |   expr:expr1 binaryop:binaryOp expr:expr2
                 {:
-                    RESULT = Expr.binaryOp(expr1, binaryOp, expr2);
+                    RESULT = tokens.expr.Expr.binaryOp(expr1, binaryOp, expr2);
                 :}
                 |   LEFT_PARENTHESIS expr:expr TERNARY_IF expr:exprTrue TERNARY_ELSE expr:exprFalse RIGHT_PARENTHESIS
                 {:
-                    RESULT = Expr.ternary(expr, exprTrue, exprFalse);
+                    RESULT = tokens.expr.Expr.ternary(expr, exprTrue, exprFalse);
                 :};
 
 binaryop        ::= TIMES
                 {:
-                    RESULT = Lexeme.of("*");
+                    RESULT = tokens.lexeme.Lexeme.of("*");
                 :}
                 |   DIVIDE
                 {:
-                    RESULT = Lexeme.of("/");
+                    RESULT = tokens.lexeme.Lexeme.of("/");
                 :}
                 |   PLUS
                 {:
-                    RESULT = Lexeme.of("+");
+                    RESULT = tokens.lexeme.Lexeme.of("+");
                 :}
                 |   MINUS
                 {:
-                    RESULT = Lexeme.of("-");
+                    RESULT = tokens.lexeme.Lexeme.of("-");
                 :}
                 |   LESS_THAN
                 {:
-                    RESULT = Lexeme.of("<");
+                    RESULT = tokens.lexeme.Lexeme.of("<");
                 :}
                 |   GREATER_THAN
                 {:
-                    RESULT = Lexeme.of(">");
+                    RESULT = tokens.lexeme.Lexeme.of(">");
                 :}
                 |   LESS_THAN_OR_EQUAL_TO
                 {:
-                    RESULT = Lexeme.of("<=");
+                    RESULT = tokens.lexeme.Lexeme.of("<=");
                 :}
                 |   GREATER_THAN_OR_EQUAL_TO
                 {:
-                    RESULT = Lexeme.of(">=");
+                    RESULT = tokens.lexeme.Lexeme.of(">=");
                 :}
                 |   EQUAL_TO
                 {:
-                    RESULT = Lexeme.of("==");
+                    RESULT = tokens.lexeme.Lexeme.of("==");
                 :}
                 |   NOT_EQUAL_TO
                 {:
-                    RESULT = Lexeme.of("<>");
+                    RESULT = tokens.lexeme.Lexeme.of("<>");
                 :}
                 |   DOUBLE_OR
                 {:
-                    RESULT = Lexeme.of("||");
+                    RESULT = tokens.lexeme.Lexeme.of("||");
                 :}
                 |   DOUBLE_AND
                 {:
-                    RESULT = Lexeme.of("&&");
+                    RESULT = tokens.lexeme.Lexeme.of("&&");
                 :};
 
 typeid          ::= type:type ID:id
                 {:
-                    RESULT = TypeId.of(type, id);
+                    RESULT = tokens.id.TypeId.of(type, id);
                 :};
