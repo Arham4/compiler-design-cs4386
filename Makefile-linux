@@ -1,4 +1,4 @@
-TEST_FILE=lexTest
+TEST_FILE=test1.as
 TEST_FILES_DIR=./tests
 OUTPUT_FILES_DIR=.
 
