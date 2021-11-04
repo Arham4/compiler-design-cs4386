@@ -20,7 +20,7 @@ public interface Expr extends NonTerminalToken {
     }
 
     static Expr strlit(String string) {
-        return tabs -> "\"" + string + "\"";
+        return tabs -> string;
     }
 
     static Expr floatlit(double floatingPoint) {
