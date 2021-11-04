@@ -11,7 +11,7 @@ CUPJAR=.\libs\java-cup-11b.jar
 CUP=$(JAVA) -jar $(CUPJAR)
 
 SRC_FILES_DIR=src
-CLASS_FILES_DIR=.\out\production\project-1
+CLASS_FILES_DIR=.\out\production\project-2
 
 COMPILE_CP=$(SRC_FILES_DIR);$(CUPJAR)
 RUN_CP=$(CLASS_FILES_DIR);$(CUPJAR)
