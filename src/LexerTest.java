@@ -1,5 +1,6 @@
-import java.io.*;
-import java_cup.runtime.*;
+import java_cup.runtime.Symbol;
+
+import java.io.FileReader;
 
 public final class LexerTest {
     public static void main(String[] args) {

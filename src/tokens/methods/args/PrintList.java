@@ -1,7 +1,7 @@
 package tokens.methods.args;
 
-import tokens.expr.Expr;
 import tokens.NonTerminalToken;
+import tokens.expr.Expr;
 
 public final class PrintList implements NonTerminalToken {
     public static class Builder {

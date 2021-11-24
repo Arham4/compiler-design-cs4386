@@ -1,6 +1,5 @@
 package tokens.methods.args.argdecls;
 
-import tokens.lexeme.Lexeme;
 import tokens.lexeme.Type;
 
 public final class RegularArgDecl implements ArgDecl {

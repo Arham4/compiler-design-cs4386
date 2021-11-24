@@ -1,7 +1,7 @@
 package tokens.id;
 
-import tokens.expr.Expr;
 import tokens.NonTerminalToken;
+import tokens.expr.Expr;
 
 public interface Name extends NonTerminalToken {
     static Name simple(String id) {

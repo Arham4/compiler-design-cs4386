@@ -1,6 +1,5 @@
 package tokens.fields;
 
-import tokens.lexeme.Lexeme;
 import tokens.lexeme.Type;
 import type_checking.TypeCheckException;
 import utils.StringHelper;

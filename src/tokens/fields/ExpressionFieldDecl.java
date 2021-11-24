@@ -1,10 +1,8 @@
 package tokens.fields;
 
-import tokens.lexeme.Lexeme;
 import tokens.expr.OptionalExpr;
-import tokens.lexeme.Type;
-import tokens.lexeme.Types;
 import tokens.lexeme.OptionalLexeme;
+import tokens.lexeme.Type;
 import type_checking.TypeCheckException;
 
 public final class ExpressionFieldDecl implements FieldDecl {

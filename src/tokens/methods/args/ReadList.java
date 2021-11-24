@@ -1,7 +1,7 @@
 package tokens.methods.args;
 
-import tokens.id.Name;
 import tokens.NonTerminalToken;
+import tokens.id.Name;
 
 public final class ReadList implements NonTerminalToken {
     public static class Builder {

@@ -1,6 +1,6 @@
 package tokens.methods;
 
-import tokens.*;
+import tokens.NonTerminalToken;
 import tokens.fields.FieldDecls;
 import tokens.lexeme.OptionalLexeme;
 import tokens.methods.args.argdecls.ArgDecls;

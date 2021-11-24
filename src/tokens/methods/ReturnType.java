@@ -1,6 +1,5 @@
 package tokens.methods;
 
-import tokens.lexeme.Lexeme;
 import tokens.NonTerminalToken;
 import tokens.lexeme.Type;
 
