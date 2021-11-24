@@ -1,13 +1,14 @@
 package tokens.methods.args.argdecls;
 
 import tokens.lexeme.Lexeme;
+import tokens.lexeme.Type;
 
 public final class RegularArgDecl implements ArgDecl {
     public static class Builder {
-        private Lexeme type;
+        private Type type;
         private String id;
 
-        public Builder type(Lexeme type) {
+        public Builder type(Type type) {
             this.type = type;
             return this;
         }
@@ -26,10 +27,10 @@ public final class RegularArgDecl implements ArgDecl {
         return new Builder();
     }
 
-    private final Lexeme type;
+    private final Type type;
     private final String id;
 
-    public RegularArgDecl(Lexeme type, String id) {
+    public RegularArgDecl(Type type, String id) {
         this.type = type;
         this.id = id;
     }

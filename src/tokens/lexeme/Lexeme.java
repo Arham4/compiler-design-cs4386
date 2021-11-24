@@ -13,6 +13,10 @@ public final class Lexeme implements NonTerminalToken {
         this.lexeme = lexeme;
     }
 
+    public String getLexeme() {
+        return lexeme;
+    }
+
     @Override
     public String asString(int tabs) {
         return lexeme;

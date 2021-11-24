@@ -77,7 +77,7 @@ nonterminal tokens.expr.OptionalExpr optionalexpr;
 nonterminal tokens.lexeme.OptionalLexeme optionalsemi;
 
 nonterminal tokens.methods.ReturnType returntype;
-nonterminal tokens.lexeme.Lexeme type;
+nonterminal tokens.lexeme.Type type;
 
 nonterminal tokens.id.Name name;
 nonterminal tokens.expr.Expr expr;
@@ -297,19 +297,19 @@ optionalsemi    ::= SEMI
 
 type            ::= INT_PRIMITIVE
                 {:
-                    RESULT = tokens.lexeme.Lexeme.of("int");
+                    RESULT = tokens.lexeme.Types.INTLIT;
                 :}
                 |   CHAR_PRIMITIVE
                 {:
-                    RESULT = tokens.lexeme.Lexeme.of("char");
+                    RESULT = tokens.lexeme.Types.CHARLIT;
                 :}
                 |   BOOL_PRIMITIVE
                 {:
-                    RESULT = tokens.lexeme.Lexeme.of("bool");
+                    RESULT = tokens.lexeme.Types.BOOLLIT;
                 :}
                 |   FLOAT_PRIMITIVE
                 {:
-                    RESULT = tokens.lexeme.Lexeme.of("float");
+                    RESULT = tokens.lexeme.Types.FLOATLIT;
                 :};
 
 argdecllist     ::= argdecl:argDecl PARAMETER_SEPARATOR argdecllist:argDeclList

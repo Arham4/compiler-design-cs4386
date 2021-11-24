@@ -2,9 +2,10 @@ package tokens.methods;
 
 import tokens.lexeme.Lexeme;
 import tokens.NonTerminalToken;
+import tokens.lexeme.Type;
 
 public final class ReturnType implements NonTerminalToken {
-    public static ReturnType withType(Lexeme type) {
+    public static ReturnType withType(Type type) {
         return new ReturnType(type);
     }
 
@@ -12,9 +13,9 @@ public final class ReturnType implements NonTerminalToken {
         return new ReturnType(null);
     }
 
-    private final Lexeme type;
+    private final Type type;
 
-    private ReturnType(Lexeme type) {
+    private ReturnType(Type type) {
         this.type = type;
     }
 

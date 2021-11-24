@@ -3,6 +3,7 @@ package tokens.expr;
 import tokens.lexeme.Lexeme;
 import tokens.NonTerminalToken;
 import tokens.id.Name;
+import tokens.lexeme.Type;
 import tokens.methods.args.Args;
 
 public interface Expr extends NonTerminalToken {
@@ -54,7 +55,7 @@ public interface Expr extends NonTerminalToken {
         return tabs -> "+" + expr.asString(tabs);
     }
 
-    static Expr casting(Lexeme type, Expr expr) {
+    static Expr casting(Type type, Expr expr) {
         return tabs -> "(" + type.asString(tabs) + ") " + expr.asString(tabs);
     }
 

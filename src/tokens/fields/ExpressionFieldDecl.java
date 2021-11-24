@@ -2,17 +2,19 @@ package tokens.fields;
 
 import tokens.lexeme.Lexeme;
 import tokens.expr.OptionalExpr;
+import tokens.lexeme.Type;
+import tokens.lexeme.Types;
 import tokens.lexeme.OptionalLexeme;
 import type_checking.TypeCheckException;
 
 public final class ExpressionFieldDecl implements FieldDecl {
     public static final class Builder {
-        private Lexeme type;
+        private Type type;
         private String id;
         private OptionalLexeme optionalFinal;
         private OptionalExpr optionalExpr;
 
-        public Builder type(Lexeme type) {
+        public Builder type(Type type) {
             this.type = type;
             return this;
         }
@@ -41,12 +43,12 @@ public final class ExpressionFieldDecl implements FieldDecl {
         return new Builder();
     }
 
-    private final Lexeme type;
+    private final Type type;
     private final String id;
     private final OptionalLexeme optionalFinal;
     private final OptionalExpr optionalExpr;
 
-    private ExpressionFieldDecl(Lexeme type, String id, OptionalLexeme optionalFinal, OptionalExpr optionalExpr) {
+    private ExpressionFieldDecl(Type type, String id, OptionalLexeme optionalFinal, OptionalExpr optionalExpr) {
         this.type = type;
         this.id = id;
         this.optionalFinal = optionalFinal;
