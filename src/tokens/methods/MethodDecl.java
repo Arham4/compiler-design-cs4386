@@ -5,9 +5,11 @@ import tokens.fields.FieldDecls;
 import tokens.lexeme.OptionalLexeme;
 import tokens.methods.args.argdecls.ArgDecls;
 import tokens.stmts.Stmts;
+import type_checking.TypeCheckException;
+import type_checking.TypeCheckable;
 import utils.StringHelper;
 
-public final class MethodDecl implements NonTerminalToken {
+public final class MethodDecl implements NonTerminalToken, TypeCheckable {
     public static class Builder {
         private ReturnType returnType;
         private String id;
@@ -77,5 +79,10 @@ public final class MethodDecl implements NonTerminalToken {
                 + (fieldDecls == null ? "" : fieldDecls.asString(tabs + 1))
                 + (stmts.isShow() && fieldDecls != null ? "\n" : "") + stmts.asString(tabs + 1)
                 + StringHelper.withTabs(tabs, "}" + optionalSemi.asString(tabs));
+    }
+
+    @Override
+    public void typeCheck() throws TypeCheckException {
+        // TODO: 11/24/2021 Add type checking
     }
 }
