@@ -48,6 +48,7 @@ public final class MemberDecls implements NonTerminalToken, TypeCheckable {
 
     @Override
     public void typeCheck() throws TypeCheckException {
-        // TODO: 11/24/2021 Add type checking
+        fieldDecls.typeCheck();
+        methodDecls.typeCheck();
     }
 }

@@ -1,8 +1,10 @@
 package tokens.methods;
 
 import tokens.NonTerminalToken;
+import type_checking.TypeCheckException;
+import type_checking.TypeCheckable;
 
-public final class MethodDecls implements NonTerminalToken {
+public final class MethodDecls implements NonTerminalToken, TypeCheckable {
     public static final class Builder {
         private MethodDecl methodDecl = null;
         private MethodDecls methodDecls = null;
@@ -37,5 +39,10 @@ public final class MethodDecls implements NonTerminalToken {
     @Override
     public String asString(int tabs) {
         return (methodDecls == null ? "" : methodDecls.asString(tabs) + "\n") + methodDecl.asString(tabs) + "\n";
+    }
+
+    @Override
+    public void typeCheck() throws TypeCheckException {
+        // TODO: 11/24/2021 Add type checking
     }
 }

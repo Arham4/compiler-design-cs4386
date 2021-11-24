@@ -1,9 +1,11 @@
 package tokens.fields;
 
 import tokens.NonTerminalToken;
+import type_checking.TypeCheckException;
+import type_checking.TypeCheckable;
 import utils.StringHelper;
 
-public final class FieldDecls implements NonTerminalToken {
+public final class FieldDecls implements NonTerminalToken, TypeCheckable {
     public static final class Builder {
         private FieldDecl fieldDecl = null;
         private FieldDecls fieldDecls = null;
@@ -38,5 +40,10 @@ public final class FieldDecls implements NonTerminalToken {
     @Override
     public String asString(int tabs) {
         return (fieldDecls == null ? "" : fieldDecls.asString(tabs)) + StringHelper.withTabs(tabs, fieldDecl.asString(tabs) + "\n");
+    }
+
+    @Override
+    public void typeCheck() throws TypeCheckException {
+        // TODO: 11/24/2021 Add type checking
     }
 }
