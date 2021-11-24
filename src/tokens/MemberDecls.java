@@ -2,8 +2,10 @@ package tokens;
 
 import tokens.fields.FieldDecls;
 import tokens.methods.MethodDecls;
+import type_checking.TypeCheckException;
+import type_checking.TypeCheckable;
 
-public final class MemberDecls implements NonTerminalToken {
+public final class MemberDecls implements NonTerminalToken, TypeCheckable {
     public static final class Builder {
         private FieldDecls fieldDecls;
         private MethodDecls methodDecls;
@@ -42,5 +44,10 @@ public final class MemberDecls implements NonTerminalToken {
     public String asString(int tabs) {
         return (fieldDecls == null ? "" : fieldDecls.asString(tabs))
                 + (methodDecls == null ? "" : (fieldDecls == null ? "" : "\n") + methodDecls.asString(tabs));
+    }
+
+    @Override
+    public void typeCheck() throws TypeCheckException {
+        // TODO: 11/24/2021 Add type checking
     }
 }

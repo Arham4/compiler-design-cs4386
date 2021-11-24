@@ -46,6 +46,6 @@ public final class Program implements NonTerminalToken, TypeCheckable {
 
     @Override
     public void typeCheck() throws TypeCheckException {
-        // TODO: 11/24/2021 Make type checks
+        memberDecls.typeCheck();
     }
 }
