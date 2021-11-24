@@ -1,69 +1,221 @@
 package tokens.expr;
 
-import tokens.lexeme.Lexeme;
 import tokens.NonTerminalToken;
 import tokens.id.Name;
+import tokens.lexeme.Lexeme;
 import tokens.lexeme.Type;
 import tokens.methods.args.Args;
+import type_checking.TypeCheckException;
+import type_checking.TypeCheckable;
 
-public interface Expr extends NonTerminalToken {
+public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
     static Expr simple(Name name) {
-        return name::asString;
+        return new Expr() {
+            @Override
+            public String asString(int tabs) {
+                return name.asString(tabs);
+            }
+
+            @Override
+            public Type typeCheck() throws TypeCheckException {
+                return null;
+            }
+        };
     }
 
     static Expr simpleInvocation(String id) {
-        return tabs -> id + "()";
+        return new Expr() {
+            @Override
+            public String asString(int tabs) {
+                return id + "()";
+            }
+
+            @Override
+            public Type typeCheck() throws TypeCheckException {
+                return null;
+            }
+        };
     }
 
     static Expr invocation(String id, Args args) {
-        return tabs -> id + "(" + args.asString(tabs) + ")";
+        return new Expr() {
+            @Override
+            public String asString(int tabs) {
+                return id + "(" + args.asString(tabs) + ")";
+            }
+
+            @Override
+            public Type typeCheck() throws TypeCheckException {
+                return null;
+            }
+        };
     }
 
     static Expr intlit(int integer) {
-        return tabs -> integer + "";
+        return new Expr() {
+            @Override
+            public String asString(int tabs) {
+                return integer + "";
+            }
+
+            @Override
+            public Type typeCheck() throws TypeCheckException {
+                return null;
+            }
+        };
     }
 
     static Expr charlit(String character) {
-        return tabs -> character;
+        return new Expr() {
+            @Override
+            public String asString(int tabs) {
+                return character;
+            }
+
+            @Override
+            public Type typeCheck() throws TypeCheckException {
+                return null;
+            }
+        };
     }
 
     static Expr strlit(String string) {
-        return tabs -> string;
+        return new Expr() {
+            @Override
+            public String asString(int tabs) {
+                return string;
+            }
+
+            @Override
+            public Type typeCheck() throws TypeCheckException {
+                return null;
+            }
+        };
     }
 
     static Expr floatlit(double floatingPoint) {
-        return tabs -> floatingPoint + "";
+        return new Expr() {
+            @Override
+            public String asString(int tabs) {
+                return floatingPoint + "";
+            }
+
+            @Override
+            public Type typeCheck() throws TypeCheckException {
+                return null;
+            }
+        };
     }
 
     static Expr boollit(boolean value) {
-        return tabs -> value + "";
+        return new Expr() {
+            @Override
+            public String asString(int tabs) {
+                return value + "";
+            }
+
+            @Override
+            public Type typeCheck() throws TypeCheckException {
+                return null;
+            }
+        };
     }
 
     static Expr parenthesized(Expr expr) {
-        return tabs -> "(" + expr.asString(tabs) + ")";
+        return new Expr() {
+            @Override
+            public String asString(int tabs) {
+                return "(" + expr.asString(tabs) + ")";
+            }
+
+            @Override
+            public Type typeCheck() throws TypeCheckException {
+                return null;
+            }
+        };
     }
 
     static Expr not(Expr expr) {
-        return tabs -> "~" + expr.asString(tabs);
+        return new Expr() {
+            @Override
+            public String asString(int tabs) {
+                return "~" + expr.asString(tabs);
+            }
+
+            @Override
+            public Type typeCheck() throws TypeCheckException {
+                return null;
+            }
+        };
     }
 
     static Expr minus(Expr expr) {
-        return tabs -> "-" + expr.asString(tabs);
+        return new Expr() {
+            @Override
+            public String asString(int tabs) {
+                return "-" + expr.asString(tabs);
+            }
+
+            @Override
+            public Type typeCheck() throws TypeCheckException {
+                return null;
+            }
+        };
     }
 
     static Expr plus(Expr expr) {
-        return tabs -> "+" + expr.asString(tabs);
+        return new Expr() {
+            @Override
+            public String asString(int tabs) {
+                return "+" + expr.asString(tabs);
+            }
+
+            @Override
+            public Type typeCheck() throws TypeCheckException {
+                return null;
+            }
+        };
     }
 
     static Expr casting(Type type, Expr expr) {
-        return tabs -> "(" + type.asString(tabs) + ") " + expr.asString(tabs);
+        return new Expr() {
+            @Override
+            public String asString(int tabs) {
+                return "(" + type.asString(tabs) + ") " + expr.asString(tabs);
+            }
+
+            @Override
+            public Type typeCheck() throws TypeCheckException {
+                return null;
+            }
+        };
     }
 
     static Expr binaryOp(Expr expr1, Lexeme binaryOp, Expr expr2) {
-        return tabs -> "(" + expr1.asString(tabs) + " " + binaryOp.asString(tabs) + " " + expr2.asString(tabs) + ")";
+        return new Expr() {
+            @Override
+            public String asString(int tabs) {
+                return "(" + expr1.asString(tabs) + " " + binaryOp.asString(tabs) + " " + expr2.asString(tabs) + ")";
+            }
+
+            @Override
+            public Type typeCheck() throws TypeCheckException {
+                return null;
+            }
+        };
     }
 
     static Expr ternary(Expr expr, Expr exprTrue, Expr exprFalse) {
-        return tabs -> "(" + expr.asString(tabs) + ") ? " + exprTrue.asString(tabs) + " : " + exprFalse.asString(tabs) + ")";
+        return new Expr() {
+            @Override
+            public String asString(int tabs) {
+                return "(" + expr.asString(tabs) + ") ? " + exprTrue.asString(tabs) + " : " + exprFalse.asString(tabs) + ")";
+            }
+
+            @Override
+            public Type typeCheck() throws TypeCheckException {
+                return null;
+            }
+        };
     }
 }

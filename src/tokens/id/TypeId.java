@@ -1,6 +1,5 @@
 package tokens.id;
 
-import tokens.lexeme.Lexeme;
 import tokens.lexeme.Type;
 
 public final class TypeId {

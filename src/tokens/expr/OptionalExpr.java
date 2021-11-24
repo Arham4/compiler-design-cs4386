@@ -1,8 +1,11 @@
 package tokens.expr;
 
 import tokens.NonTerminalToken;
+import tokens.lexeme.Type;
+import type_checking.TypeCheckException;
+import type_checking.TypeCheckable;
 
-public final class OptionalExpr implements NonTerminalToken {
+public final class OptionalExpr implements NonTerminalToken, TypeCheckable<Type> {
     public static OptionalExpr shownExpr(Expr expr) {
         return new OptionalExpr(expr, true);
     }
@@ -25,5 +28,10 @@ public final class OptionalExpr implements NonTerminalToken {
             return "";
         }
         return " = " + expr.asString(tabs);
+    }
+
+    @Override
+    public Type typeCheck() throws TypeCheckException {
+        return expr.typeCheck();
     }
 }
