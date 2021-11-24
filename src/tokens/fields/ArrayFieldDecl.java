@@ -1,6 +1,7 @@
 package tokens.fields;
 
 import tokens.lexeme.Lexeme;
+import type_checking.TypeCheckException;
 import utils.StringHelper;
 
 public final class ArrayFieldDecl implements FieldDecl {
@@ -46,5 +47,10 @@ public final class ArrayFieldDecl implements FieldDecl {
     @Override
     public String asString(int tabs) {
         return StringHelper.withTabs(tabs, type.asString(tabs) + " " + id + "[" + size + "];");
+    }
+
+    @Override
+    public void typeCheck() throws TypeCheckException {
+        // TODO: 11/24/2021 Add type checking
     }
 }

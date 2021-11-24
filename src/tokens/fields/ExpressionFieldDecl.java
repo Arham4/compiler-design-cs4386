@@ -3,6 +3,7 @@ package tokens.fields;
 import tokens.lexeme.Lexeme;
 import tokens.expr.OptionalExpr;
 import tokens.lexeme.OptionalLexeme;
+import type_checking.TypeCheckException;
 
 public final class ExpressionFieldDecl implements FieldDecl {
     public static final class Builder {
@@ -56,5 +57,10 @@ public final class ExpressionFieldDecl implements FieldDecl {
     public String asString(int tabs) {
         return optionalFinal.asString(tabs) + (optionalFinal.isShow() ? " " : "")
                 + type.asString(tabs) + " " + id + optionalExpr.asString(tabs) + ";";
+    }
+
+    @Override
+    public void typeCheck() throws TypeCheckException {
+        // TODO: 11/24/2021 Add type checking
     }
 }
