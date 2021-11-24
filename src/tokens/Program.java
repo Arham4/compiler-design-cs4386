@@ -1,8 +1,10 @@
 package tokens;
 
+import type_checking.TypeCheckException;
+import type_checking.TypeCheckable;
 import utils.StringHelper;
 
-public final class Program implements NonTerminalToken {
+public final class Program implements NonTerminalToken, TypeCheckable {
     public static final class Builder {
         private String id;
         private MemberDecls memberDecls;
@@ -40,5 +42,10 @@ public final class Program implements NonTerminalToken {
     @Override
     public String asString(int tabs) {
         return StringHelper.withTabs(tabs, "class " + id + " {\n" + memberDecls.asString(tabs + 1) + "}");
+    }
+
+    @Override
+    public void typeCheck() throws TypeCheckException {
+        // TODO: 11/24/2021 Make type checks
     }
 }
