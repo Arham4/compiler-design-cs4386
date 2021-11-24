@@ -59,7 +59,7 @@ public interface Expr extends NonTerminalToken {
     }
 
     static Expr binaryOp(Expr expr1, Lexeme binaryOp, Expr expr2) {
-        return tabs -> expr1.asString(tabs) + " " + binaryOp.asString(tabs) + " " + expr2.asString(tabs);
+        return tabs -> "(" + expr1.asString(tabs) + " " + binaryOp.asString(tabs) + " " + expr2.asString(tabs) + ")";
     }
 
     static Expr ternary(Expr expr, Expr exprTrue, Expr exprFalse) {
