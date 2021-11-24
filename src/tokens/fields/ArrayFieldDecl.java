@@ -50,7 +50,7 @@ public final class ArrayFieldDecl implements FieldDecl {
     }
 
     @Override
-    public void typeCheck() throws TypeCheckException {
-        // TODO: 11/24/2021 Add type checking
+    public Void typeCheck() throws TypeCheckException {
+        return null;
     }
 }

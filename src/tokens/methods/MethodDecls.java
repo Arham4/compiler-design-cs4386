@@ -4,7 +4,7 @@ import tokens.NonTerminalToken;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
 
-public final class MethodDecls implements NonTerminalToken, TypeCheckable {
+public final class MethodDecls implements NonTerminalToken, TypeCheckable<Void> {
     public static final class Builder {
         private MethodDecl methodDecl = null;
         private MethodDecls methodDecls = null;
@@ -42,8 +42,9 @@ public final class MethodDecls implements NonTerminalToken, TypeCheckable {
     }
 
     @Override
-    public void typeCheck() throws TypeCheckException {
+    public Void typeCheck() throws TypeCheckException {
         methodDecl.typeCheck();
         methodDecls.typeCheck();
+        return null;
     }
 }

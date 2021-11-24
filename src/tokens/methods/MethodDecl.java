@@ -9,7 +9,7 @@ import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
 import utils.StringHelper;
 
-public final class MethodDecl implements NonTerminalToken, TypeCheckable {
+public final class MethodDecl implements NonTerminalToken, TypeCheckable<Void> {
     public static class Builder {
         private ReturnType returnType;
         private String id;
@@ -82,7 +82,7 @@ public final class MethodDecl implements NonTerminalToken, TypeCheckable {
     }
 
     @Override
-    public void typeCheck() throws TypeCheckException {
-        // TODO: 11/24/2021 Add type checking
+    public Void typeCheck() throws TypeCheckException {
+        return null;
     }
 }

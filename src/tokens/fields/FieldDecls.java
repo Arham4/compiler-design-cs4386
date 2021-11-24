@@ -5,7 +5,7 @@ import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
 import utils.StringHelper;
 
-public final class FieldDecls implements NonTerminalToken, TypeCheckable {
+public final class FieldDecls implements NonTerminalToken, TypeCheckable<Void> {
     public static final class Builder {
         private FieldDecl fieldDecl = null;
         private FieldDecls fieldDecls = null;
@@ -43,8 +43,9 @@ public final class FieldDecls implements NonTerminalToken, TypeCheckable {
     }
 
     @Override
-    public void typeCheck() throws TypeCheckException {
+    public Void typeCheck() throws TypeCheckException {
         fieldDecl.typeCheck();
         fieldDecls.typeCheck();
+        return null;
     }
 }

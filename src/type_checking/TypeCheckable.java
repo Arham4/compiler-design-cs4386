@@ -1,5 +1,5 @@
 package type_checking;
 
-public interface TypeCheckable {
-    void typeCheck() throws TypeCheckException;
+public interface TypeCheckable<R> {
+    R typeCheck() throws TypeCheckException;
 }

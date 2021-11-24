@@ -4,7 +4,7 @@ import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
 import utils.StringHelper;
 
-public final class Program implements NonTerminalToken, TypeCheckable {
+public final class Program implements NonTerminalToken, TypeCheckable<Void> {
     public static final class Builder {
         private String id;
         private MemberDecls memberDecls;
@@ -45,7 +45,8 @@ public final class Program implements NonTerminalToken, TypeCheckable {
     }
 
     @Override
-    public void typeCheck() throws TypeCheckException {
+    public Void typeCheck() throws TypeCheckException {
         memberDecls.typeCheck();
+        return null;
     }
 }
