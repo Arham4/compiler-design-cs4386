@@ -22,6 +22,10 @@ public final class OptionalExpr implements NonTerminalToken, TypeCheckable<Type>
         this.show = show;
     }
 
+    public boolean isShow() {
+        return show;
+    }
+
     @Override
     public String asString(int tabs) {
         if (!show) {

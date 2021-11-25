@@ -3,7 +3,10 @@ package tokens.fields;
 import tokens.expr.OptionalExpr;
 import tokens.lexeme.OptionalLexeme;
 import tokens.lexeme.Type;
+import tokens.lexeme.Types;
 import type_checking.TypeCheckException;
+
+import static type_checking.TypeCheckException.conversionError;
 
 public final class ExpressionFieldDecl implements FieldDecl {
     public static final class Builder {
@@ -61,6 +64,23 @@ public final class ExpressionFieldDecl implements FieldDecl {
 
     @Override
     public Void typeCheck() throws TypeCheckException {
+        if (type == Types.INTLIT) {
+            if (optionalExpr.isShow() && optionalExpr.typeCheck() != Types.INTLIT) {
+                throw conversionError(optionalExpr.typeCheck(), "int");
+            }
+        } else if (type == Types.FLOATLIT) {
+            if (optionalExpr.isShow() && optionalExpr.typeCheck() != Types.FLOATLIT && optionalExpr.typeCheck() != Types.INTLIT) {
+                throw conversionError(optionalExpr.typeCheck(), "float");
+            }
+        } else if (type == Types.BOOLLIT) {
+            if (optionalExpr.isShow() && optionalExpr.typeCheck() != Types.BOOLLIT && optionalExpr.typeCheck() != Types.INTLIT) {
+                throw conversionError(optionalExpr.typeCheck(), "bool");
+            }
+        } else if (type == Types.CHARLIT) {
+            if (optionalExpr.isShow() && optionalExpr.typeCheck() != Types.CHARLIT) {
+                throw conversionError(optionalExpr.typeCheck(), "char");
+            }
+        }
         return null;
     }
 }
