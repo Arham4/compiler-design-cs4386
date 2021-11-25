@@ -9,6 +9,8 @@ import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
 import utils.StringHelper;
 
+import java.util.Map;
+
 public final class MethodDecl implements NonTerminalToken, TypeCheckable<Void> {
     public static class Builder {
         private ReturnType returnType;
@@ -82,7 +84,7 @@ public final class MethodDecl implements NonTerminalToken, TypeCheckable<Void> {
     }
 
     @Override
-    public Void typeCheck() throws TypeCheckException {
+    public Void typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
         return null;
     }
 }

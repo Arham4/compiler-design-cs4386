@@ -4,6 +4,8 @@ import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
 import utils.StringHelper;
 
+import java.util.Map;
+
 public final class Program implements NonTerminalToken, TypeCheckable<Void> {
     public static final class Builder {
         private String id;
@@ -45,8 +47,8 @@ public final class Program implements NonTerminalToken, TypeCheckable<Void> {
     }
 
     @Override
-    public Void typeCheck() throws TypeCheckException {
-        memberDecls.typeCheck();
+    public Void typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
+        memberDecls.typeCheck(symbolTable);
         return null;
     }
 }

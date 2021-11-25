@@ -6,6 +6,8 @@ import tokens.lexeme.Type;
 import tokens.lexeme.Types;
 import type_checking.TypeCheckException;
 
+import java.util.Map;
+
 import static type_checking.TypeCheckException.conversionError;
 
 public final class ExpressionFieldDecl implements FieldDecl {
@@ -63,22 +65,22 @@ public final class ExpressionFieldDecl implements FieldDecl {
     }
 
     @Override
-    public Void typeCheck() throws TypeCheckException {
+    public Void typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
         if (type == Types.INTLIT) {
-            if (optionalExpr.isShow() && optionalExpr.typeCheck() != Types.INTLIT) {
-                throw conversionError(optionalExpr.typeCheck(), "int");
+            if (optionalExpr.isShow() && optionalExpr.typeCheck(symbolTable) != Types.INTLIT) {
+                throw conversionError(optionalExpr.typeCheck(symbolTable), "int");
             }
         } else if (type == Types.FLOATLIT) {
-            if (optionalExpr.isShow() && optionalExpr.typeCheck() != Types.FLOATLIT && optionalExpr.typeCheck() != Types.INTLIT) {
-                throw conversionError(optionalExpr.typeCheck(), "float");
+            if (optionalExpr.isShow() && optionalExpr.typeCheck(symbolTable) != Types.FLOATLIT && optionalExpr.typeCheck(symbolTable) != Types.INTLIT) {
+                throw conversionError(optionalExpr.typeCheck(symbolTable), "float");
             }
         } else if (type == Types.BOOLLIT) {
-            if (optionalExpr.isShow() && optionalExpr.typeCheck() != Types.BOOLLIT && optionalExpr.typeCheck() != Types.INTLIT) {
-                throw conversionError(optionalExpr.typeCheck(), "bool");
+            if (optionalExpr.isShow() && optionalExpr.typeCheck(symbolTable) != Types.BOOLLIT && optionalExpr.typeCheck(symbolTable) != Types.INTLIT) {
+                throw conversionError(optionalExpr.typeCheck(symbolTable), "bool");
             }
         } else if (type == Types.CHARLIT) {
-            if (optionalExpr.isShow() && optionalExpr.typeCheck() != Types.CHARLIT) {
-                throw conversionError(optionalExpr.typeCheck(), "char");
+            if (optionalExpr.isShow() && optionalExpr.typeCheck(symbolTable) != Types.CHARLIT) {
+                throw conversionError(optionalExpr.typeCheck(symbolTable), "char");
             }
         }
         return null;

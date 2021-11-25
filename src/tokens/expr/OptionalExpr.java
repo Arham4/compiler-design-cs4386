@@ -5,6 +5,8 @@ import tokens.lexeme.Type;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
 
+import java.util.Map;
+
 public final class OptionalExpr implements NonTerminalToken, TypeCheckable<Type> {
     public static OptionalExpr shownExpr(Expr expr) {
         return new OptionalExpr(expr, true);
@@ -35,7 +37,7 @@ public final class OptionalExpr implements NonTerminalToken, TypeCheckable<Type>
     }
 
     @Override
-    public Type typeCheck() throws TypeCheckException {
-        return expr.typeCheck();
+    public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
+        return expr.typeCheck(symbolTable);
     }
 }

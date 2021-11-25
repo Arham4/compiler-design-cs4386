@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TypeCheckerTest {
 
@@ -37,7 +39,9 @@ public class TypeCheckerTest {
         System.out.print(program.asString(0));
         //Now test type checking
         try {
-            program.typeCheck();
+            Map<String, String> symbolTable = new HashMap<>();
+
+            program.typeCheck(symbolTable);
             System.out.println("Type checking complete!");
         } catch (TypeCheckException e) {
             e.printStackTrace();

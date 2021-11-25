@@ -5,6 +5,8 @@ import tokens.methods.MethodDecls;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
 
+import java.util.Map;
+
 public final class MemberDecls implements NonTerminalToken, TypeCheckable<Void> {
     public static final class Builder {
         private FieldDecls fieldDecls;
@@ -47,9 +49,9 @@ public final class MemberDecls implements NonTerminalToken, TypeCheckable<Void> 
     }
 
     @Override
-    public Void typeCheck() throws TypeCheckException {
-        fieldDecls.typeCheck();
-        methodDecls.typeCheck();
+    public Void typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
+        fieldDecls.typeCheck(symbolTable);
+        methodDecls.typeCheck(symbolTable);
         return null;
     }
 }

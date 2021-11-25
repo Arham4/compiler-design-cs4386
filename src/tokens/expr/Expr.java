@@ -8,6 +8,8 @@ import tokens.methods.args.Args;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
 
+import java.util.Map;
+
 public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
     static Expr simple(Name name) {
         return new Expr() {
@@ -17,7 +19,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck() throws TypeCheckException {
+            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -31,7 +33,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck() throws TypeCheckException {
+            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -45,7 +47,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck() throws TypeCheckException {
+            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -59,7 +61,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck() throws TypeCheckException {
+            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -73,7 +75,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck() throws TypeCheckException {
+            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -87,7 +89,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck() throws TypeCheckException {
+            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -101,7 +103,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck() throws TypeCheckException {
+            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -115,7 +117,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck() throws TypeCheckException {
+            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -129,7 +131,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck() throws TypeCheckException {
+            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -143,7 +145,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck() throws TypeCheckException {
+            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -157,7 +159,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck() throws TypeCheckException {
+            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -171,7 +173,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck() throws TypeCheckException {
+            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -185,7 +187,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck() throws TypeCheckException {
+            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -199,7 +201,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck() throws TypeCheckException {
+            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -213,7 +215,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck() throws TypeCheckException {
+            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
                 return null;
             }
         };

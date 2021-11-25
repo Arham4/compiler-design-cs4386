@@ -4,6 +4,8 @@ import tokens.lexeme.Type;
 import type_checking.TypeCheckException;
 import utils.StringHelper;
 
+import java.util.Map;
+
 public final class ArrayFieldDecl implements FieldDecl {
     public static final class Builder {
         private Type type;
@@ -50,7 +52,7 @@ public final class ArrayFieldDecl implements FieldDecl {
     }
 
     @Override
-    public Void typeCheck() throws TypeCheckException {
+    public Void typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
         return null;
     }
 }

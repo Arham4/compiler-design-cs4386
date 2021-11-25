@@ -1,5 +1,7 @@
 package type_checking;
 
+import java.util.Map;
+
 public interface TypeCheckable<R> {
-    R typeCheck() throws TypeCheckException;
+    R typeCheck(Map<String, String> symbolTable) throws TypeCheckException;
 }
