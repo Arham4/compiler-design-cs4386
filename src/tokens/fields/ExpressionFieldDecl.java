@@ -65,22 +65,22 @@ public final class ExpressionFieldDecl implements FieldDecl {
     }
 
     @Override
-    public Void typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
+    public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
         if (type == Types.INTLIT) {
-            if (optionalExpr.isShow() && optionalExpr.typeCheck(symbolTable) != Types.INTLIT) {
-                throw conversionError(optionalExpr.typeCheck(symbolTable), "int");
+            if (optionalExpr.isShow() && optionalExpr.typeCheck(scope, variableSymbolTable, methodSymbolTable) != Types.INTLIT) {
+                throw conversionError(optionalExpr.typeCheck(scope, variableSymbolTable, methodSymbolTable), "int");
             }
         } else if (type == Types.FLOATLIT) {
-            if (optionalExpr.isShow() && optionalExpr.typeCheck(symbolTable) != Types.FLOATLIT && optionalExpr.typeCheck(symbolTable) != Types.INTLIT) {
-                throw conversionError(optionalExpr.typeCheck(symbolTable), "float");
+            if (optionalExpr.isShow() && optionalExpr.typeCheck(scope, variableSymbolTable, methodSymbolTable) != Types.FLOATLIT && optionalExpr.typeCheck(scope, variableSymbolTable, methodSymbolTable) != Types.INTLIT) {
+                throw conversionError(optionalExpr.typeCheck(scope, variableSymbolTable, methodSymbolTable), "float");
             }
         } else if (type == Types.BOOLLIT) {
-            if (optionalExpr.isShow() && optionalExpr.typeCheck(symbolTable) != Types.BOOLLIT && optionalExpr.typeCheck(symbolTable) != Types.INTLIT) {
-                throw conversionError(optionalExpr.typeCheck(symbolTable), "bool");
+            if (optionalExpr.isShow() && optionalExpr.typeCheck(scope, variableSymbolTable, methodSymbolTable) != Types.BOOLLIT && optionalExpr.typeCheck(scope, variableSymbolTable, methodSymbolTable) != Types.INTLIT) {
+                throw conversionError(optionalExpr.typeCheck(scope, variableSymbolTable, methodSymbolTable), "bool");
             }
         } else if (type == Types.CHARLIT) {
-            if (optionalExpr.isShow() && optionalExpr.typeCheck(symbolTable) != Types.CHARLIT) {
-                throw conversionError(optionalExpr.typeCheck(symbolTable), "char");
+            if (optionalExpr.isShow() && optionalExpr.typeCheck(scope, variableSymbolTable, methodSymbolTable) != Types.CHARLIT) {
+                throw conversionError(optionalExpr.typeCheck(scope, variableSymbolTable, methodSymbolTable), "char");
             }
         }
         return null;

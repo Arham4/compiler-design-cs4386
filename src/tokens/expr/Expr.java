@@ -19,7 +19,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -33,7 +33,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -47,7 +47,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -61,7 +61,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -75,7 +75,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -89,7 +89,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -103,7 +103,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -117,7 +117,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -131,7 +131,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -145,7 +145,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -159,7 +159,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -173,7 +173,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -187,7 +187,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -201,7 +201,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
                 return null;
             }
         };
@@ -215,7 +215,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
                 return null;
             }
         };

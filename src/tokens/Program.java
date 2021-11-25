@@ -1,5 +1,6 @@
 package tokens;
 
+import tokens.lexeme.Type;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
 import utils.StringHelper;
@@ -47,8 +48,8 @@ public final class Program implements NonTerminalToken, TypeCheckable<Void> {
     }
 
     @Override
-    public Void typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
-        memberDecls.typeCheck(symbolTable);
+    public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        memberDecls.typeCheck(scope + 1, variableSymbolTable, methodSymbolTable);
         return null;
     }
 }

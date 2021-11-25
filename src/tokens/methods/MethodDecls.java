@@ -1,6 +1,7 @@
 package tokens.methods;
 
 import tokens.NonTerminalToken;
+import tokens.lexeme.Type;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
 
@@ -44,10 +45,10 @@ public final class MethodDecls implements NonTerminalToken, TypeCheckable<Void> 
     }
 
     @Override
-    public Void typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
-        methodDecl.typeCheck(symbolTable);
+    public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        methodDecl.typeCheck(scope, variableSymbolTable, methodSymbolTable);
         if (methodDecls != null) {
-            methodDecls.typeCheck(symbolTable);
+            methodDecls.typeCheck(scope, variableSymbolTable, methodSymbolTable);
         }
         return null;
     }

@@ -37,9 +37,9 @@ public final class OptionalExpr implements NonTerminalToken, TypeCheckable<Type>
     }
 
     @Override
-    public Type typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
+    public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
         if (expr != null) {
-            return expr.typeCheck(symbolTable);
+            return expr.typeCheck(scope, variableSymbolTable, methodSymbolTable);
         }
         return null;
     }

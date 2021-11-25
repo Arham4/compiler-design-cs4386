@@ -52,7 +52,7 @@ public final class ArrayFieldDecl implements FieldDecl {
     }
 
     @Override
-    public Void typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
+    public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
         return null;
     }
 }

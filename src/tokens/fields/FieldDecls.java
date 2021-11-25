@@ -1,6 +1,7 @@
 package tokens.fields;
 
 import tokens.NonTerminalToken;
+import tokens.lexeme.Type;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
 import utils.StringHelper;
@@ -45,10 +46,10 @@ public final class FieldDecls implements NonTerminalToken, TypeCheckable<Void> {
     }
 
     @Override
-    public Void typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
-        fieldDecl.typeCheck(symbolTable);
+    public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        fieldDecl.typeCheck(scope, variableSymbolTable, methodSymbolTable);
         if (fieldDecls != null) {
-            fieldDecls.typeCheck(symbolTable);
+            fieldDecls.typeCheck(scope, variableSymbolTable, methodSymbolTable);
         }
         return null;
     }

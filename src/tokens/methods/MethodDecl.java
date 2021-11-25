@@ -3,6 +3,7 @@ package tokens.methods;
 import tokens.NonTerminalToken;
 import tokens.fields.FieldDecls;
 import tokens.lexeme.OptionalLexeme;
+import tokens.lexeme.Type;
 import tokens.methods.args.argdecls.ArgDecls;
 import tokens.stmts.Stmts;
 import type_checking.TypeCheckException;
@@ -84,7 +85,7 @@ public final class MethodDecl implements NonTerminalToken, TypeCheckable<Void> {
     }
 
     @Override
-    public Void typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
+    public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
         return null;
     }
 }
