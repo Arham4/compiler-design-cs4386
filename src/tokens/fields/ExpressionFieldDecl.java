@@ -6,9 +6,11 @@ import tokens.lexeme.Type;
 import tokens.lexeme.Types;
 import type_checking.TypeCheckException;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import static type_checking.TypeCheckException.conversionError;
+import static type_checking.TypeCheckException.redeclarationError;
 
 public final class ExpressionFieldDecl implements FieldDecl {
     public static final class Builder {
@@ -66,6 +68,13 @@ public final class ExpressionFieldDecl implements FieldDecl {
 
     @Override
     public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        if (!variableSymbolTable.containsKey(id)) {
+            variableSymbolTable.put(id, new HashMap<>());
+        }
+        if (variableSymbolTable.get(id).containsKey(scope)) {
+            throw redeclarationError(id, scope);
+        }
+
         if (type == Types.INTLIT) {
             if (optionalExpr.isShow() && optionalExpr.typeCheck(scope, variableSymbolTable, methodSymbolTable) != Types.INTLIT) {
                 throw conversionError(optionalExpr.typeCheck(scope, variableSymbolTable, methodSymbolTable), "int");

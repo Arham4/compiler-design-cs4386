@@ -11,6 +11,10 @@ public final class TypeCheckException extends Exception {
         return TypeCheckException.withFault("Error: cannot convert " + type.getType() + " to " + original);
     }
 
+    public static TypeCheckException redeclarationError(String id, int scope) {
+        return TypeCheckException.withFault("Error: " + id + " cannot be redeclared on scope " + scope);
+    }
+
     private final String fault;
 
     public TypeCheckException(String fault) {
