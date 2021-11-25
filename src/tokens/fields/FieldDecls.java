@@ -47,7 +47,9 @@ public final class FieldDecls implements NonTerminalToken, TypeCheckable<Void> {
     @Override
     public Void typeCheck(Map<String, String> symbolTable) throws TypeCheckException {
         fieldDecl.typeCheck(symbolTable);
-        fieldDecls.typeCheck(symbolTable);
+        if (fieldDecls != null) {
+            fieldDecls.typeCheck(symbolTable);
+        }
         return null;
     }
 }
