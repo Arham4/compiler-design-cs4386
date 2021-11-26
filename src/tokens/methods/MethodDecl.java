@@ -92,6 +92,12 @@ public final class MethodDecl implements NonTerminalToken, TypeCheckable<Void> {
             throw redeclarationError(id, scope);
         }
         methodSymbolTable.put(id, returnType.getType());
+
+        argDecls.typeCheck(scope + 1, variableSymbolTable, methodSymbolTable);
+        if (fieldDecls != null) {
+            fieldDecls.typeCheck(scope + 1, variableSymbolTable, methodSymbolTable);
+        }
+        stmts.typeCheck(scope + 1, variableSymbolTable, methodSymbolTable);
         return null;
     }
 }
