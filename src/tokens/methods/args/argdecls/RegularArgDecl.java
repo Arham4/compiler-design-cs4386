@@ -1,6 +1,9 @@
 package tokens.methods.args.argdecls;
 
 import tokens.lexeme.Type;
+import type_checking.TypeCheckException;
+
+import java.util.Map;
 
 public final class RegularArgDecl implements ArgDecl {
     public static class Builder {
@@ -37,5 +40,10 @@ public final class RegularArgDecl implements ArgDecl {
     @Override
     public String asString(int tabs) {
         return type.asString(tabs) + " " + id;
+    }
+
+    @Override
+    public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        return null;
     }
 }

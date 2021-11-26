@@ -46,6 +46,10 @@ public final class ArgDeclList implements NonTerminalToken, TypeCheckable<Void> 
 
     @Override
     public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        argDecl.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+        if (argDeclList != null) {
+            argDeclList.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+        }
         return null;
     }
 }
