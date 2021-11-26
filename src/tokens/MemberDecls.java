@@ -51,8 +51,12 @@ public final class MemberDecls implements NonTerminalToken, TypeCheckable<Void> 
 
     @Override
     public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
-        fieldDecls.typeCheck(scope, variableSymbolTable, methodSymbolTable);
-        methodDecls.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+        if (fieldDecls != null) {
+            fieldDecls.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+        }
+        if (methodDecls != null) {
+            methodDecls.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+        }
         return null;
     }
 }
