@@ -54,6 +54,12 @@ public final class Stmts implements NonTerminalToken, TypeCheckable<Void> {
 
     @Override
     public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        if (stmt != null) {
+            stmt.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+        }
+        if (stmts != null) {
+            stmts.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+        }
         return null;
     }
 }

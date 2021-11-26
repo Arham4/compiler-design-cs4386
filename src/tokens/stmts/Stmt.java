@@ -1,5 +1,7 @@
 package tokens.stmts;
 
-public interface Stmt {
+import type_checking.TypeCheckable;
+
+public interface Stmt extends TypeCheckable<Void> {
     String asString(String prefix, int tabs);
 }

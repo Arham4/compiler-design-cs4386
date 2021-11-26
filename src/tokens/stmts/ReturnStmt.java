@@ -1,6 +1,10 @@
 package tokens.stmts;
 
 import tokens.expr.Expr;
+import tokens.lexeme.Type;
+import type_checking.TypeCheckException;
+
+import java.util.Map;
 
 public final class ReturnStmt implements Stmt {
     public static ReturnStmt blank() {
@@ -20,5 +24,10 @@ public final class ReturnStmt implements Stmt {
     @Override
     public String asString(String prefix, int tabs) {
         return prefix + "return" + (expr == null ? "" : " " + expr.asString(tabs)) + ";";
+    }
+
+    @Override
+    public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        return null;
     }
 }

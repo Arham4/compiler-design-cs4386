@@ -1,7 +1,11 @@
 package tokens.stmts;
 
 import tokens.expr.Expr;
+import tokens.lexeme.Type;
+import type_checking.TypeCheckException;
 import utils.StringHelper;
+
+import java.util.Map;
 
 public final class IfStmt implements Stmt {
     public static class Builder {
@@ -50,5 +54,10 @@ public final class IfStmt implements Stmt {
         } else {
             return prefix + "if (" + expr.asString(tabs) + ")\n" + stmt.asString(StringHelper.tabs(tabs + 1), tabs + 1) + (ifEnd.isShow() ? "\n" + StringHelper.withTabs(tabs, ifEnd.asString(tabs)) : "");
         }
+    }
+
+    @Override
+    public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        return null;
     }
 }

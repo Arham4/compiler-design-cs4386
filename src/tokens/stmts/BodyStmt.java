@@ -2,7 +2,11 @@ package tokens.stmts;
 
 import tokens.fields.FieldDecls;
 import tokens.lexeme.OptionalLexeme;
+import tokens.lexeme.Type;
+import type_checking.TypeCheckException;
 import utils.StringHelper;
+
+import java.util.Map;
 
 public final class BodyStmt implements Stmt {
     public static class Builder {
@@ -50,5 +54,10 @@ public final class BodyStmt implements Stmt {
                 + (fieldDecls == null ? "" : fieldDecls.asString(tabs + 1))
                 + stmts.asString(tabs + 1)
                 + StringHelper.withTabs(tabs, "}" + optionalSemi.asString(tabs));
+    }
+
+    @Override
+    public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        return null;
     }
 }

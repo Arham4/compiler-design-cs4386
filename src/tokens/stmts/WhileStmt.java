@@ -1,7 +1,11 @@
 package tokens.stmts;
 
 import tokens.expr.Expr;
+import tokens.lexeme.Type;
+import type_checking.TypeCheckException;
 import utils.StringHelper;
+
+import java.util.Map;
 
 public final class WhileStmt implements Stmt {
     public static class Builder {
@@ -42,5 +46,10 @@ public final class WhileStmt implements Stmt {
         } else {
             return prefix + "while (" + expr.asString(tabs) + ")\n" + stmt.asString(StringHelper.tabs(tabs + 1), tabs + 1);
         }
+    }
+
+    @Override
+    public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        return null;
     }
 }
