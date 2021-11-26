@@ -58,6 +58,10 @@ public final class BodyStmt implements Stmt {
 
     @Override
     public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        if (fieldDecls != null) {
+            fieldDecls.typeCheck(scope + 1, variableSymbolTable, methodSymbolTable);
+        }
+        stmts.typeCheck(scope + 1, variableSymbolTable, methodSymbolTable);
         return null;
     }
 }
