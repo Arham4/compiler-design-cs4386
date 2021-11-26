@@ -3,10 +3,14 @@ package tokens.methods.args;
 import tokens.NonTerminalToken;
 import tokens.id.Name;
 import tokens.lexeme.Type;
+import tokens.lexeme.Types;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
 
 import java.util.Map;
+
+import static type_checking.TypeCheckException.undeclaredError;
+import static utils.SymbolTableHelper.getClosestScopeType;
 
 public final class ReadList implements NonTerminalToken, TypeCheckable<Void> {
     public static class Builder {
@@ -47,6 +51,21 @@ public final class ReadList implements NonTerminalToken, TypeCheckable<Void> {
 
     @Override
     public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        // todo implement not working on final
+        if (!variableSymbolTable.containsKey(name.getId()) && !methodSymbolTable.containsKey(name.getId())) {
+            throw undeclaredError(name.getId());
+        }
+        if (variableSymbolTable.containsKey(name.getId())) {
+            Type closestScopeType = getClosestScopeType(scope, variableSymbolTable.get(name.getId()));
+            if (closestScopeType.isArray()) {
+                throw TypeCheckException.withFault("Cannot call read stmt on array type");
+            }
+        } else if (methodSymbolTable.containsKey(name.getId()) && methodSymbolTable.get(name.getId()) == Types.VOID) {
+            throw TypeCheckException.withFault("Cannot call read stmt on void type");
+        }
+        if (readList != null) {
+            readList.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+        }
         return null;
     }
 }
