@@ -2,8 +2,13 @@ package tokens.methods.args;
 
 import tokens.NonTerminalToken;
 import tokens.id.Name;
+import tokens.lexeme.Type;
+import type_checking.TypeCheckException;
+import type_checking.TypeCheckable;
 
-public final class ReadList implements NonTerminalToken {
+import java.util.Map;
+
+public final class ReadList implements NonTerminalToken, TypeCheckable<Void> {
     public static class Builder {
         private Name name;
         private ReadList readList = null;
@@ -38,5 +43,10 @@ public final class ReadList implements NonTerminalToken {
     @Override
     public String asString(int tabs) {
         return name.asString(tabs) + (readList == null ? "" : ", " + readList.asString(tabs));
+    }
+
+    @Override
+    public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        return null;
     }
 }
