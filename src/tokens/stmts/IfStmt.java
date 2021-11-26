@@ -2,6 +2,7 @@ package tokens.stmts;
 
 import tokens.expr.Expr;
 import tokens.lexeme.Type;
+import tokens.lexeme.Types;
 import type_checking.TypeCheckException;
 import utils.StringHelper;
 
@@ -58,7 +59,10 @@ public final class IfStmt implements Stmt {
 
     @Override
     public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
-        expr.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+        Type exprType = expr.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+        if (exprType != Types.BOOLLIT && exprType != Types.INTLIT) {
+            throw TypeCheckException.withFault("If statement cannot be determined with expression that is not boolean (or implicitly coerced)");
+        }
         stmt.typeCheck(scope + 1, variableSymbolTable, methodSymbolTable);
         if (ifEnd.isShow()) {
             ifEnd.typeCheck(scope, variableSymbolTable, methodSymbolTable);
