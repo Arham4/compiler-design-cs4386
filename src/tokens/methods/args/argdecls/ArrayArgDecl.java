@@ -3,7 +3,10 @@ package tokens.methods.args.argdecls;
 import tokens.lexeme.Type;
 import type_checking.TypeCheckException;
 
+import java.util.HashMap;
 import java.util.Map;
+
+import static type_checking.TypeCheckException.redeclarationError;
 
 public final class ArrayArgDecl implements ArgDecl {
     public static class Builder {
@@ -44,6 +47,13 @@ public final class ArrayArgDecl implements ArgDecl {
 
     @Override
     public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        if (!variableSymbolTable.containsKey(id)) {
+            variableSymbolTable.put(id, new HashMap<>());
+        }
+        if (variableSymbolTable.get(id).containsKey(scope)) {
+            throw redeclarationError(id, scope);
+        }
+        variableSymbolTable.get(id).put(scope, type);
         return null;
     }
 }
