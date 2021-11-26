@@ -6,6 +6,8 @@ import type_checking.TypeCheckException;
 
 import java.util.Map;
 
+import static type_checking.TypeCheckException.undeclaredError;
+
 public final class MethodInvocationStmt implements Stmt {
     public static MethodInvocationStmt blank(String id) {
         return new MethodInvocationStmt(id, null);
@@ -30,6 +32,10 @@ public final class MethodInvocationStmt implements Stmt {
 
     @Override
     public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        if (!methodSymbolTable.containsKey(id)) {
+            throw undeclaredError(id);
+        }
+        // todo check with args
         return null;
     }
 }
