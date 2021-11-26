@@ -18,6 +18,10 @@ public final class ReturnType implements NonTerminalToken {
         this.type = type;
     }
 
+    public Type getType() {
+        return type;
+    }
+
     @Override
     public String asString(int tabs) {
         if (type == null) {

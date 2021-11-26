@@ -12,6 +12,8 @@ import utils.StringHelper;
 
 import java.util.Map;
 
+import static type_checking.TypeCheckException.redeclarationError;
+
 public final class MethodDecl implements NonTerminalToken, TypeCheckable<Void> {
     public static class Builder {
         private ReturnType returnType;
@@ -86,6 +88,10 @@ public final class MethodDecl implements NonTerminalToken, TypeCheckable<Void> {
 
     @Override
     public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        if (methodSymbolTable.containsKey(id)) {
+            throw redeclarationError(id, scope);
+        }
+        methodSymbolTable.put(id, returnType.getType());
         return null;
     }
 }
