@@ -28,6 +28,7 @@ public final class ReturnStmt implements Stmt {
 
     @Override
     public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        expr.typeCheck(scope, variableSymbolTable, methodSymbolTable);
         return null;
     }
 }
