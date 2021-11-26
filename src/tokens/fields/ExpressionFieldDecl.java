@@ -74,6 +74,7 @@ public final class ExpressionFieldDecl implements FieldDecl {
         if (variableSymbolTable.get(id).containsKey(scope)) {
             throw redeclarationError(id, scope);
         }
+        variableSymbolTable.get(id).put(scope, type);
 
         if (type == Types.INTLIT) {
             if (optionalExpr.isShow() && optionalExpr.typeCheck(scope, variableSymbolTable, methodSymbolTable) != Types.INTLIT) {
