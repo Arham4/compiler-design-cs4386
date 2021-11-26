@@ -269,7 +269,16 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
 
             @Override
             public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
-                return null;
+                Type exprType = expr.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+                Type exprTrueType = exprTrue.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+                Type exprFalseType = exprFalse.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+                if (exprType != Types.BOOLLIT) {
+                    throw TypeCheckException.withFault("Error: Ternary can only be performed on bool expr");
+                }
+                if (!exprTrueType.equals(exprFalseType)) {
+                    throw TypeCheckException.withFault("Error: Ternary must have each conditional be the same type");
+                }
+                return exprTrueType;
             }
         };
     }
