@@ -3,12 +3,15 @@ package tokens.stmts;
 import tokens.expr.Expr;
 import tokens.id.Name;
 import tokens.lexeme.Type;
+import tokens.lexeme.Types;
 import type_checking.TypeCheckException;
 
 import java.util.Map;
 
+import static type_checking.TypeCheckException.conversionError;
 import static type_checking.TypeCheckException.undeclaredError;
-import static utils.SymbolTableHelper.*;
+import static utils.SymbolTableHelper.getClosestScopeType;
+import static utils.SymbolTableHelper.isScopeTooHigh;
 
 public final class ReassignStmt implements Stmt {
     public static class Builder {
@@ -53,12 +56,24 @@ public final class ReassignStmt implements Stmt {
             throw undeclaredError(name.getId());
         }
 
+        Type closestScopeType = getClosestScopeType(scope, variableSymbolTable.get(name.getId()));
         Type exprType = expr.typeCheck(scope, variableSymbolTable, methodSymbolTable);
-        if (isNotSameType(scope, variableSymbolTable.get(name.getId()), exprType)) {
-            Type closestScopeType = getClosestScopeType(scope, variableSymbolTable.get(name.getId()), exprType);
-            String typeAsString = closestScopeType != null ? closestScopeType.getType() : "null";
-
-            throw TypeCheckException.withFault(name.getId() + " attempting to be reassigned with type " + exprType.getType() + " when type of " + name.getId() + " is " + typeAsString);
+        if (closestScopeType == Types.INTLIT) {
+            if (exprType != Types.INTLIT) {
+                throw conversionError(exprType, "int");
+            }
+        } else if (closestScopeType == Types.FLOATLIT) {
+            if (exprType != Types.FLOATLIT && exprType != Types.INTLIT) {
+                throw conversionError(exprType, "float");
+            }
+        } else if (closestScopeType == Types.BOOLLIT) {
+            if (exprType != Types.BOOLLIT && exprType != Types.INTLIT) {
+                throw conversionError(exprType, "bool");
+            }
+        } else if (closestScopeType == Types.CHARLIT) {
+            if (exprType != Types.CHARLIT) {
+                throw conversionError(exprType, "char");
+            }
         }
         return null;
     }

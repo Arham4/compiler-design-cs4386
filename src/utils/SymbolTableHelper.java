@@ -22,19 +22,11 @@ public final class SymbolTableHelper {
         return lowestScope > scope;
     }
 
-    public static Type getClosestScopeType(int scope, Map<Integer, Type> scopes, Type type) {
+    public static Type getClosestScopeType(int scope, Map<Integer, Type> scopes) {
         int highestScope = Integer.min(scope, getHighestScope(scopes).orElse(scope));
         if (scopes.containsKey(highestScope)) {
             return scopes.get(highestScope);
         }
         return null;
-    }
-
-    public static boolean isNotSameType(int scope, Map<Integer, Type> scopes, Type type) {
-        Type closestScopeType = getClosestScopeType(scope, scopes, type);
-        if (closestScopeType == null) {
-            return true;
-        }
-        return !closestScopeType.equals(type);
     }
 }
