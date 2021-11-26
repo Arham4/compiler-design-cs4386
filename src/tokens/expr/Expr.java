@@ -4,6 +4,7 @@ import tokens.NonTerminalToken;
 import tokens.id.Name;
 import tokens.lexeme.Lexeme;
 import tokens.lexeme.Type;
+import tokens.lexeme.Types;
 import tokens.methods.args.Args;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
@@ -76,7 +77,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
 
             @Override
             public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
-                return null;
+                return Types.INTLIT;
             }
         };
     }
