@@ -1,4 +1,4 @@
-TEST_FILE=test1.as
+TEST_FILE=badDec.as
 TEST_FILES_DIR=.\tests
 OUTPUT_FILES_DIR=.
 
@@ -10,22 +10,27 @@ JFLEX=$(JAVA) -jar $(JFLEXJAR)
 CUPJAR=.\libs\java-cup-11b.jar
 CUP=$(JAVA) -jar $(CUPJAR)
 
-SRC_FILES_DIR=src
-CLASS_FILES_DIR=.\out\production\project-2
+SRC_FILES_DIR=src;src\tokens;src\utils;src\tokens\expr;src\tokens\fields;src\tokens\id;src\tokens\lexeme;src\tokens\methods;src\tokens\methods\args;src\tokens\args\argdecl;src\tokens\stmts
+CLASS_FILES_DIR=.\out\production\project-3
 
 COMPILE_CP=$(SRC_FILES_DIR);$(CUPJAR)
 RUN_CP=$(CLASS_FILES_DIR);$(CUPJAR)
 
 GENERATED_FILES=src\Grammar.java	src\parser.java	src\sym.java
+TYPE_CHECKER_FILES=$(GENERATED_FILES)	src\TypeCheckerTest.java
 PARSER_FILES=$(GENERATED_FILES)	src\ParserTest.java
 LEXER_FILES=$(GENERATED_FILES)	src\LexerTest.java
 
-default: runParser
+default: runTypeChecker
 
 .SUFFIXES: $(SUFFIXES) .class .java
 
 .java.class:
 		$(JAVAC) -d $(CLASS_FILES_DIR) -cp $(COMPILE_CP) $*.java
+
+runTypeChecker: all $(TYPE_CHECKER_FILES:java=class)
+		$(JAVA) -cp $(RUN_CP) TypeCheckerTest $(TEST_FILES_DIR)\$(TEST_FILE) > $(OUTPUT_FILES_DIR)\$(TEST_FILE)-output.txt
+		type $(TEST_FILE)-output.txt
 
 runParser: all $(PARSER_FILES:java=class)
 		$(JAVA) -cp $(RUN_CP) ParserTest $(TEST_FILES_DIR)\$(TEST_FILE) > $(OUTPUT_FILES_DIR)\$(TEST_FILE)-output.txt
