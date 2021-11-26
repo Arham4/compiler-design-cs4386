@@ -4,7 +4,10 @@ import tokens.lexeme.Type;
 import type_checking.TypeCheckException;
 import utils.StringHelper;
 
+import java.util.HashMap;
 import java.util.Map;
+
+import static type_checking.TypeCheckException.redeclarationError;
 
 public final class ArrayFieldDecl implements FieldDecl {
     public static final class Builder {
@@ -53,6 +56,12 @@ public final class ArrayFieldDecl implements FieldDecl {
 
     @Override
     public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        if (!variableSymbolTable.containsKey(id)) {
+            variableSymbolTable.put(id, new HashMap<>());
+        }
+        if (variableSymbolTable.get(id).containsKey(scope)) {
+            throw redeclarationError(id, scope);
+        }
         return null;
     }
 }
