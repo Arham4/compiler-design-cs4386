@@ -8,4 +8,6 @@ public final class Types {
     public static Type CHARLIT = Type.of("char");
     public static Type BOOLLIT = Type.of("bool");
     public static Type FLOATLIT = Type.of("float");
+
+    public static Type VOID = Type.of("void");
 }
