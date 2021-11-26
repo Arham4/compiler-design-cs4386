@@ -58,6 +58,11 @@ public final class IfStmt implements Stmt {
 
     @Override
     public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        expr.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+        stmt.typeCheck(scope + 1, variableSymbolTable, methodSymbolTable);
+        if (ifEnd.isShow()) {
+            ifEnd.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+        }
         return null;
     }
 }

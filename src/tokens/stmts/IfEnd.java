@@ -1,9 +1,14 @@
 package tokens.stmts;
 
 import tokens.NonTerminalToken;
+import tokens.lexeme.Type;
+import type_checking.TypeCheckException;
+import type_checking.TypeCheckable;
 import utils.StringHelper;
 
-public final class IfEnd implements NonTerminalToken {
+import java.util.Map;
+
+public final class IfEnd implements NonTerminalToken, TypeCheckable<Void> {
     public static IfEnd withStmt(Stmt stmt) {
         return new IfEnd(stmt);
     }
@@ -32,5 +37,10 @@ public final class IfEnd implements NonTerminalToken {
         } else {
             return "else\n" + stmt.asString(StringHelper.tabs(tabs + 1), tabs + 1);
         }
+    }
+
+    @Override
+    public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        return null;
     }
 }
