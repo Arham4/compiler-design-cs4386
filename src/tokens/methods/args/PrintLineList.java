@@ -32,6 +32,9 @@ public final class PrintLineList implements NonTerminalToken, TypeCheckable<Void
 
     @Override
     public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        if (printList != null) {
+            printList.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+        }
         return null;
     }
 }
