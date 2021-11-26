@@ -24,6 +24,7 @@ public final class PrintLineStmt implements Stmt {
 
     @Override
     public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        printLineList.typeCheck(scope, variableSymbolTable, methodSymbolTable);
         return null;
     }
 }

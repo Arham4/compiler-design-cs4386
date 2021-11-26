@@ -1,8 +1,13 @@
 package tokens.methods.args;
 
 import tokens.NonTerminalToken;
+import tokens.lexeme.Type;
+import type_checking.TypeCheckException;
+import type_checking.TypeCheckable;
 
-public final class PrintLineList implements NonTerminalToken {
+import java.util.Map;
+
+public final class PrintLineList implements NonTerminalToken, TypeCheckable<Void> {
     public static PrintLineList withPrintList(PrintList printList) {
         return new PrintLineList(printList);
     }
@@ -23,5 +28,10 @@ public final class PrintLineList implements NonTerminalToken {
             return "";
         }
         return printList.asString(tabs);
+    }
+
+    @Override
+    public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        return null;
     }
 }
