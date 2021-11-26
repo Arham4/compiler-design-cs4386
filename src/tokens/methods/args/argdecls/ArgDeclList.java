@@ -1,8 +1,13 @@
 package tokens.methods.args.argdecls;
 
 import tokens.NonTerminalToken;
+import tokens.lexeme.Type;
+import type_checking.TypeCheckException;
+import type_checking.TypeCheckable;
 
-public final class ArgDeclList implements NonTerminalToken {
+import java.util.Map;
+
+public final class ArgDeclList implements NonTerminalToken, TypeCheckable<Void> {
     public static class Builder {
         private ArgDecl argDecl = null;
         private ArgDeclList argDeclList = null;
@@ -37,5 +42,10 @@ public final class ArgDeclList implements NonTerminalToken {
     @Override
     public String asString(int tabs) {
         return argDecl.asString(tabs) + (argDeclList == null ? "" : ", " + argDeclList.asString(tabs));
+    }
+
+    @Override
+    public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        return null;
     }
 }
