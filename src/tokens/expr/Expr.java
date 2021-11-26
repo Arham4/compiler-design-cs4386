@@ -215,7 +215,19 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
 
             @Override
             public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
-                return null;
+                Type exprType = expr.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+                if (exprType == Types.INTLIT && type != Types.INTLIT && type != Types.BOOLLIT && type != Types.FLOATLIT) {
+                    throw TypeCheckException.withFault("Error: Can't cast type " + type.getType() + " to type int");
+                } else if (exprType == Types.FLOATLIT && type != Types.FLOATLIT) {
+                    throw TypeCheckException.withFault("Error: Can't cast type " + type.getType() + " to type float");
+                } else if (exprType == Types.BOOLLIT && type != Types.BOOLLIT) {
+                    throw TypeCheckException.withFault("Error: Can't cast type " + type.getType() + " to type bool");
+                } else if (exprType == Types.CHARLIT && type != Types.CHARLIT) {
+                    throw TypeCheckException.withFault("Error: Can't cast type " + type.getType() + " to type char");
+                } else if (!exprType.isArray() && type == Types.STR) {
+                    throw TypeCheckException.withFault("Error: Can't cast array to type String");
+                }
+                return type;
             }
         };
     }
