@@ -24,6 +24,7 @@ public final class PrintStmt implements Stmt {
 
     @Override
     public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        printList.typeCheck(scope, variableSymbolTable, methodSymbolTable);
         return null;
     }
 }
