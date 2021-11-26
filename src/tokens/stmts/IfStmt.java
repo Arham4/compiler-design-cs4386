@@ -61,7 +61,7 @@ public final class IfStmt implements Stmt {
     public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
         Type exprType = expr.typeCheck(scope, variableSymbolTable, methodSymbolTable);
         if (exprType != Types.BOOLLIT && exprType != Types.INTLIT) {
-            throw TypeCheckException.withFault("If statement cannot be determined with expression that is not boolean (or implicitly coerced)");
+            throw TypeCheckException.withFault("Error: If statement cannot be determined with expression that is not boolean (or implicitly coerced)");
         }
         stmt.typeCheck(scope + 1, variableSymbolTable, methodSymbolTable);
         if (ifEnd.isShow()) {
