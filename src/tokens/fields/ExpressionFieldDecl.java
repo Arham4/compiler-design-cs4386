@@ -76,21 +76,22 @@ public final class ExpressionFieldDecl implements FieldDecl {
         }
         variableSymbolTable.get(id).put(scope, type);
 
+        Type exprType = optionalExpr.isShow() ? optionalExpr.typeCheck(scope, variableSymbolTable, methodSymbolTable) : null;
         if (type == Types.INTLIT) {
-            if (optionalExpr.isShow() && optionalExpr.typeCheck(scope, variableSymbolTable, methodSymbolTable) != Types.INTLIT) {
-                throw conversionError(optionalExpr.typeCheck(scope, variableSymbolTable, methodSymbolTable), "int");
+            if (optionalExpr.isShow() && exprType != Types.INTLIT) {
+                throw conversionError(exprType, "int");
             }
         } else if (type == Types.FLOATLIT) {
-            if (optionalExpr.isShow() && optionalExpr.typeCheck(scope, variableSymbolTable, methodSymbolTable) != Types.FLOATLIT && optionalExpr.typeCheck(scope, variableSymbolTable, methodSymbolTable) != Types.INTLIT) {
-                throw conversionError(optionalExpr.typeCheck(scope, variableSymbolTable, methodSymbolTable), "float");
+            if (optionalExpr.isShow() && exprType != Types.FLOATLIT && exprType != Types.INTLIT) {
+                throw conversionError(exprType, "float");
             }
         } else if (type == Types.BOOLLIT) {
-            if (optionalExpr.isShow() && optionalExpr.typeCheck(scope, variableSymbolTable, methodSymbolTable) != Types.BOOLLIT && optionalExpr.typeCheck(scope, variableSymbolTable, methodSymbolTable) != Types.INTLIT) {
-                throw conversionError(optionalExpr.typeCheck(scope, variableSymbolTable, methodSymbolTable), "bool");
+            if (optionalExpr.isShow() && exprType != Types.BOOLLIT && exprType != Types.INTLIT) {
+                throw conversionError(exprType, "bool");
             }
         } else if (type == Types.CHARLIT) {
-            if (optionalExpr.isShow() && optionalExpr.typeCheck(scope, variableSymbolTable, methodSymbolTable) != Types.CHARLIT) {
-                throw conversionError(optionalExpr.typeCheck(scope, variableSymbolTable, methodSymbolTable), "char");
+            if (optionalExpr.isShow() && exprType != Types.CHARLIT) {
+                throw conversionError(exprType, "char");
             }
         }
         return null;
