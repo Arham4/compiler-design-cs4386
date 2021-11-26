@@ -5,10 +5,32 @@ import tokens.expr.Expr;
 
 public interface Name extends NonTerminalToken {
     static Name simple(String id) {
-        return tabs -> id;
+        return new Name() {
+            @Override
+            public String asString(int tabs) {
+                return id;
+            }
+
+            @Override
+            public String getId() {
+                return id;
+            }
+        };
     }
 
     static Name array(String id, Expr expr) {
-        return tabs -> id + "[" + expr.asString(tabs) + "]";
+        return new Name() {
+            @Override
+            public String asString(int tabs) {
+                return id + "[" + expr.asString(tabs) + "]";
+            }
+
+            @Override
+            public String getId() {
+                return id;
+            }
+        };
     }
+
+    String getId();
 }

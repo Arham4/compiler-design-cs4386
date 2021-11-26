@@ -6,6 +6,9 @@ import type_checking.TypeCheckException;
 
 import java.util.Map;
 
+import static type_checking.TypeCheckException.undeclaredError;
+import static utils.SymbolTableHelper.isScopeTooHigh;
+
 public final class DecrementStmt implements Stmt {
     public static DecrementStmt withName(Name name) {
         return new DecrementStmt(name);
@@ -24,6 +27,9 @@ public final class DecrementStmt implements Stmt {
 
     @Override
     public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        if (!variableSymbolTable.containsKey(name.getId()) || isScopeTooHigh(scope, variableSymbolTable.get(name.getId()))) {
+            throw undeclaredError(name.getId());
+        }
         return null;
     }
 }

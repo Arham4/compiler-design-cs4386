@@ -15,6 +15,10 @@ public final class TypeCheckException extends Exception {
         return TypeCheckException.withFault("Error: " + id + " cannot be redeclared on scope " + scope);
     }
 
+    public static TypeCheckException undeclaredError(String id) {
+        return TypeCheckException.withFault("Error: " + id + " is undeclared, but is attempting to be used");
+    }
+
     private final String fault;
 
     public TypeCheckException(String fault) {
