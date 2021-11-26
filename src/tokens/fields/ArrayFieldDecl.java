@@ -62,6 +62,7 @@ public final class ArrayFieldDecl implements FieldDecl {
         if (variableSymbolTable.get(id).containsKey(scope)) {
             throw redeclarationError(id, scope);
         }
+        variableSymbolTable.get(id).put(scope, type.asArray());
         return null;
     }
 }
