@@ -241,7 +241,21 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
 
             @Override
             public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
-                return null;
+                Type expr1Type = expr1.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+                Type expr2Type = expr2.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+                if (expr1Type != Types.INTLIT && expr1Type != Types.FLOATLIT) {
+                    throw TypeCheckException.withFault("Error: Binary operation can only be performed on ints and floats");
+                }
+                if (expr2Type != Types.INTLIT && expr2Type != Types.FLOATLIT) {
+                    throw TypeCheckException.withFault("Error: Binary operation can only be performed on ints and floats");
+                }
+                if (expr1Type == Types.FLOATLIT) {
+                    return expr1Type;
+                }
+                if (expr2Type == Types.FLOATLIT) {
+                    return expr2Type;
+                }
+                return expr1Type;
             }
         };
     }
