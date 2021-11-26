@@ -10,6 +10,10 @@ import type_checking.TypeCheckable;
 
 import java.util.Map;
 
+import static type_checking.TypeCheckException.undeclaredError;
+import static utils.SymbolTableHelper.getClosestScopeType;
+import static utils.SymbolTableHelper.isScopeTooHigh;
+
 public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
     static Expr simple(Name name) {
         return new Expr() {
@@ -20,7 +24,10 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
 
             @Override
             public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
-                return null;
+                if (!variableSymbolTable.containsKey(name.getId()) || isScopeTooHigh(scope, variableSymbolTable.get(name.getId()))) {
+                    throw undeclaredError(name.getId());
+                }
+                return getClosestScopeType(scope, variableSymbolTable.get(name.getId()));
             }
         };
     }
