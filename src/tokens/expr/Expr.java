@@ -197,7 +197,11 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
 
             @Override
             public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
-                return null;
+                Type exprType = expr.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+                if (exprType != Types.INTLIT && exprType != Types.FLOATLIT) {
+                    throw TypeCheckException.withFault("Error: Positive operation only applicable on int or float");
+                }
+                return exprType;
             }
         };
     }
