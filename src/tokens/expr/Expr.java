@@ -41,7 +41,10 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
 
             @Override
             public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
-                return null;
+                if (!methodSymbolTable.containsKey(id)) {
+                    throw undeclaredError(id);
+                }
+                return methodSymbolTable.get(id);
             }
         };
     }
