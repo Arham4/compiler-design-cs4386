@@ -21,3 +21,15 @@ Note: `make runParser` may be executed to run the abstract syntax tree parser an
 
 ![part 1](https://i.imgur.com/v9elsbV.png)
 ![part 2](https://i.imgur.com/NelujQF.png)
+
+## Symbol Table Implemented
+
+![part 1](https://i.imgur.com/TuqbPIr.png)
+![part 2](https://i.imgur.com/y7ZusTA.png)
+
+## Type Checking Implemented
+
+![part 1](https://i.imgur.com/Pt4DQFJ.png)
+![part 2](https://i.imgur.com/HNy3HZj.png)
+![part 3](https://i.imgur.com/i4LUF4x.png)
+![part 4](https://i.imgur.com/aK3v5Eb.png)
