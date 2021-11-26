@@ -7,6 +7,9 @@ import type_checking.TypeCheckException;
 
 import java.util.Map;
 
+import static type_checking.TypeCheckException.undeclaredError;
+import static utils.SymbolTableHelper.*;
+
 public final class ReassignStmt implements Stmt {
     public static class Builder {
         private Name name;
@@ -46,6 +49,17 @@ public final class ReassignStmt implements Stmt {
 
     @Override
     public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        if (!variableSymbolTable.containsKey(name.getId()) || isScopeTooHigh(scope, variableSymbolTable.get(name.getId()))) {
+            throw undeclaredError(name.getId());
+        }
+
+        Type exprType = expr.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+        if (isNotSameType(scope, variableSymbolTable.get(name.getId()), exprType)) {
+            Type closestScopeType = getClosestScopeType(scope, variableSymbolTable.get(name.getId()), exprType);
+            String typeAsString = closestScopeType != null ? closestScopeType.getType() : "null";
+
+            throw TypeCheckException.withFault(name.getId() + " attempting to be reassigned with type " + exprType.getType() + " when type of " + name.getId() + " is " + typeAsString);
+        }
         return null;
     }
 }
