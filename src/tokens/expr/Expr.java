@@ -147,7 +147,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
 
             @Override
             public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
-                return null;
+                return expr.typeCheck(scope, variableSymbolTable, methodSymbolTable);
             }
         };
     }
