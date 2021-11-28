@@ -58,6 +58,7 @@ public final class ReassignStmt implements Stmt {
 
         Type closestScopeType = getClosestScopeType(scope, variableSymbolTable.get(name.getId()));
         Type exprType = expr.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+
         if (closestScopeType == Types.INTLIT) {
             if (exprType != Types.INTLIT) {
                 throw conversionError(exprType, "int");
@@ -74,6 +75,8 @@ public final class ReassignStmt implements Stmt {
             if (exprType != Types.CHARLIT) {
                 throw conversionError(exprType, "char");
             }
+        } else {
+            throw TypeCheckException.withFault("Error: incompatible types");
         }
         return null;
     }
