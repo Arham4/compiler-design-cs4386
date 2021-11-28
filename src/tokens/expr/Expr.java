@@ -254,7 +254,11 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
                 if (expr2Type == Types.FLOATLIT) {
                     return expr2Type;
                 }
-                return expr1Type;
+                if (binaryOp.getLexeme().equals("+") || binaryOp.getLexeme().equals("-") || binaryOp.getLexeme().equals("*") || binaryOp.getLexeme().equals("/")) {
+                    return expr1Type;
+                } else {
+                    return Types.BOOLLIT;
+                }
             }
         };
     }
