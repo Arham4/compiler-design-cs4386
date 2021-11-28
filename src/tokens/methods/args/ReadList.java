@@ -10,7 +10,6 @@ import type_checking.TypeCheckable;
 import java.util.Map;
 
 import static type_checking.TypeCheckException.undeclaredError;
-import static utils.SymbolTableHelper.getClosestScopeType;
 
 public final class ReadList implements NonTerminalToken, TypeCheckable<Void> {
     public static class Builder {
@@ -56,8 +55,8 @@ public final class ReadList implements NonTerminalToken, TypeCheckable<Void> {
             throw undeclaredError(name.getId());
         }
         if (variableSymbolTable.containsKey(name.getId())) {
-            Type closestScopeType = getClosestScopeType(scope, variableSymbolTable.get(name.getId()));
-            if (closestScopeType.isArray()) {
+            Type type = name.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+            if (type.isArray()) {
                 throw TypeCheckException.withFault("Cannot call read stmt on array type");
             }
         } else if (methodSymbolTable.containsKey(name.getId()) && methodSymbolTable.get(name.getId()) == Types.VOID) {

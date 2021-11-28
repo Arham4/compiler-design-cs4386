@@ -10,7 +10,6 @@ import java.util.Map;
 
 import static type_checking.TypeCheckException.conversionError;
 import static type_checking.TypeCheckException.undeclaredError;
-import static utils.SymbolTableHelper.getClosestScopeType;
 import static utils.SymbolTableHelper.isScopeTooHigh;
 
 public final class ReassignStmt implements Stmt {
@@ -56,7 +55,7 @@ public final class ReassignStmt implements Stmt {
             throw undeclaredError(name.getId());
         }
 
-        Type closestScopeType = getClosestScopeType(scope, variableSymbolTable.get(name.getId()));
+        Type closestScopeType = name.typeCheck(scope, variableSymbolTable, methodSymbolTable);
         Type exprType = expr.typeCheck(scope, variableSymbolTable, methodSymbolTable);
 
         if (closestScopeType == Types.INTLIT) {

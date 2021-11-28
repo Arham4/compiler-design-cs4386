@@ -8,7 +8,6 @@ import type_checking.TypeCheckException;
 import java.util.Map;
 
 import static type_checking.TypeCheckException.undeclaredError;
-import static utils.SymbolTableHelper.getClosestScopeType;
 import static utils.SymbolTableHelper.isScopeTooHigh;
 
 public final class DecrementStmt implements Stmt {
@@ -33,7 +32,7 @@ public final class DecrementStmt implements Stmt {
             throw undeclaredError(name.getId());
         }
         // todo check for final
-        Type varType = getClosestScopeType(scope, variableSymbolTable.get(name.getId()));
+        Type varType = name.typeCheck(scope, variableSymbolTable, methodSymbolTable);
         if (varType != Types.INTLIT && varType != Types.FLOATLIT) {
             throw TypeCheckException.withFault("Error: Only ints or floats can be decremented, but " + name.getId() + " is not of those types.");
         }
