@@ -12,7 +12,6 @@ import type_checking.TypeCheckable;
 import java.util.Map;
 
 import static type_checking.TypeCheckException.undeclaredError;
-import static utils.SymbolTableHelper.getClosestScopeType;
 import static utils.SymbolTableHelper.isScopeTooHigh;
 
 public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
@@ -28,7 +27,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
                 if (!variableSymbolTable.containsKey(name.getId()) || isScopeTooHigh(scope, variableSymbolTable.get(name.getId()))) {
                     throw undeclaredError(name.getId());
                 }
-                return getClosestScopeType(scope, variableSymbolTable.get(name.getId()));
+                return name.typeCheck(scope, variableSymbolTable, methodSymbolTable);
             }
         };
     }
