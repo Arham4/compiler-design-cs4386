@@ -46,4 +46,13 @@ public final class Type implements NonTerminalToken {
     public int hashCode() {
         return Objects.hash(type, array);
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Type{");
+        sb.append("type='").append(type).append('\'');
+        sb.append(", array=").append(array);
+        sb.append('}');
+        return sb.toString();
+    }
 }
