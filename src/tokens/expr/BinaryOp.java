@@ -32,13 +32,13 @@ public final class BinaryOp implements NonTerminalToken, TypeCheckable<Type> {
     public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
         Type expr1Type = expr1.typeCheck(scope, variableSymbolTable, methodSymbolTable);
         Type expr2Type = expr2.typeCheck(scope, variableSymbolTable, methodSymbolTable);
-        if (expr1Type != Types.INTLIT && expr1Type != Types.FLOATLIT) {
-            throw TypeCheckException.withFault("Error: Binary operation can only be performed on ints and floats");
-        }
-        if (expr2Type != Types.INTLIT && expr2Type != Types.FLOATLIT) {
-            throw TypeCheckException.withFault("Error: Binary operation can only be performed on ints and floats");
-        }
         if (operation.equals("+") || operation.equals("-") || operation.equals("*") || operation.equals("/")) {
+            if (expr1Type != Types.INTLIT && expr1Type != Types.FLOATLIT) {
+                throw TypeCheckException.withFault("Error: Binary operation " + operation + " can only be performed on ints and floats");
+            }
+            if (expr2Type != Types.INTLIT && expr2Type != Types.FLOATLIT) {
+                throw TypeCheckException.withFault("Error: Binary operation " + operation + " can only be performed on ints and floats");
+            }
             if (expr1Type == Types.FLOATLIT) {
                 return expr1Type;
             }
@@ -47,6 +47,12 @@ public final class BinaryOp implements NonTerminalToken, TypeCheckable<Type> {
             }
             return expr1Type;
         } else {
+            if (expr1Type != Types.BOOLLIT && expr1Type != Types.INTLIT) {
+                throw TypeCheckException.withFault("Error: Binary operation " + operation + " can only be performed on bools (or implicitly coerced)");
+            }
+            if (expr2Type != Types.BOOLLIT && expr2Type != Types.INTLIT) {
+                throw TypeCheckException.withFault("Error: Binary operation " + operation + " can only be performed on bools (or implicitly coerced)");
+            }
             return Types.BOOLLIT;
         }
     }
