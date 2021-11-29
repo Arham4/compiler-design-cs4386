@@ -38,13 +38,13 @@ public final class BinaryOp implements NonTerminalToken, TypeCheckable<Type> {
         if (expr2Type != Types.INTLIT && expr2Type != Types.FLOATLIT) {
             throw TypeCheckException.withFault("Error: Binary operation can only be performed on ints and floats");
         }
-        if (expr1Type == Types.FLOATLIT) {
-            return expr1Type;
-        }
-        if (expr2Type == Types.FLOATLIT) {
-            return expr2Type;
-        }
         if (operation.equals("+") || operation.equals("-") || operation.equals("*") || operation.equals("/")) {
+            if (expr1Type == Types.FLOATLIT) {
+                return expr1Type;
+            }
+            if (expr2Type == Types.FLOATLIT) {
+                return expr2Type;
+            }
             return expr1Type;
         } else {
             return Types.BOOLLIT;
