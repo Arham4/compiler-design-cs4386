@@ -46,6 +46,14 @@ public final class BinaryOp implements NonTerminalToken, TypeCheckable<Type> {
                 return expr2Type;
             }
             return expr1Type;
+        } else if (operation.equals(">") || operation.equals("<") || operation.equals(">=") || operation.equals("<=") || operation.equals("==") || operation.equals("<>")) {
+            if (expr1Type != Types.INTLIT && expr1Type != Types.FLOATLIT) {
+                throw TypeCheckException.withFault("Error: Binary operation " + operation + " can only be performed on ints and floats");
+            }
+            if (expr2Type != Types.INTLIT && expr2Type != Types.FLOATLIT) {
+                throw TypeCheckException.withFault("Error: Binary operation " + operation + " can only be performed on ints and floats");
+            }
+            return Types.BOOLLIT;
         } else {
             if (expr1Type != Types.BOOLLIT && expr1Type != Types.INTLIT) {
                 throw TypeCheckException.withFault("Error: Binary operation " + operation + " can only be performed on bools (or implicitly coerced)");
