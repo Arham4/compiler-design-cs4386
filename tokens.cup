@@ -81,7 +81,7 @@ nonterminal tokens.lexeme.Type type;
 
 nonterminal tokens.id.Name name;
 nonterminal tokens.expr.Expr expr;
-nonterminal tokens.lexeme.Lexeme binaryop;
+nonterminal tokens.expr.BinaryOp binaryop;
 nonterminal tokens.id.TypeId typeid;
 
 precedence right ASSMNT;
@@ -551,62 +551,62 @@ expr            ::= name:name
                 {:
                     RESULT = tokens.expr.Expr.casting(type, expr);
                 :}
-                |   expr:expr1 binaryop:binaryOp expr:expr2
+                |   binaryop:binaryOp
                 {:
-                    RESULT = tokens.expr.Expr.binaryOp(expr1, binaryOp, expr2);
+                    RESULT = tokens.expr.Expr.binaryOp(binaryOp);
                 :}
                 |   LEFT_PARENTHESIS expr:expr TERNARY_IF expr:exprTrue TERNARY_ELSE expr:exprFalse RIGHT_PARENTHESIS
                 {:
                     RESULT = tokens.expr.Expr.ternary(expr, exprTrue, exprFalse);
                 :};
 
-binaryop        ::= TIMES
+binaryop        ::= expr:expr1 TIMES expr:expr2
                 {:
-                    RESULT = tokens.lexeme.Lexeme.of("*");
+                    RESULT = tokens.expr.BinaryOp.of(expr1, "*", expr2);
                 :}
-                |   DIVIDE
+                |   expr:expr1 DIVIDE expr:expr2
                 {:
-                    RESULT = tokens.lexeme.Lexeme.of("/");
+                    RESULT = tokens.expr.BinaryOp.of(expr1, "/", expr2);
                 :}
-                |   PLUS
+                |   expr:expr1 PLUS expr:expr2
                 {:
-                    RESULT = tokens.lexeme.Lexeme.of("+");
+                    RESULT = tokens.expr.BinaryOp.of(expr1, "+", expr2);
                 :}
-                |   MINUS
+                |   expr:expr1 MINUS expr:expr2
                 {:
-                    RESULT = tokens.lexeme.Lexeme.of("-");
+                    RESULT = tokens.expr.BinaryOp.of(expr1, "-", expr2);
                 :}
-                |   LESS_THAN
+                |   expr:expr1 LESS_THAN expr:expr2
                 {:
-                    RESULT = tokens.lexeme.Lexeme.of("<");
+                    RESULT = tokens.expr.BinaryOp.of(expr1, "<", expr2);
                 :}
-                |   GREATER_THAN
+                |   expr:expr1 GREATER_THAN expr:expr2
                 {:
-                    RESULT = tokens.lexeme.Lexeme.of(">");
+                    RESULT = tokens.expr.BinaryOp.of(expr1, ">", expr2);
                 :}
-                |   LESS_THAN_OR_EQUAL_TO
+                |   expr:expr1 LESS_THAN_OR_EQUAL_TO expr:expr2
                 {:
-                    RESULT = tokens.lexeme.Lexeme.of("<=");
+                    RESULT = tokens.expr.BinaryOp.of(expr1, "<=", expr2);
                 :}
-                |   GREATER_THAN_OR_EQUAL_TO
+                |   expr:expr1 GREATER_THAN_OR_EQUAL_TO expr:expr2
                 {:
-                    RESULT = tokens.lexeme.Lexeme.of(">=");
+                    RESULT = tokens.expr.BinaryOp.of(expr1, ">=", expr2);
                 :}
-                |   EQUAL_TO
+                |   expr:expr1 EQUAL_TO expr:expr2
                 {:
-                    RESULT = tokens.lexeme.Lexeme.of("==");
+                    RESULT = tokens.expr.BinaryOp.of(expr1, "==", expr2);
                 :}
-                |   NOT_EQUAL_TO
+                |   expr:expr1 NOT_EQUAL_TO expr:expr2
                 {:
-                    RESULT = tokens.lexeme.Lexeme.of("<>");
+                    RESULT = tokens.expr.BinaryOp.of(expr1, "<>", expr2);
                 :}
-                |   DOUBLE_OR
+                |   expr:expr1 DOUBLE_OR expr:expr2
                 {:
-                    RESULT = tokens.lexeme.Lexeme.of("||");
+                    RESULT = tokens.expr.BinaryOp.of(expr1, "||", expr2);
                 :}
-                |   DOUBLE_AND
+                |   expr:expr1 DOUBLE_AND expr:expr2
                 {:
-                    RESULT = tokens.lexeme.Lexeme.of("&&");
+                    RESULT = tokens.expr.BinaryOp.of(expr1, "&&", expr2);
                 :};
 
 typeid          ::= type:type ID:id

@@ -2,7 +2,6 @@ package tokens.expr;
 
 import tokens.NonTerminalToken;
 import tokens.id.Name;
-import tokens.lexeme.Lexeme;
 import tokens.lexeme.Type;
 import tokens.lexeme.Types;
 import tokens.methods.args.Args;
@@ -231,34 +230,16 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
         };
     }
 
-    static Expr binaryOp(Expr expr1, Lexeme binaryOp, Expr expr2) {
+    static Expr binaryOp(BinaryOp binaryOp) {
         return new Expr() {
             @Override
             public String asString(int tabs) {
-                return "(" + expr1.asString(tabs) + " " + binaryOp.asString(tabs) + " " + expr2.asString(tabs) + ")";
+                return binaryOp.asString(tabs);
             }
 
             @Override
             public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
-                Type expr1Type = expr1.typeCheck(scope, variableSymbolTable, methodSymbolTable);
-                Type expr2Type = expr2.typeCheck(scope, variableSymbolTable, methodSymbolTable);
-                if (expr1Type != Types.INTLIT && expr1Type != Types.FLOATLIT) {
-                    throw TypeCheckException.withFault("Error: Binary operation can only be performed on ints and floats");
-                }
-                if (expr2Type != Types.INTLIT && expr2Type != Types.FLOATLIT) {
-                    throw TypeCheckException.withFault("Error: Binary operation can only be performed on ints and floats");
-                }
-                if (expr1Type == Types.FLOATLIT) {
-                    return expr1Type;
-                }
-                if (expr2Type == Types.FLOATLIT) {
-                    return expr2Type;
-                }
-                if (binaryOp.getLexeme().equals("+") || binaryOp.getLexeme().equals("-") || binaryOp.getLexeme().equals("*") || binaryOp.getLexeme().equals("/")) {
-                    return expr1Type;
-                } else {
-                    return Types.BOOLLIT;
-                }
+                return binaryOp.typeCheck(scope, variableSymbolTable, methodSymbolTable);
             }
         };
     }
