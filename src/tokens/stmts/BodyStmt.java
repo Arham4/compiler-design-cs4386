@@ -9,7 +9,7 @@ import utils.StringHelper;
 
 import java.util.Map;
 
-public final class BodyStmt implements Stmt, Contextualized {
+public final class BodyStmt implements Stmt, Nestable {
     public static class Builder {
         private FieldDecls fieldDecls;
         private Stmts stmts;
@@ -51,6 +51,18 @@ public final class BodyStmt implements Stmt, Contextualized {
     }
 
     @Override
+    public boolean hasReturnStmt() {
+        Stmts currentStmts = stmts;
+        while (currentStmts != null) {
+            if (currentStmts.getStmt() instanceof ReturnStmt) {
+                return true;
+            }
+            currentStmts = stmts.getStmts();
+        }
+        return false;
+    }
+
+    @Override
     public void setMethodId(String methodId) {
         this.methodId = methodId;
     }
@@ -59,7 +71,7 @@ public final class BodyStmt implements Stmt, Contextualized {
     public String asString(String prefix, int tabs) {
         return prefix + "{\n"
                 + (fieldDecls == null ? "" : fieldDecls.asString(tabs + 1))
-                + stmts.asString(tabs + 1)
+                + (stmts == null ? "" : stmts.asString(tabs + 1))
                 + StringHelper.withTabs(tabs, "}" + optionalSemi.asString(tabs));
     }
 
@@ -68,8 +80,10 @@ public final class BodyStmt implements Stmt, Contextualized {
         if (fieldDecls != null) {
             fieldDecls.typeCheck(scope + 1, fieldSymbolTable, methodSymbolTable);
         }
-        stmts.setMethodId(methodId);
-        stmts.typeCheck(scope + 1, fieldSymbolTable, methodSymbolTable);
+        if (stmts != null) {
+            stmts.setMethodId(methodId);
+            stmts.typeCheck(scope + 1, fieldSymbolTable, methodSymbolTable);
+        }
         return null;
     }
 }

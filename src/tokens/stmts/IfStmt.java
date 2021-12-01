@@ -10,7 +10,7 @@ import utils.StringHelper;
 
 import java.util.Map;
 
-public final class IfStmt implements Stmt, Contextualized {
+public final class IfStmt implements Stmt, Nestable {
     public static class Builder {
         private Expr expr;
         private Stmt stmt;
@@ -49,6 +49,11 @@ public final class IfStmt implements Stmt, Contextualized {
         this.expr = expr;
         this.stmt = stmt;
         this.ifEnd = ifEnd;
+    }
+
+    @Override
+    public boolean hasReturnStmt() {
+        return stmt instanceof ReturnStmt;
     }
 
     @Override

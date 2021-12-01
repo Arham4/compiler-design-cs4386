@@ -9,7 +9,7 @@ import utils.StringHelper;
 
 import java.util.Map;
 
-public final class IfEnd implements NonTerminalToken, TypeCheckable<Void>, Contextualized {
+public final class IfEnd implements NonTerminalToken, TypeCheckable<Void>, Nestable {
     public static IfEnd withStmt(Stmt stmt) {
         return new IfEnd(stmt);
     }
@@ -23,6 +23,11 @@ public final class IfEnd implements NonTerminalToken, TypeCheckable<Void>, Conte
 
     private IfEnd(Stmt stmt) {
         this.stmt = stmt;
+    }
+
+    @Override
+    public boolean hasReturnStmt() {
+        return stmt instanceof ReturnStmt;
     }
 
     @Override

@@ -10,7 +10,7 @@ import utils.StringHelper;
 
 import java.util.Map;
 
-public final class WhileStmt implements Stmt, Contextualized {
+public final class WhileStmt implements Stmt, Nestable {
     public static class Builder {
         private Expr expr;
         private Stmt stmt;
@@ -41,6 +41,11 @@ public final class WhileStmt implements Stmt, Contextualized {
     private WhileStmt(Expr expr, Stmt stmt) {
         this.expr = expr;
         this.stmt = stmt;
+    }
+
+    @Override
+    public boolean hasReturnStmt() {
+        return stmt instanceof ReturnStmt;
     }
 
     @Override

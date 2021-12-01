@@ -11,7 +11,7 @@ import java.util.Map;
 
 import static utils.SymbolTableHelper.removeScopeFromSymbolTable;
 
-public final class Stmts implements NonTerminalToken, TypeCheckable<Void>, Contextualized {
+public final class Stmts implements NonTerminalToken, TypeCheckable<Void>, Nestable {
     public static final class Builder {
         private Stmt stmt = null;
         private Stmts stmts = null;
@@ -44,6 +44,24 @@ public final class Stmts implements NonTerminalToken, TypeCheckable<Void>, Conte
         this.stmts = stmts;
     }
 
+    @Override
+    public boolean hasReturnStmt() {
+        if (stmt instanceof ReturnStmt) {
+            return true;
+        }
+        boolean adheres = false;
+        Stmts currentStmts = stmts;
+        while (currentStmts != null) {
+            if (currentStmts.getStmt() instanceof ReturnStmt) {
+                adheres = true;
+                break;
+            }
+            currentStmts = stmts.getStmts();
+        }
+        return adheres;
+    }
+
+    @Override
     public void setMethodId(String methodId) {
         this.methodId = methodId;
     }
