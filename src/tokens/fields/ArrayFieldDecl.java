@@ -2,7 +2,6 @@ package tokens.fields;
 
 import tokens.lexeme.Type;
 import type_checking.TypeCheckException;
-import utils.StringHelper;
 
 import java.util.Map;
 
@@ -50,7 +49,7 @@ public final class ArrayFieldDecl implements FieldDecl {
 
     @Override
     public String asString(int tabs) {
-        return StringHelper.withTabs(tabs, type.asString(tabs) + " " + id + "[" + size + "];");
+        return type.asString(tabs) + " " + id + "[" + size + "];";
     }
 
     @Override
