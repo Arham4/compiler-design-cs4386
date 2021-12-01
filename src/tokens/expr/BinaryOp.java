@@ -33,7 +33,9 @@ public final class BinaryOp implements NonTerminalToken, TypeCheckable<Type> {
     public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
         Type expr1Type = expr1.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
         Type expr2Type = expr2.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
-        if (operation.equals("+") || operation.equals("-") || operation.equals("*") || operation.equals("/")) {
+        if (operation.equals("+") && (expr1Type == Types.STR || expr2Type == Types.STR)) {
+            return Types.STR;
+        } else if (operation.equals("+") || operation.equals("-") || operation.equals("*") || operation.equals("/")) {
             if (expr1Type != Types.INTLIT && expr1Type != Types.FLOATLIT) {
                 throw TypeCheckException.withFault("Error: Binary operation " + operation + " can only be performed on ints and floats");
             }
