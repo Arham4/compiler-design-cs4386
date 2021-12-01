@@ -2,7 +2,7 @@ package tokens.stmts;
 
 import tokens.NonTerminalToken;
 import tokens.fields.FieldInformation;
-import tokens.lexeme.Type;
+import tokens.methods.MethodInformation;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
 import utils.StringHelper;
@@ -41,7 +41,7 @@ public final class IfEnd implements NonTerminalToken, TypeCheckable<Void> {
     }
 
     @Override
-    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
         if (stmt != null) {
             stmt.typeCheck(scope + 1, fieldSymbolTable, methodSymbolTable);
         }

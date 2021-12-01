@@ -4,6 +4,7 @@ import tokens.expr.OptionalExpr;
 import tokens.lexeme.OptionalLexeme;
 import tokens.lexeme.Type;
 import tokens.lexeme.Types;
+import tokens.methods.MethodInformation;
 import type_checking.TypeCheckException;
 
 import java.util.Map;
@@ -66,7 +67,7 @@ public final class ExpressionFieldDecl implements FieldDecl {
     }
 
     @Override
-    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
         if (!fieldSymbolTable.containsKey(id)) {
             fieldSymbolTable.put(id, FieldInformation.empty());
         }

@@ -5,6 +5,7 @@ import tokens.fields.FieldInformation;
 import tokens.id.Name;
 import tokens.lexeme.Type;
 import tokens.lexeme.Types;
+import tokens.methods.MethodInformation;
 import tokens.methods.args.Args;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
@@ -22,7 +23,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
                 return name.typeCheck(scope, fieldSymbolTable, methodSymbolTable).getFirst();
             }
         };
@@ -36,11 +37,11 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
                 if (!methodSymbolTable.containsKey(id)) {
                     throw undeclaredError(id);
                 }
-                return methodSymbolTable.get(id);
+                return methodSymbolTable.get(id).getType();
             }
         };
     }
@@ -53,12 +54,12 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
                 if (!methodSymbolTable.containsKey(id)) {
                     throw undeclaredError(id);
                 }
                 // todo check args
-                return methodSymbolTable.get(id);
+                return methodSymbolTable.get(id).getType();
             }
         };
     }
@@ -71,7 +72,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
                 return Types.INTLIT;
             }
         };
@@ -85,7 +86,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
                 return Types.CHARLIT;
             }
         };
@@ -99,7 +100,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
                 return Types.STR;
             }
         };
@@ -113,7 +114,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
                 return Types.FLOATLIT;
             }
         };
@@ -127,7 +128,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
                 return Types.BOOLLIT;
             }
         };
@@ -141,7 +142,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
                 return expr.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
             }
         };
@@ -155,7 +156,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
                 Type exprType = expr.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
                 if (exprType != Types.BOOLLIT && exprType != Types.INTLIT) {
                     throw TypeCheckException.withFault("Error: Not operation only applicable on bool (or coerced to bool)");
@@ -173,7 +174,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
                 Type exprType = expr.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
                 if (exprType != Types.INTLIT && exprType != Types.FLOATLIT) {
                     throw TypeCheckException.withFault("Error: Negative operation only applicable on int or float");
@@ -191,7 +192,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
                 Type exprType = expr.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
                 if (exprType != Types.INTLIT && exprType != Types.FLOATLIT) {
                     throw TypeCheckException.withFault("Error: Positive operation only applicable on int or float");
@@ -209,7 +210,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
                 Type exprType = expr.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
                 if (exprType == Types.INTLIT && type != Types.INTLIT && type != Types.BOOLLIT && type != Types.FLOATLIT) {
                     throw TypeCheckException.withFault("Error: Can't cast type " + type.getType() + " to type int");
@@ -235,7 +236,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
                 return binaryOp.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
             }
         };
@@ -249,7 +250,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
                 Type exprType = expr.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
                 Type exprTrueType = exprTrue.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
                 Type exprFalseType = exprFalse.typeCheck(scope, fieldSymbolTable, methodSymbolTable);

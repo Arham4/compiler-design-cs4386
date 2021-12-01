@@ -1,7 +1,7 @@
 package tokens.stmts;
 
 import tokens.fields.FieldInformation;
-import tokens.lexeme.Type;
+import tokens.methods.MethodInformation;
 import tokens.methods.args.PrintList;
 import type_checking.TypeCheckException;
 
@@ -24,7 +24,7 @@ public final class PrintStmt implements Stmt {
     }
 
     @Override
-    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
         printList.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
         return null;
     }

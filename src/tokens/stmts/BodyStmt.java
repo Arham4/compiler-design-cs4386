@@ -3,7 +3,7 @@ package tokens.stmts;
 import tokens.fields.FieldDecls;
 import tokens.fields.FieldInformation;
 import tokens.lexeme.OptionalLexeme;
-import tokens.lexeme.Type;
+import tokens.methods.MethodInformation;
 import type_checking.TypeCheckException;
 import utils.StringHelper;
 
@@ -58,7 +58,7 @@ public final class BodyStmt implements Stmt {
     }
 
     @Override
-    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
         if (fieldDecls != null) {
             fieldDecls.typeCheck(scope + 1, fieldSymbolTable, methodSymbolTable);
         }

@@ -2,7 +2,7 @@ package tokens.stmts;
 
 import tokens.expr.Expr;
 import tokens.fields.FieldInformation;
-import tokens.lexeme.Type;
+import tokens.methods.MethodInformation;
 import type_checking.TypeCheckException;
 
 import java.util.Map;
@@ -28,7 +28,7 @@ public final class ReturnStmt implements Stmt {
     }
 
     @Override
-    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
         expr.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
         return null;
     }

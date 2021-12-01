@@ -4,6 +4,7 @@ import tokens.fields.FieldInformation;
 import tokens.id.Name;
 import tokens.lexeme.Type;
 import tokens.lexeme.Types;
+import tokens.methods.MethodInformation;
 import type_checking.TypeCheckException;
 import utils.Pair;
 
@@ -26,7 +27,7 @@ public final class IncrementStmt implements Stmt {
     }
 
     @Override
-    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
         Pair<Type, Boolean> varInfo = name.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
         Type varType = varInfo.getFirst();
         boolean varIsFinal = varInfo.getSecond();

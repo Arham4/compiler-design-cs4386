@@ -5,6 +5,7 @@ import tokens.expr.Expr;
 import tokens.fields.FieldInformation;
 import tokens.lexeme.Type;
 import tokens.lexeme.Types;
+import tokens.methods.MethodInformation;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
 import utils.Pair;
@@ -27,7 +28,7 @@ public interface Name extends NonTerminalToken, TypeCheckable<Pair<Type, Boolean
             }
 
             @Override
-            public Pair<Type, Boolean> typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+            public Pair<Type, Boolean> typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
                 if (!fieldSymbolTable.containsKey(id) || fieldSymbolTable.get(id).isScopeTooHigh(scope)) {
                     throw undeclaredError(id);
                 }
@@ -50,7 +51,7 @@ public interface Name extends NonTerminalToken, TypeCheckable<Pair<Type, Boolean
             }
 
             @Override
-            public Pair<Type, Boolean> typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+            public Pair<Type, Boolean> typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
                 if (!fieldSymbolTable.containsKey(id) || fieldSymbolTable.get(id).isScopeTooHigh(scope)) {
                     throw undeclaredError(id);
                 }

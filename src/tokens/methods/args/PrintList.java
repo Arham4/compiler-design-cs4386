@@ -5,6 +5,7 @@ import tokens.expr.Expr;
 import tokens.fields.FieldInformation;
 import tokens.lexeme.Type;
 import tokens.lexeme.Types;
+import tokens.methods.MethodInformation;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
 
@@ -48,7 +49,7 @@ public final class PrintList implements NonTerminalToken, TypeCheckable<Void> {
     }
 
     @Override
-    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
         Type exprType = expr.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
         if (exprType.isArray()) {
             throw TypeCheckException.withFault("Cannot call print stmt on expr with array type");

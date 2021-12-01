@@ -1,6 +1,6 @@
 import tokens.Program;
 import tokens.fields.FieldInformation;
-import tokens.lexeme.Type;
+import tokens.methods.MethodInformation;
 import type_checking.TypeCheckException;
 
 import java.io.File;
@@ -43,7 +43,7 @@ public class TypeCheckerTest {
         try {
             int scope = 0;
             Map<String, FieldInformation> fieldSymbolTable = new HashMap<>();
-            Map<String, Type> methodSymbolTable = new HashMap<>();
+            Map<String, MethodInformation> methodSymbolTable = new HashMap<>();
 
             program.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
             System.out.println("Type checking complete!");

@@ -4,6 +4,7 @@ import tokens.NonTerminalToken;
 import tokens.fields.FieldInformation;
 import tokens.lexeme.Type;
 import tokens.lexeme.Types;
+import tokens.methods.MethodInformation;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
 
@@ -30,7 +31,7 @@ public final class BinaryOp implements NonTerminalToken, TypeCheckable<Type> {
     }
 
     @Override
-    public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+    public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
         Type expr1Type = expr1.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
         Type expr2Type = expr2.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
         if (operation.equals("+") && (expr1Type == Types.STR || expr2Type == Types.STR)) {

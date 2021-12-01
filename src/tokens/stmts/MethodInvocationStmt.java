@@ -1,7 +1,7 @@
 package tokens.stmts;
 
 import tokens.fields.FieldInformation;
-import tokens.lexeme.Type;
+import tokens.methods.MethodInformation;
 import tokens.methods.args.Args;
 import type_checking.TypeCheckException;
 
@@ -32,7 +32,7 @@ public final class MethodInvocationStmt implements Stmt {
     }
 
     @Override
-    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
         if (!methodSymbolTable.containsKey(id)) {
             throw undeclaredError(id);
         }

@@ -2,6 +2,7 @@ package tokens.methods.args.argdecls;
 
 import tokens.fields.FieldInformation;
 import tokens.lexeme.Type;
+import tokens.methods.MethodInformation;
 import type_checking.TypeCheckException;
 
 import java.util.Map;
@@ -46,7 +47,7 @@ public final class RegularArgDecl implements ArgDecl {
     }
 
     @Override
-    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
         if (!fieldSymbolTable.containsKey(id)) {
             fieldSymbolTable.put(id, FieldInformation.empty());
         }

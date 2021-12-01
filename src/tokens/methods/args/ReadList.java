@@ -4,6 +4,7 @@ import tokens.NonTerminalToken;
 import tokens.fields.FieldInformation;
 import tokens.id.Name;
 import tokens.lexeme.Type;
+import tokens.methods.MethodInformation;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
 import utils.Pair;
@@ -48,7 +49,7 @@ public final class ReadList implements NonTerminalToken, TypeCheckable<Void> {
     }
 
     @Override
-    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
         if (fieldSymbolTable.containsKey(name.getId())) {
             Pair<Type, Boolean> info = name.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
             Type type = info.getFirst();

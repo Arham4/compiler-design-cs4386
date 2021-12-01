@@ -4,6 +4,7 @@ import tokens.expr.Expr;
 import tokens.fields.FieldInformation;
 import tokens.lexeme.Type;
 import tokens.lexeme.Types;
+import tokens.methods.MethodInformation;
 import type_checking.TypeCheckException;
 import utils.StringHelper;
 
@@ -51,7 +52,7 @@ public final class WhileStmt implements Stmt {
     }
 
     @Override
-    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
         Type exprType = expr.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
         if (exprType != Types.BOOLLIT && exprType != Types.INTLIT) {
             throw TypeCheckException.withFault("Error: While statement cannot be determined with expression that is not boolean (or implicitly coerced)");
