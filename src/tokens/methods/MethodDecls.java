@@ -8,6 +8,8 @@ import type_checking.TypeCheckable;
 
 import java.util.Map;
 
+import static utils.SymbolTableHelper.removeScopeFromSymbolTable;
+
 public final class MethodDecls implements NonTerminalToken, TypeCheckable<Void> {
     public static final class Builder {
         private MethodDecl methodDecl = null;
@@ -51,6 +53,7 @@ public final class MethodDecls implements NonTerminalToken, TypeCheckable<Void> 
             methodDecls.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
         }
         methodDecl.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
+        removeScopeFromSymbolTable(scope + 1, fieldSymbolTable);
         return null;
     }
 }

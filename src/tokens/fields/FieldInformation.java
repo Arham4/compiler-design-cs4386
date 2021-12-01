@@ -58,6 +58,15 @@ public final class FieldInformation {
         return scopes.containsKey(scope);
     }
 
+    public void removeScope(int scope) {
+        finals.remove(scope);
+        scopes.remove(scope);
+    }
+
+    public boolean isEmpty() {
+        return scopes.isEmpty();
+    }
+
     private static Optional<Integer> getLowestScope(Map<Integer, Type> scopes) {
         return scopes.keySet().stream().min(Integer::compareTo);
     }

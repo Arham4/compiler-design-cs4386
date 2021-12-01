@@ -9,6 +9,8 @@ import utils.StringHelper;
 
 import java.util.Map;
 
+import static utils.SymbolTableHelper.removeScopeFromSymbolTable;
+
 public final class Stmts implements NonTerminalToken, TypeCheckable<Void> {
     public static final class Builder {
         private Stmt stmt = null;
@@ -57,6 +59,7 @@ public final class Stmts implements NonTerminalToken, TypeCheckable<Void> {
     public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
         if (stmt != null) {
             stmt.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
+            removeScopeFromSymbolTable(scope + 1, fieldSymbolTable);
         }
         if (stmts != null) {
             stmts.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
