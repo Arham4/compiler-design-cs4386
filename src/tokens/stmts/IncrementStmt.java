@@ -5,6 +5,7 @@ import tokens.id.Name;
 import tokens.lexeme.Type;
 import tokens.lexeme.Types;
 import type_checking.TypeCheckException;
+import utils.Pair;
 
 import java.util.Map;
 
@@ -26,9 +27,13 @@ public final class IncrementStmt implements Stmt {
 
     @Override
     public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
-        // todo check for final
-        Type varType = name.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
-        if (varType != Types.INTLIT && varType != Types.FLOATLIT) {
+        Pair<Type, Boolean> varInfo = name.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
+        Type varType = varInfo.getFirst();
+        boolean varIsFinal = varInfo.getSecond();
+
+        if (varIsFinal) {
+            throw TypeCheckException.withFault("Error: Final variables cannot be incremented.");
+        } else if (varType != Types.INTLIT && varType != Types.FLOATLIT) {
             throw TypeCheckException.withFault("Error: Only ints or floats can be incremented, but " + name.getId() + " is not of those types.");
         }
         return null;

@@ -6,6 +6,7 @@ import tokens.id.Name;
 import tokens.lexeme.Type;
 import tokens.lexeme.Types;
 import type_checking.TypeCheckException;
+import utils.Pair;
 
 import java.util.Map;
 
@@ -50,10 +51,14 @@ public final class ReassignStmt implements Stmt {
 
     @Override
     public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
-        Type closestScopeType = name.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
+        Pair<Type, Boolean> closestScopeInfo = name.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
+        Type closestScopeType = closestScopeInfo.getFirst();
+        boolean closestScopeIsFinal = closestScopeInfo.getSecond();
         Type exprType = expr.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
 
-        if (closestScopeType == Types.INTLIT) {
+        if (closestScopeIsFinal) {
+            throw TypeCheckException.withFault("Error: Final variables cannot be reassigned.");
+        } else if (closestScopeType == Types.INTLIT) {
             if (exprType != Types.INTLIT) {
                 throw conversionError(exprType, "int");
             }

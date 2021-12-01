@@ -7,12 +7,13 @@ import tokens.lexeme.Type;
 import tokens.lexeme.Types;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
+import utils.Pair;
 
 import java.util.Map;
 
 import static type_checking.TypeCheckException.undeclaredError;
 
-public interface Name extends NonTerminalToken, TypeCheckable<Type> {
+public interface Name extends NonTerminalToken, TypeCheckable<Pair<Type, Boolean>> {
     static Name simple(String id) {
         return new Name() {
             @Override
@@ -26,12 +27,12 @@ public interface Name extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+            public Pair<Type, Boolean> typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
                 if (!fieldSymbolTable.containsKey(id) || fieldSymbolTable.get(id).isScopeTooHigh(scope)) {
                     throw undeclaredError(id);
                 }
 
-                return fieldSymbolTable.get(id).getClosestScopeType(scope);
+                return fieldSymbolTable.get(id).getClosestScopeInfo(scope);
             }
         };
     }
@@ -49,24 +50,24 @@ public interface Name extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+            public Pair<Type, Boolean> typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
                 if (!fieldSymbolTable.containsKey(id) || fieldSymbolTable.get(id).isScopeTooHigh(scope)) {
                     throw undeclaredError(id);
                 }
 
                 Type type = fieldSymbolTable.get(id).getClosestScopeType(scope);
                 if (type.getType().equals(Types.BOOLLIT.getType())) {
-                    return Types.BOOLLIT;
+                    type = Types.BOOLLIT;
                 } else if (type.getType().equals(Types.FLOATLIT.getType())) {
-                    return Types.FLOATLIT;
+                    type = Types.FLOATLIT;
                 } else if (type.getType().equals(Types.CHARLIT.getType())) {
-                    return Types.CHARLIT;
+                    type = Types.CHARLIT;
                 } else if (type.getType().equals(Types.INTLIT.getType())) {
-                    return Types.INTLIT;
+                    type = Types.INTLIT;
                 } else if (type.getType().equals(Types.STR.getType())) {
-                    return Types.STR;
+                    type = Types.STR;
                 }
-                return Type.of(type.getType());
+                return Pair.of(type, fieldSymbolTable.get(id).isClosestScopeFinal(scope));
             }
         };
     }
