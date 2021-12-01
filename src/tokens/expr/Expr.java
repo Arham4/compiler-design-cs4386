@@ -23,7 +23,7 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
 
             @Override
             public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
-                return name.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
+                return name.typeCheck(scope, fieldSymbolTable, methodSymbolTable).getFirst();
             }
         };
     }
