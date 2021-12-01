@@ -48,8 +48,12 @@ public final class MethodDecl implements NonTerminalToken, TypeCheckable<Void> {
             return this;
         }
 
-        public Builder stmts(Stmts stmts) {
+        public Builder stmts(Stmts stmts) throws Exception {
+            if (id == null) {
+                throw new Exception("ID must be set before setting an arg decl list");
+            }
             this.stmts = stmts;
+            stmts.setMethodId(id);
             return this;
         }
 

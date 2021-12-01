@@ -35,12 +35,17 @@ public final class Stmts implements NonTerminalToken, TypeCheckable<Void> {
         return new Builder();
     }
 
+    private String methodId;
     private final Stmt stmt;
     private final Stmts stmts;
 
     private Stmts(Stmt stmt, Stmts stmts) {
         this.stmt = stmt;
         this.stmts = stmts;
+    }
+
+    public void setMethodId(String methodId) {
+        this.methodId = methodId;
     }
 
     public boolean isShow() {
@@ -58,6 +63,9 @@ public final class Stmts implements NonTerminalToken, TypeCheckable<Void> {
     @Override
     public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
         if (stmt != null) {
+            if (stmt instanceof TerminatingStmt) {
+                ((TerminatingStmt) stmt).setMethodId(methodId);
+            }
             stmt.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
             removeScopeFromSymbolTable(scope + 1, fieldSymbolTable);
         }
