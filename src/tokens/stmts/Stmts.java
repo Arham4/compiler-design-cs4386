@@ -52,11 +52,11 @@ public final class Stmts implements NonTerminalToken, TypeCheckable<Void>, Nesta
         boolean adheres = false;
         Stmts currentStmts = stmts;
         while (currentStmts != null) {
-            if (currentStmts.getStmt() instanceof ReturnStmt) {
+            if (currentStmts.stmt instanceof ReturnStmt) {
                 adheres = true;
                 break;
             }
-            currentStmts = stmts.getStmts();
+            currentStmts = stmts.stmts;
         }
         return adheres;
     }
@@ -64,14 +64,6 @@ public final class Stmts implements NonTerminalToken, TypeCheckable<Void>, Nesta
     @Override
     public void setMethodId(String methodId) {
         this.methodId = methodId;
-    }
-
-    public Stmt getStmt() {
-        return stmt;
-    }
-
-    public Stmts getStmts() {
-        return stmts;
     }
 
     @Override
