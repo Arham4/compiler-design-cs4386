@@ -52,14 +52,7 @@ public final class BodyStmt implements Stmt, Nestable {
 
     @Override
     public boolean hasReturnStmt() {
-        Stmts currentStmts = stmts;
-        while (currentStmts != null) {
-            if (currentStmts.getStmt() instanceof ReturnStmt) {
-                return true;
-            }
-            currentStmts = stmts.getStmts();
-        }
-        return false;
+        return stmts.hasReturnStmt();
     }
 
     @Override
