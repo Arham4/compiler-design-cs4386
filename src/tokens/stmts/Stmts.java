@@ -78,6 +78,7 @@ public final class Stmts implements NonTerminalToken, TypeCheckable<Void> {
             removeScopeFromSymbolTable(scope + 1, fieldSymbolTable);
         }
         if (stmts != null) {
+            stmts.setMethodId(methodId);
             stmts.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
         }
         return null;
