@@ -41,6 +41,9 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
                 if (!methodSymbolTable.containsKey(id)) {
                     throw undeclaredError(id);
                 }
+                if (methodSymbolTable.get(id).isArgsNotValid(null, scope, fieldSymbolTable, methodSymbolTable)) {
+                    throw TypeCheckException.withFault("Error: Method invocation arguments are invalid for " + asString(0));
+                }
                 return methodSymbolTable.get(id).getType();
             }
         };
@@ -58,7 +61,9 @@ public interface Expr extends NonTerminalToken, TypeCheckable<Type> {
                 if (!methodSymbolTable.containsKey(id)) {
                     throw undeclaredError(id);
                 }
-                // todo check args
+                if (methodSymbolTable.get(id).isArgsNotValid(args, scope, fieldSymbolTable, methodSymbolTable)) {
+                    throw TypeCheckException.withFault("Error: Method invocation arguments are invalid for " + asString(0));
+                }
                 return methodSymbolTable.get(id).getType();
             }
         };

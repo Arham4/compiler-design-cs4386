@@ -36,7 +36,9 @@ public final class MethodInvocationStmt implements Stmt {
         if (!methodSymbolTable.containsKey(id)) {
             throw undeclaredError(id);
         }
-        // todo check with args
+        if (methodSymbolTable.get(id).isArgsNotValid(args, scope, fieldSymbolTable, methodSymbolTable)) {
+            throw TypeCheckException.withFault("Error: Method invocation arguments are invalid for " + asString("", 0));
+        }
         return null;
     }
 }

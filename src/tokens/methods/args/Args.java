@@ -30,9 +30,17 @@ public final class Args implements NonTerminalToken {
     private final Expr expr;
     private final Args args;
 
-    Args(Expr expr, Args args) {
+    private Args(Expr expr, Args args) {
         this.expr = expr;
         this.args = args;
+    }
+
+    public Expr getExpr() {
+        return expr;
+    }
+
+    public Args getArgs() {
+        return args;
     }
 
     @Override
