@@ -60,6 +60,7 @@ public final class ArgDeclList implements NonTerminalToken, TypeCheckable<Void> 
         methodSymbolTable.get(methodId).addArgumentType(argDecl.getType());
 
         if (argDeclList != null) {
+            argDeclList.setMethodId(methodId);
             argDeclList.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
         }
         return null;
