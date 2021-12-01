@@ -205,6 +205,28 @@ methoddecl      ::= typeid:typeId LEFT_PARENTHESIS argdecllist:argDeclList RIGHT
                                 .optionalSemi(optionalSemi)
                                 .build();
                 :}
+                |   typeid:typeId LEFT_PARENTHESIS argdecllist:argDeclList RIGHT_PARENTHESIS LEFT_BRACKET
+                    fielddecls:fieldDecls RIGHT_BRACKET optionalsemi:optionalSemi
+                {:
+                    RESULT = tokens.methods.MethodDecl.builder()
+                                .returnType(tokens.methods.ReturnType.withType(typeId.getType()))
+                                .id(typeId.getId())
+                                .argDeclList(argDeclList)
+                                .fieldDecls(fieldDecls)
+                                .optionalSemi(optionalSemi)
+                                .build();
+                :}
+                |   VOID ID:id LEFT_PARENTHESIS argdecllist:argDeclList RIGHT_PARENTHESIS LEFT_BRACKET
+                    fielddecls:fieldDecls RIGHT_BRACKET optionalsemi:optionalSemi
+                {:
+                    RESULT = tokens.methods.MethodDecl.builder()
+                                .returnType(tokens.methods.ReturnType.withoutType())
+                                .id(id)
+                                .argDeclList(argDeclList)
+                                .fieldDecls(fieldDecls)
+                                .optionalSemi(optionalSemi)
+                                .build();
+                :}
                 |   VOID ID:id LEFT_PARENTHESIS argdecllist:argDeclList RIGHT_PARENTHESIS LEFT_BRACKET
                     fielddecls:fieldDecls stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
                 {:
@@ -214,6 +236,16 @@ methoddecl      ::= typeid:typeId LEFT_PARENTHESIS argdecllist:argDeclList RIGHT
                                 .argDeclList(argDeclList)
                                 .fieldDecls(fieldDecls)
                                 .stmts(stmts)
+                                .optionalSemi(optionalSemi)
+                                .build();
+                :}
+                |   typeid:typeId LEFT_PARENTHESIS RIGHT_PARENTHESIS LEFT_BRACKET
+                    fielddecls:fieldDecls RIGHT_BRACKET optionalsemi:optionalSemi
+                {:
+                    RESULT = tokens.methods.MethodDecl.builder()
+                                .returnType(tokens.methods.ReturnType.withType(typeId.getType()))
+                                .id(typeId.getId())
+                                .fieldDecls(fieldDecls)
                                 .optionalSemi(optionalSemi)
                                 .build();
                 :}
@@ -229,6 +261,16 @@ methoddecl      ::= typeid:typeId LEFT_PARENTHESIS argdecllist:argDeclList RIGHT
                                 .build();
                 :}
                 |   VOID ID:id LEFT_PARENTHESIS RIGHT_PARENTHESIS LEFT_BRACKET
+                    fielddecls:fieldDecls RIGHT_BRACKET optionalsemi:optionalSemi
+                {:
+                    RESULT = tokens.methods.MethodDecl.builder()
+                                .returnType(tokens.methods.ReturnType.withoutType())
+                                .id(id)
+                                .fieldDecls(fieldDecls)
+                                .optionalSemi(optionalSemi)
+                                .build();
+                :}
+                |   VOID ID:id LEFT_PARENTHESIS RIGHT_PARENTHESIS LEFT_BRACKET
                     fielddecls:fieldDecls stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
                 {:
                     RESULT = tokens.methods.MethodDecl.builder()
@@ -236,6 +278,16 @@ methoddecl      ::= typeid:typeId LEFT_PARENTHESIS argdecllist:argDeclList RIGHT
                                 .id(id)
                                 .fieldDecls(fieldDecls)
                                 .stmts(stmts)
+                                .optionalSemi(optionalSemi)
+                                .build();
+                :}
+                |   typeid:typeId LEFT_PARENTHESIS argdecllist:argDeclList RIGHT_PARENTHESIS LEFT_BRACKET
+                    RIGHT_BRACKET optionalsemi:optionalSemi
+                {:
+                    RESULT = tokens.methods.MethodDecl.builder()
+                                .returnType(tokens.methods.ReturnType.withType(typeId.getType()))
+                                .id(typeId.getId())
+                                .argDeclList(argDeclList)
                                 .optionalSemi(optionalSemi)
                                 .build();
                 :}
@@ -251,6 +303,16 @@ methoddecl      ::= typeid:typeId LEFT_PARENTHESIS argdecllist:argDeclList RIGHT
                                 .build();
                 :}
                 |   VOID ID:id LEFT_PARENTHESIS argdecllist:argDeclList RIGHT_PARENTHESIS LEFT_BRACKET
+                    RIGHT_BRACKET optionalsemi:optionalSemi
+                {:
+                    RESULT = tokens.methods.MethodDecl.builder()
+                                .returnType(tokens.methods.ReturnType.withoutType())
+                                .id(id)
+                                .argDeclList(argDeclList)
+                                .optionalSemi(optionalSemi)
+                                .build();
+                :}
+                |   VOID ID:id LEFT_PARENTHESIS argdecllist:argDeclList RIGHT_PARENTHESIS LEFT_BRACKET
                     stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
                 {:
                     RESULT = tokens.methods.MethodDecl.builder()
@@ -262,12 +324,30 @@ methoddecl      ::= typeid:typeId LEFT_PARENTHESIS argdecllist:argDeclList RIGHT
                                 .build();
                 :}
                 |   typeid:typeId LEFT_PARENTHESIS RIGHT_PARENTHESIS LEFT_BRACKET
+                    RIGHT_BRACKET optionalsemi:optionalSemi
+                {:
+                    RESULT = tokens.methods.MethodDecl.builder()
+                                .returnType(tokens.methods.ReturnType.withType(typeId.getType()))
+                                .id(typeId.getId())
+                                .optionalSemi(optionalSemi)
+                                .build();
+                :}
+                |   typeid:typeId LEFT_PARENTHESIS RIGHT_PARENTHESIS LEFT_BRACKET
                     stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
                 {:
                     RESULT = tokens.methods.MethodDecl.builder()
                                 .returnType(tokens.methods.ReturnType.withType(typeId.getType()))
                                 .id(typeId.getId())
                                 .stmts(stmts)
+                                .optionalSemi(optionalSemi)
+                                .build();
+                :}
+                |   VOID ID:id LEFT_PARENTHESIS RIGHT_PARENTHESIS LEFT_BRACKET
+                    RIGHT_BRACKET optionalsemi:optionalSemi
+                {:
+                    RESULT = tokens.methods.MethodDecl.builder()
+                                .returnType(tokens.methods.ReturnType.withoutType())
+                                .id(id)
                                 .optionalSemi(optionalSemi)
                                 .build();
                 :}
@@ -337,16 +417,18 @@ argdecl         ::= typeid:typeId
                                 .build();
                 :};
 
-stmts           ::= stmt:stmt stmts:stmts
+stmts           ::= stmts:stmts stmt:stmt
                 {:
                     RESULT = tokens.stmts.Stmts.builder()
                                 .stmt(stmt)
                                 .stmts(stmts)
                                 .build();
                 :}
-                |
+                |   stmt:stmt
                 {:
-                    RESULT = tokens.stmts.Stmts.builder().build();
+                    RESULT = tokens.stmts.Stmts.builder()
+                                .stmt(stmt)
+                                .build();
                 :};
 
 stmt            ::= IF LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:stmt
@@ -423,10 +505,23 @@ stmt            ::= IF LEFT_PARENTHESIS expr:expr RIGHT_PARENTHESIS stmt:stmt
                                 .optionalSemi(optionalSemi)
                                 .build();
                 :}
+                |   LEFT_BRACKET fielddecls:fieldDecls RIGHT_BRACKET optionalsemi:optionalSemi
+                {:
+                    RESULT = tokens.stmts.BodyStmt.builder()
+                                .fieldDecls(fieldDecls)
+                                .optionalSemi(optionalSemi)
+                                .build();
+                :}
                 |   LEFT_BRACKET stmts:stmts RIGHT_BRACKET optionalsemi:optionalSemi
                 {:
                     RESULT = tokens.stmts.BodyStmt.builder()
                                 .stmts(stmts)
+                                .optionalSemi(optionalSemi)
+                                .build();
+                :}
+                |   LEFT_BRACKET RIGHT_BRACKET optionalsemi:optionalSemi
+                {:
+                    RESULT = tokens.stmts.BodyStmt.builder()
                                 .optionalSemi(optionalSemi)
                                 .build();
                 :};

@@ -56,31 +56,22 @@ public final class Stmts implements NonTerminalToken, TypeCheckable<Void>, Conte
         return stmts;
     }
 
-    public boolean isShow() {
-        return stmt != null && stmts != null;
-    }
-
     @Override
     public String asString(int tabs) {
-        if (stmt == null || stmts == null) {
-            return "";
-        }
-        return stmt.asString(StringHelper.tabs(tabs), tabs) + "\n" + stmts.asString(tabs);
+        return (stmts == null ? "" : stmts.asString(tabs)) + stmt.asString(StringHelper.tabs(tabs), tabs) + "\n";
     }
 
     @Override
     public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
-        if (stmt != null) {
-            if (stmt instanceof Contextualized) {
-                ((Contextualized) stmt).setMethodId(methodId);
-            }
-            stmt.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
-            removeScopeFromSymbolTable(scope + 1, fieldSymbolTable);
-        }
         if (stmts != null) {
             stmts.setMethodId(methodId);
             stmts.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
         }
+        if (stmt instanceof Contextualized) {
+            ((Contextualized) stmt).setMethodId(methodId);
+        }
+        stmt.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
+        removeScopeFromSymbolTable(scope + 1, fieldSymbolTable);
         return null;
     }
 }

@@ -92,7 +92,7 @@ public final class MethodDecl implements NonTerminalToken, TypeCheckable<Void> {
     public String asString(int tabs) {
         return StringHelper.withTabs(tabs, returnType.asString(tabs) + " " + id + "(" + (argDeclList == null ? "" : argDeclList.asString(tabs)) + ") {\n")
                 + (fieldDecls == null ? "" : fieldDecls.asString(tabs + 1))
-                + (stmts.isShow() && fieldDecls != null ? "\n" : "") + stmts.asString(tabs + 1)
+                + (stmts != null && fieldDecls != null ? "\n" : "") + (stmts != null ? stmts.asString(tabs + 1) : "")
                 + StringHelper.withTabs(tabs, "}" + optionalSemi.asString(tabs));
     }
 
