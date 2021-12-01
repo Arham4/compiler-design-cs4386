@@ -15,7 +15,7 @@ public final class ArrayArgDecl implements ArgDecl {
         private String id;
 
         public Builder type(Type type) {
-            this.type = type;
+            this.type = type.asArray();
             return this;
         }
 
