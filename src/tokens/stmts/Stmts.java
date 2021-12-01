@@ -49,16 +49,14 @@ public final class Stmts implements NonTerminalToken, TypeCheckable<Void>, Nesta
         if (stmt instanceof ReturnStmt) {
             return true;
         }
-        boolean adheres = false;
         Stmts currentStmts = stmts;
         while (currentStmts != null) {
             if (currentStmts.stmt instanceof ReturnStmt) {
-                adheres = true;
-                break;
+                return true;
             }
             currentStmts = stmts.stmts;
         }
-        return adheres;
+        return false;
     }
 
     @Override
