@@ -1,14 +1,12 @@
 package tokens.stmts;
 
+import tokens.fields.FieldInformation;
 import tokens.id.Name;
 import tokens.lexeme.Type;
 import tokens.lexeme.Types;
 import type_checking.TypeCheckException;
 
 import java.util.Map;
-
-import static type_checking.TypeCheckException.undeclaredError;
-import static utils.SymbolTableHelper.isScopeTooHigh;
 
 public final class IncrementStmt implements Stmt {
     public static IncrementStmt withName(Name name) {
@@ -27,12 +25,9 @@ public final class IncrementStmt implements Stmt {
     }
 
     @Override
-    public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
-        if (!variableSymbolTable.containsKey(name.getId()) || isScopeTooHigh(scope, variableSymbolTable.get(name.getId()))) {
-            throw undeclaredError(name.getId());
-        }
+    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
         // todo check for final
-        Type varType = name.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+        Type varType = name.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
         if (varType != Types.INTLIT && varType != Types.FLOATLIT) {
             throw TypeCheckException.withFault("Error: Only ints or floats can be incremented, but " + name.getId() + " is not of those types.");
         }

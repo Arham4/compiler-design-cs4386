@@ -2,6 +2,7 @@ package tokens.methods.args;
 
 import tokens.NonTerminalToken;
 import tokens.expr.Expr;
+import tokens.fields.FieldInformation;
 import tokens.lexeme.Type;
 import tokens.lexeme.Types;
 import type_checking.TypeCheckException;
@@ -47,8 +48,8 @@ public final class PrintList implements NonTerminalToken, TypeCheckable<Void> {
     }
 
     @Override
-    public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
-        Type exprType = expr.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        Type exprType = expr.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
         if (exprType.isArray()) {
             throw TypeCheckException.withFault("Cannot call print stmt on expr with array type");
         }
@@ -56,7 +57,7 @@ public final class PrintList implements NonTerminalToken, TypeCheckable<Void> {
             throw TypeCheckException.withFault("Cannot call print stmt on expr with void type");
         }
         if (printList != null) {
-            printList.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+            printList.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
         }
         return null;
     }

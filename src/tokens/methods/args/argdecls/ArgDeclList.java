@@ -1,6 +1,7 @@
 package tokens.methods.args.argdecls;
 
 import tokens.NonTerminalToken;
+import tokens.fields.FieldInformation;
 import tokens.lexeme.Type;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
@@ -45,10 +46,10 @@ public final class ArgDeclList implements NonTerminalToken, TypeCheckable<Void> 
     }
 
     @Override
-    public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
-        argDecl.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        argDecl.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
         if (argDeclList != null) {
-            argDeclList.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+            argDeclList.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
         }
         return null;
     }

@@ -1,6 +1,7 @@
 package tokens;
 
 import tokens.fields.FieldDecls;
+import tokens.fields.FieldInformation;
 import tokens.lexeme.Type;
 import tokens.methods.MethodDecls;
 import type_checking.TypeCheckException;
@@ -50,12 +51,12 @@ public final class MemberDecls implements NonTerminalToken, TypeCheckable<Void> 
     }
 
     @Override
-    public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
         if (fieldDecls != null) {
-            fieldDecls.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+            fieldDecls.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
         }
         if (methodDecls != null) {
-            methodDecls.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+            methodDecls.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
         }
         return null;
     }

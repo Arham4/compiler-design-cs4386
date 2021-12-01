@@ -2,6 +2,7 @@ package tokens.methods;
 
 import tokens.NonTerminalToken;
 import tokens.fields.FieldDecls;
+import tokens.fields.FieldInformation;
 import tokens.lexeme.OptionalLexeme;
 import tokens.lexeme.Type;
 import tokens.lexeme.Types;
@@ -88,17 +89,17 @@ public final class MethodDecl implements NonTerminalToken, TypeCheckable<Void> {
     }
 
     @Override
-    public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
         if (methodSymbolTable.containsKey(id)) {
             throw redeclarationError(id, scope);
         }
         methodSymbolTable.put(id, returnType.getType() == null ? Types.VOID : returnType.getType());
 
-        argDecls.typeCheck(scope + 1, variableSymbolTable, methodSymbolTable);
+        argDecls.typeCheck(scope + 1, fieldSymbolTable, methodSymbolTable);
         if (fieldDecls != null) {
-            fieldDecls.typeCheck(scope + 1, variableSymbolTable, methodSymbolTable);
+            fieldDecls.typeCheck(scope + 1, fieldSymbolTable, methodSymbolTable);
         }
-        stmts.typeCheck(scope + 1, variableSymbolTable, methodSymbolTable);
+        stmts.typeCheck(scope + 1, fieldSymbolTable, methodSymbolTable);
         return null;
     }
 }

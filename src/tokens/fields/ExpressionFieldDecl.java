@@ -6,7 +6,6 @@ import tokens.lexeme.Type;
 import tokens.lexeme.Types;
 import type_checking.TypeCheckException;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import static type_checking.TypeCheckException.conversionError;
@@ -67,31 +66,33 @@ public final class ExpressionFieldDecl implements FieldDecl {
     }
 
     @Override
-    public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
-        if (!variableSymbolTable.containsKey(id)) {
-            variableSymbolTable.put(id, new HashMap<>());
+    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        if (!fieldSymbolTable.containsKey(id)) {
+            fieldSymbolTable.put(id, FieldInformation.empty());
         }
-        if (variableSymbolTable.get(id).containsKey(scope)) {
+        if (fieldSymbolTable.get(id).isAlreadyDeclaredAtScope(scope)) {
             throw redeclarationError(id, scope);
         }
-        variableSymbolTable.get(id).put(scope, type);
+        fieldSymbolTable.get(id).put(scope, type, optionalFinal.isShow());
 
-        Type exprType = optionalExpr.isShow() ? optionalExpr.typeCheck(scope, variableSymbolTable, methodSymbolTable) : null;
-        if (type == Types.INTLIT) {
-            if (optionalExpr.isShow() && exprType != Types.INTLIT) {
-                throw conversionError(exprType, "int");
-            }
-        } else if (type == Types.FLOATLIT) {
-            if (optionalExpr.isShow() && exprType != Types.FLOATLIT && exprType != Types.INTLIT) {
-                throw conversionError(exprType, "float");
-            }
-        } else if (type == Types.BOOLLIT) {
-            if (optionalExpr.isShow() && exprType != Types.BOOLLIT && exprType != Types.INTLIT) {
-                throw conversionError(exprType, "bool");
-            }
-        } else if (type == Types.CHARLIT) {
-            if (optionalExpr.isShow() && exprType != Types.CHARLIT) {
-                throw conversionError(exprType, "char");
+        if (optionalExpr.isShow()) {
+            Type exprType = optionalExpr.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
+            if (type == Types.INTLIT) {
+                if (exprType != Types.INTLIT) {
+                    throw conversionError(exprType, "int");
+                }
+            } else if (type == Types.FLOATLIT) {
+                if (exprType != Types.FLOATLIT && exprType != Types.INTLIT) {
+                    throw conversionError(exprType, "float");
+                }
+            } else if (type == Types.BOOLLIT) {
+                if (exprType != Types.BOOLLIT && exprType != Types.INTLIT) {
+                    throw conversionError(exprType, "bool");
+                }
+            } else if (type == Types.CHARLIT) {
+                if (exprType != Types.CHARLIT) {
+                    throw conversionError(exprType, "char");
+                }
             }
         }
         return null;

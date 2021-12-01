@@ -1,6 +1,7 @@
 package tokens.expr;
 
 import tokens.NonTerminalToken;
+import tokens.fields.FieldInformation;
 import tokens.lexeme.Type;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
@@ -37,9 +38,9 @@ public final class OptionalExpr implements NonTerminalToken, TypeCheckable<Type>
     }
 
     @Override
-    public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+    public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
         if (expr != null) {
-            return expr.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+            return expr.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
         }
         return null;
     }

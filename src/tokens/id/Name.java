@@ -2,6 +2,7 @@ package tokens.id;
 
 import tokens.NonTerminalToken;
 import tokens.expr.Expr;
+import tokens.fields.FieldInformation;
 import tokens.lexeme.Type;
 import tokens.lexeme.Types;
 import type_checking.TypeCheckException;
@@ -9,7 +10,7 @@ import type_checking.TypeCheckable;
 
 import java.util.Map;
 
-import static utils.SymbolTableHelper.getClosestScopeType;
+import static type_checking.TypeCheckException.undeclaredError;
 
 public interface Name extends NonTerminalToken, TypeCheckable<Type> {
     static Name simple(String id) {
@@ -25,8 +26,12 @@ public interface Name extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
-                return getClosestScopeType(scope, variableSymbolTable.get(id));
+            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+                if (!fieldSymbolTable.containsKey(id) || fieldSymbolTable.get(id).isScopeTooHigh(scope)) {
+                    throw undeclaredError(id);
+                }
+
+                return fieldSymbolTable.get(id).getClosestScopeType(scope);
             }
         };
     }
@@ -44,8 +49,12 @@ public interface Name extends NonTerminalToken, TypeCheckable<Type> {
             }
 
             @Override
-            public Type typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
-                Type type = getClosestScopeType(scope, variableSymbolTable.get(id));
+            public Type typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+                if (!fieldSymbolTable.containsKey(id) || fieldSymbolTable.get(id).isScopeTooHigh(scope)) {
+                    throw undeclaredError(id);
+                }
+
+                Type type = fieldSymbolTable.get(id).getClosestScopeType(scope);
                 if (type.getType().equals(Types.BOOLLIT.getType())) {
                     return Types.BOOLLIT;
                 } else if (type.getType().equals(Types.FLOATLIT.getType())) {

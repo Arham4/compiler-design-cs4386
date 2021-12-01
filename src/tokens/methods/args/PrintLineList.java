@@ -1,6 +1,7 @@
 package tokens.methods.args;
 
 import tokens.NonTerminalToken;
+import tokens.fields.FieldInformation;
 import tokens.lexeme.Type;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
@@ -31,9 +32,9 @@ public final class PrintLineList implements NonTerminalToken, TypeCheckable<Void
     }
 
     @Override
-    public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
         if (printList != null) {
-            printList.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+            printList.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
         }
         return null;
     }

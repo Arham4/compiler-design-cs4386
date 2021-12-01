@@ -1,4 +1,5 @@
 import tokens.Program;
+import tokens.fields.FieldInformation;
 import tokens.lexeme.Type;
 import type_checking.TypeCheckException;
 
@@ -41,10 +42,10 @@ public class TypeCheckerTest {
         //Now test type checking
         try {
             int scope = 0;
-            Map<String, Map<Integer, Type>> variableSymbolTable = new HashMap<>();
+            Map<String, FieldInformation> fieldSymbolTable = new HashMap<>();
             Map<String, Type> methodSymbolTable = new HashMap<>();
 
-            program.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+            program.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
             System.out.println("Type checking complete!");
         } catch (TypeCheckException e) {
             e.printStackTrace();

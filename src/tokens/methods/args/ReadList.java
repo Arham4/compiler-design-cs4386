@@ -1,6 +1,7 @@
 package tokens.methods.args;
 
 import tokens.NonTerminalToken;
+import tokens.fields.FieldInformation;
 import tokens.id.Name;
 import tokens.lexeme.Type;
 import tokens.lexeme.Types;
@@ -8,8 +9,6 @@ import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
 
 import java.util.Map;
-
-import static type_checking.TypeCheckException.undeclaredError;
 
 public final class ReadList implements NonTerminalToken, TypeCheckable<Void> {
     public static class Builder {
@@ -49,13 +48,10 @@ public final class ReadList implements NonTerminalToken, TypeCheckable<Void> {
     }
 
     @Override
-    public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
         // todo implement not working on final
-        if (!variableSymbolTable.containsKey(name.getId()) && !methodSymbolTable.containsKey(name.getId())) {
-            throw undeclaredError(name.getId());
-        }
-        if (variableSymbolTable.containsKey(name.getId())) {
-            Type type = name.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+        if (fieldSymbolTable.containsKey(name.getId())) {
+            Type type = name.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
             if (type.isArray()) {
                 throw TypeCheckException.withFault("Cannot call read stmt on array type");
             }
@@ -63,7 +59,7 @@ public final class ReadList implements NonTerminalToken, TypeCheckable<Void> {
             throw TypeCheckException.withFault("Cannot call read stmt on void type");
         }
         if (readList != null) {
-            readList.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+            readList.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
         }
         return null;
     }

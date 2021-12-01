@@ -1,6 +1,7 @@
 package tokens.stmts;
 
 import tokens.expr.Expr;
+import tokens.fields.FieldInformation;
 import tokens.id.Name;
 import tokens.lexeme.Type;
 import tokens.lexeme.Types;
@@ -9,8 +10,6 @@ import type_checking.TypeCheckException;
 import java.util.Map;
 
 import static type_checking.TypeCheckException.conversionError;
-import static type_checking.TypeCheckException.undeclaredError;
-import static utils.SymbolTableHelper.isScopeTooHigh;
 
 public final class ReassignStmt implements Stmt {
     public static class Builder {
@@ -50,13 +49,9 @@ public final class ReassignStmt implements Stmt {
     }
 
     @Override
-    public Void typeCheck(int scope, Map<String, Map<Integer, Type>> variableSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
-        if (!variableSymbolTable.containsKey(name.getId()) || isScopeTooHigh(scope, variableSymbolTable.get(name.getId()))) {
-            throw undeclaredError(name.getId());
-        }
-
-        Type closestScopeType = name.typeCheck(scope, variableSymbolTable, methodSymbolTable);
-        Type exprType = expr.typeCheck(scope, variableSymbolTable, methodSymbolTable);
+    public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, Type> methodSymbolTable) throws TypeCheckException {
+        Type closestScopeType = name.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
+        Type exprType = expr.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
 
         if (closestScopeType == Types.INTLIT) {
             if (exprType != Types.INTLIT) {
