@@ -1,6 +1,5 @@
-package tokens.methods;
+package information;
 
-import tokens.fields.FieldInformation;
 import tokens.lexeme.Type;
 import tokens.lexeme.Types;
 import tokens.methods.args.Args;

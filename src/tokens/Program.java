@@ -1,7 +1,7 @@
 package tokens;
 
-import tokens.fields.FieldInformation;
-import tokens.methods.MethodInformation;
+import information.FieldInformation;
+import information.MethodInformation;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
 import utils.StringHelper;

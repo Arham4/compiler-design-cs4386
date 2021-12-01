@@ -1,10 +1,11 @@
 package tokens.fields;
 
+import information.FieldInformation;
+import information.MethodInformation;
 import tokens.expr.OptionalExpr;
 import tokens.lexeme.OptionalLexeme;
 import tokens.lexeme.Type;
 import tokens.lexeme.Types;
-import tokens.methods.MethodInformation;
 import type_checking.TypeCheckException;
 
 import java.util.Map;

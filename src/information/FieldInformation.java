@@ -1,4 +1,4 @@
-package tokens.fields;
+package information;
 
 import tokens.lexeme.Type;
 import utils.Pair;

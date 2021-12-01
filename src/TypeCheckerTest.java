@@ -1,6 +1,6 @@
+import information.FieldInformation;
+import information.MethodInformation;
 import tokens.Program;
-import tokens.fields.FieldInformation;
-import tokens.methods.MethodInformation;
 import type_checking.TypeCheckException;
 
 import java.io.File;

@@ -1,10 +1,10 @@
 package tokens.expr;
 
+import information.FieldInformation;
+import information.MethodInformation;
 import tokens.NonTerminalToken;
-import tokens.fields.FieldInformation;
 import tokens.lexeme.Type;
 import tokens.lexeme.Types;
-import tokens.methods.MethodInformation;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
 

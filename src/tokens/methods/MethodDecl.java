@@ -1,8 +1,9 @@
 package tokens.methods;
 
+import information.FieldInformation;
+import information.MethodInformation;
 import tokens.NonTerminalToken;
 import tokens.fields.FieldDecls;
-import tokens.fields.FieldInformation;
 import tokens.lexeme.OptionalLexeme;
 import tokens.lexeme.Types;
 import tokens.methods.args.argdecls.ArgDeclList;

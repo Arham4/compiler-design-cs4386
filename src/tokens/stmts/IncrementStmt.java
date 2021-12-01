@@ -1,10 +1,10 @@
 package tokens.stmts;
 
-import tokens.fields.FieldInformation;
+import information.FieldInformation;
+import information.MethodInformation;
 import tokens.id.Name;
 import tokens.lexeme.Type;
 import tokens.lexeme.Types;
-import tokens.methods.MethodInformation;
 import type_checking.TypeCheckException;
 import utils.Pair;
 

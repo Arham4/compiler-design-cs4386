@@ -1,7 +1,7 @@
 package tokens.stmts;
 
-import tokens.fields.FieldInformation;
-import tokens.methods.MethodInformation;
+import information.FieldInformation;
+import information.MethodInformation;
 import tokens.methods.args.PrintLineList;
 import type_checking.TypeCheckException;
 

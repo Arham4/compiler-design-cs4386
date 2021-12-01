@@ -1,11 +1,11 @@
 package tokens.id;
 
+import information.FieldInformation;
+import information.MethodInformation;
 import tokens.NonTerminalToken;
 import tokens.expr.Expr;
-import tokens.fields.FieldInformation;
 import tokens.lexeme.Type;
 import tokens.lexeme.Types;
-import tokens.methods.MethodInformation;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
 import utils.Pair;

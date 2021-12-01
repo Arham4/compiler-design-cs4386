@@ -1,10 +1,10 @@
 package tokens.methods.args;
 
+import information.FieldInformation;
+import information.MethodInformation;
 import tokens.NonTerminalToken;
-import tokens.fields.FieldInformation;
 import tokens.id.Name;
 import tokens.lexeme.Type;
-import tokens.methods.MethodInformation;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
 import utils.Pair;

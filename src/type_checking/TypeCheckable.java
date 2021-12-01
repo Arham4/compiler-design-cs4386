@@ -1,7 +1,7 @@
 package type_checking;
 
-import tokens.fields.FieldInformation;
-import tokens.methods.MethodInformation;
+import information.FieldInformation;
+import information.MethodInformation;
 
 import java.util.Map;
 

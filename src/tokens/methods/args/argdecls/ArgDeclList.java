@@ -1,8 +1,8 @@
 package tokens.methods.args.argdecls;
 
+import information.FieldInformation;
+import information.MethodInformation;
 import tokens.NonTerminalToken;
-import tokens.fields.FieldInformation;
-import tokens.methods.MethodInformation;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
 

@@ -1,7 +1,8 @@
 package tokens.fields;
 
+import information.FieldInformation;
+import information.MethodInformation;
 import tokens.lexeme.Type;
-import tokens.methods.MethodInformation;
 import type_checking.TypeCheckException;
 
 import java.util.Map;

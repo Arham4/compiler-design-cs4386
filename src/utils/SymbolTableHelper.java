@@ -1,6 +1,6 @@
 package utils;
 
-import tokens.fields.FieldInformation;
+import information.FieldInformation;
 
 import java.util.ArrayList;
 import java.util.List;

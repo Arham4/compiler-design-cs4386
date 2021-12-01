@@ -1,10 +1,10 @@
 package tokens.stmts;
 
+import information.FieldInformation;
+import information.MethodInformation;
 import tokens.expr.Expr;
-import tokens.fields.FieldInformation;
 import tokens.lexeme.Type;
 import tokens.lexeme.Types;
-import tokens.methods.MethodInformation;
 import type_checking.TypeCheckException;
 
 import java.util.Map;

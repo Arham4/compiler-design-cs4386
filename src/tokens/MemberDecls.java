@@ -1,9 +1,9 @@
 package tokens;
 
+import information.FieldInformation;
+import information.MethodInformation;
 import tokens.fields.FieldDecls;
-import tokens.fields.FieldInformation;
 import tokens.methods.MethodDecls;
-import tokens.methods.MethodInformation;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
 

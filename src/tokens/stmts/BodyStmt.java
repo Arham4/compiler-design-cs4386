@@ -1,9 +1,9 @@
 package tokens.stmts;
 
+import information.FieldInformation;
+import information.MethodInformation;
 import tokens.fields.FieldDecls;
-import tokens.fields.FieldInformation;
 import tokens.lexeme.OptionalLexeme;
-import tokens.methods.MethodInformation;
 import type_checking.TypeCheckException;
 import utils.StringHelper;
 
