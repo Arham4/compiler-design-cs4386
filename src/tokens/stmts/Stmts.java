@@ -11,7 +11,7 @@ import java.util.Map;
 
 import static utils.SymbolTableHelper.removeScopeFromSymbolTable;
 
-public final class Stmts implements NonTerminalToken, TypeCheckable<Void> {
+public final class Stmts implements NonTerminalToken, TypeCheckable<Void>, Contextualized {
     public static final class Builder {
         private Stmt stmt = null;
         private Stmts stmts = null;
@@ -71,8 +71,8 @@ public final class Stmts implements NonTerminalToken, TypeCheckable<Void> {
     @Override
     public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
         if (stmt != null) {
-            if (stmt instanceof TerminatingStmt) {
-                ((TerminatingStmt) stmt).setMethodId(methodId);
+            if (stmt instanceof Contextualized) {
+                ((Contextualized) stmt).setMethodId(methodId);
             }
             stmt.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
             removeScopeFromSymbolTable(scope + 1, fieldSymbolTable);

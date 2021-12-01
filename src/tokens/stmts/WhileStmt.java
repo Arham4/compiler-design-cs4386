@@ -10,7 +10,7 @@ import utils.StringHelper;
 
 import java.util.Map;
 
-public final class WhileStmt implements Stmt {
+public final class WhileStmt implements Stmt, Contextualized {
     public static class Builder {
         private Expr expr;
         private Stmt stmt;
@@ -34,12 +34,18 @@ public final class WhileStmt implements Stmt {
         return new Builder();
     }
 
+    private String methodId;
     private final Expr expr;
     private final Stmt stmt;
 
     private WhileStmt(Expr expr, Stmt stmt) {
         this.expr = expr;
         this.stmt = stmt;
+    }
+
+    @Override
+    public void setMethodId(String methodId) {
+        this.methodId = methodId;
     }
 
     @Override
@@ -56,6 +62,9 @@ public final class WhileStmt implements Stmt {
         Type exprType = expr.typeCheck(scope, fieldSymbolTable, methodSymbolTable);
         if (exprType != Types.BOOLLIT && exprType != Types.INTLIT) {
             throw TypeCheckException.withFault("Error: While statement cannot be determined with expression that is not boolean (or implicitly coerced)");
+        }
+        if (stmt instanceof Contextualized) {
+            ((Contextualized) stmt).setMethodId(methodId);
         }
         stmt.typeCheck(scope + 1, fieldSymbolTable, methodSymbolTable);
         return null;

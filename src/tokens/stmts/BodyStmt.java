@@ -9,7 +9,7 @@ import utils.StringHelper;
 
 import java.util.Map;
 
-public final class BodyStmt implements Stmt {
+public final class BodyStmt implements Stmt, Contextualized {
     public static class Builder {
         private FieldDecls fieldDecls;
         private Stmts stmts;
@@ -39,6 +39,7 @@ public final class BodyStmt implements Stmt {
         return new Builder();
     }
 
+    private String methodId;
     private final FieldDecls fieldDecls;
     private final Stmts stmts;
     private final OptionalLexeme optionalSemi;
@@ -47,6 +48,11 @@ public final class BodyStmt implements Stmt {
         this.fieldDecls = fieldDecls;
         this.stmts = stmts;
         this.optionalSemi = optionalSemi;
+    }
+
+    @Override
+    public void setMethodId(String methodId) {
+        this.methodId = methodId;
     }
 
     @Override
@@ -62,6 +68,7 @@ public final class BodyStmt implements Stmt {
         if (fieldDecls != null) {
             fieldDecls.typeCheck(scope + 1, fieldSymbolTable, methodSymbolTable);
         }
+        stmts.setMethodId(methodId);
         stmts.typeCheck(scope + 1, fieldSymbolTable, methodSymbolTable);
         return null;
     }

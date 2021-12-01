@@ -10,7 +10,7 @@ import type_checking.TypeCheckException;
 import java.util.Map;
 import java.util.Objects;
 
-public final class ReturnStmt implements TerminatingStmt {
+public final class ReturnStmt implements Stmt, Contextualized {
     public static ReturnStmt blank() {
         return new ReturnStmt(null);
     }

@@ -9,7 +9,7 @@ import utils.StringHelper;
 
 import java.util.Map;
 
-public final class IfEnd implements NonTerminalToken, TypeCheckable<Void> {
+public final class IfEnd implements NonTerminalToken, TypeCheckable<Void>, Contextualized {
     public static IfEnd withStmt(Stmt stmt) {
         return new IfEnd(stmt);
     }
@@ -18,10 +18,16 @@ public final class IfEnd implements NonTerminalToken, TypeCheckable<Void> {
         return new IfEnd(null);
     }
 
+    private String methodId;
     private final Stmt stmt;
 
     private IfEnd(Stmt stmt) {
         this.stmt = stmt;
+    }
+
+    @Override
+    public void setMethodId(String methodId) {
+        this.methodId = methodId;
     }
 
     public boolean isShow() {
@@ -43,6 +49,9 @@ public final class IfEnd implements NonTerminalToken, TypeCheckable<Void> {
     @Override
     public Void typeCheck(int scope, Map<String, FieldInformation> fieldSymbolTable, Map<String, MethodInformation> methodSymbolTable) throws TypeCheckException {
         if (stmt != null) {
+            if (stmt instanceof Contextualized) {
+                ((Contextualized) stmt).setMethodId(methodId);
+            }
             stmt.typeCheck(scope + 1, fieldSymbolTable, methodSymbolTable);
         }
         return null;

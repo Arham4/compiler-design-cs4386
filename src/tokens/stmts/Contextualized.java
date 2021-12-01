@@ -1,5 +1,5 @@
 package tokens.stmts;
 
-public interface TerminatingStmt extends Stmt {
+public interface Contextualized {
     void setMethodId(String methodId);
 }
