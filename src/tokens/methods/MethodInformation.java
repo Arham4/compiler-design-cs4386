@@ -43,10 +43,14 @@ public final class MethodInformation {
             }
             Type currentType = argumentTypes.get(currentIndex);
             Type argType = currentArg.getExpr().typeCheck(scope, fieldSymbolTable, methodSymbolTable);
-            if (currentType == Types.BOOLLIT && argType != Types.BOOLLIT && argType != Types.INTLIT) {
-                return true;
-            } else if (currentType == Types.FLOATLIT && argType != Types.FLOATLIT && argType != Types.INTLIT) {
-                return true;
+            if (currentType == Types.BOOLLIT) {
+                if (argType != Types.BOOLLIT && argType != Types.INTLIT) {
+                    return true;
+                }
+            } else if (currentType == Types.FLOATLIT) {
+                if (argType != Types.FLOATLIT && argType != Types.INTLIT) {
+                    return true;
+                }
             } else if (currentType != Types.STR && !currentType.equals(argType)) {
                 return true;
             }
