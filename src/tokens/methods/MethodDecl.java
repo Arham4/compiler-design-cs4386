@@ -108,12 +108,11 @@ public final class MethodDecl implements NonTerminalToken, TypeCheckable<Void> {
         if (fieldDecls != null) {
             fieldDecls.typeCheck(scope + 1, fieldSymbolTable, methodSymbolTable);
         }
-        stmts.typeCheck(scope + 1, fieldSymbolTable, methodSymbolTable);
-
-        if (returnType.getType() != null) {
-            if (!stmts.hasReturnStmt()) {
-                throw TypeCheckException.withFault("Error: No return stmt in method " + id + " with expected return type " + returnType.getType().getType());
-            }
+        if (stmts != null) {
+            stmts.typeCheck(scope + 1, fieldSymbolTable, methodSymbolTable);
+        }
+        if (returnType.getType() != null && stmts != null && !stmts.hasReturnStmt()) {
+            throw TypeCheckException.withFault("Error: No return stmt in method " + id + " with expected return type " + returnType.getType().getType());
         }
         return null;
     }
