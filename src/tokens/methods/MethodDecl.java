@@ -6,6 +6,7 @@ import tokens.fields.FieldInformation;
 import tokens.lexeme.OptionalLexeme;
 import tokens.lexeme.Types;
 import tokens.methods.args.argdecls.ArgDeclList;
+import tokens.stmts.ReturnStmt;
 import tokens.stmts.Stmts;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
@@ -109,6 +110,21 @@ public final class MethodDecl implements NonTerminalToken, TypeCheckable<Void> {
             fieldDecls.typeCheck(scope + 1, fieldSymbolTable, methodSymbolTable);
         }
         stmts.typeCheck(scope + 1, fieldSymbolTable, methodSymbolTable);
+
+        if (returnType.getType() != null) {
+            boolean adheres = false;
+            Stmts currentStmts = stmts;
+            while (currentStmts != null) {
+                if (currentStmts.getStmt() instanceof ReturnStmt) {
+                    adheres = true;
+                    break;
+                }
+                currentStmts = stmts.getStmts();
+            }
+            if (!adheres) {
+                throw TypeCheckException.withFault("Error: No return stmt in method " + id + " with expected return type " + returnType.getType().getType());
+            }
+        }
         return null;
     }
 }

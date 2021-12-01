@@ -48,6 +48,14 @@ public final class Stmts implements NonTerminalToken, TypeCheckable<Void> {
         this.methodId = methodId;
     }
 
+    public Stmt getStmt() {
+        return stmt;
+    }
+
+    public Stmts getStmts() {
+        return stmts;
+    }
+
     public boolean isShow() {
         return stmt != null && stmts != null;
     }
