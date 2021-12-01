@@ -5,7 +5,7 @@ import tokens.fields.FieldDecls;
 import tokens.fields.FieldInformation;
 import tokens.lexeme.OptionalLexeme;
 import tokens.lexeme.Types;
-import tokens.methods.args.argdecls.ArgDecls;
+import tokens.methods.args.argdecls.ArgDeclList;
 import tokens.stmts.Stmts;
 import type_checking.TypeCheckException;
 import type_checking.TypeCheckable;
@@ -19,7 +19,7 @@ public final class MethodDecl implements NonTerminalToken, TypeCheckable<Void> {
     public static class Builder {
         private ReturnType returnType;
         private String id;
-        private ArgDecls argDecls;
+        private ArgDeclList argDeclList;
         private FieldDecls fieldDecls;
         private Stmts stmts;
         private OptionalLexeme optionalSemi;
@@ -34,8 +34,12 @@ public final class MethodDecl implements NonTerminalToken, TypeCheckable<Void> {
             return this;
         }
 
-        public Builder argDecls(ArgDecls argDecls) {
-            this.argDecls = argDecls;
+        public Builder argDeclList(ArgDeclList argDeclList) throws Exception {
+            if (id == null) {
+                throw new Exception("ID must be set before setting an arg decl list");
+            }
+            this.argDeclList = argDeclList;
+            argDeclList.setMethodId(id);
             return this;
         }
 
@@ -55,7 +59,7 @@ public final class MethodDecl implements NonTerminalToken, TypeCheckable<Void> {
         }
 
         public MethodDecl build() {
-            return new MethodDecl(returnType, id, argDecls, fieldDecls, stmts, optionalSemi);
+            return new MethodDecl(returnType, id, argDeclList, fieldDecls, stmts, optionalSemi);
         }
     }
 
@@ -65,15 +69,15 @@ public final class MethodDecl implements NonTerminalToken, TypeCheckable<Void> {
 
     private final ReturnType returnType;
     private final String id;
-    private final ArgDecls argDecls;
+    private final ArgDeclList argDeclList;
     private final FieldDecls fieldDecls;
     private final Stmts stmts;
     private final OptionalLexeme optionalSemi;
 
-    private MethodDecl(ReturnType returnType, String id, ArgDecls argDecls, FieldDecls fieldDecls, Stmts stmts, OptionalLexeme optionalSemi) {
+    private MethodDecl(ReturnType returnType, String id, ArgDeclList argDeclList, FieldDecls fieldDecls, Stmts stmts, OptionalLexeme optionalSemi) {
         this.returnType = returnType;
         this.id = id;
-        this.argDecls = argDecls;
+        this.argDeclList = argDeclList;
         this.fieldDecls = fieldDecls;
         this.stmts = stmts;
         this.optionalSemi = optionalSemi;
@@ -81,7 +85,7 @@ public final class MethodDecl implements NonTerminalToken, TypeCheckable<Void> {
 
     @Override
     public String asString(int tabs) {
-        return StringHelper.withTabs(tabs, returnType.asString(tabs) + " " + id + "(" + argDecls.asString(tabs) + ") {\n")
+        return StringHelper.withTabs(tabs, returnType.asString(tabs) + " " + id + "(" + (argDeclList == null ? "" : argDeclList.asString(tabs)) + ") {\n")
                 + (fieldDecls == null ? "" : fieldDecls.asString(tabs + 1))
                 + (stmts.isShow() && fieldDecls != null ? "\n" : "") + stmts.asString(tabs + 1)
                 + StringHelper.withTabs(tabs, "}" + optionalSemi.asString(tabs));
@@ -94,7 +98,9 @@ public final class MethodDecl implements NonTerminalToken, TypeCheckable<Void> {
         }
         methodSymbolTable.put(id, MethodInformation.of(returnType.getType() == null ? Types.VOID : returnType.getType()));
 
-        argDecls.typeCheck(scope + 1, fieldSymbolTable, methodSymbolTable);
+        if (argDeclList != null) {
+            argDeclList.typeCheck(scope + 1, fieldSymbolTable, methodSymbolTable);
+        }
         if (fieldDecls != null) {
             fieldDecls.typeCheck(scope + 1, fieldSymbolTable, methodSymbolTable);
         }

@@ -42,6 +42,11 @@ public final class ArrayArgDecl implements ArgDecl {
     }
 
     @Override
+    public Type getType() {
+        return type;
+    }
+
+    @Override
     public String asString(int tabs) {
         return type.asString(tabs) + " " + id + "[]";
     }
